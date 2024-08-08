@@ -17,6 +17,14 @@ public class SpreadsheetView {
         // Set custom renderer for main table
         table.setDefaultRenderer(Object.class, new CustomCellRenderer());
 
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            var column = table.getColumnModel().getColumn(i);
+            column.setPreferredWidth(50);
+            column.setMinWidth(50);
+            column.setMaxWidth(50);
+        }
+
+
         JTable rowHeaderTable = new JTable(rowHeaderModel);
 
         // Customize row header table
