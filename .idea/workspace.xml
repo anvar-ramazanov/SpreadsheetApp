@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/ant_junit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SpreadsheetApp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FormulasMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/CellModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpreadsheetApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SpreadsheetApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/tokens/TokenizerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/tokens/TokenizerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,15 +19,21 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="JavaAutoRunManager">
+    <enabled-run-configurations>
+      <run-configuration type="JUnit" name="TokenizerTest.test_validate_variable" />
+    </enabled-run-configurations>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2kIYMJvyRVvkLi3AmCVpg233Lal" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -44,30 +44,126 @@
   "keyToString": {
     "Application.TableApp.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.AstParserTest.testBool.executor": "Run",
+    "JUnit.TokenizerTest.executor": "Run",
+    "JUnit.TokenizerTest.test.executor": "Debug",
+    "JUnit.TokenizerTest.test2.executor": "Run",
+    "JUnit.TokenizerTest.testBool.executor": "Run",
+    "JUnit.TokenizerTest.test_bool_false.executor": "Run",
+    "JUnit.TokenizerTest.test_bool_true.executor": "Run",
+    "JUnit.TokenizerTest.test_function.executor": "Run",
+    "JUnit.TokenizerTest.test_math_operations.executor": "Run",
+    "JUnit.TokenizerTest.test_parse_float_number.executor": "Run",
+    "JUnit.TokenizerTest.test_parse_int_number.executor": "Run",
+    "JUnit.TokenizerTest.test_parse_number.executor": "Run",
+    "JUnit.TokenizerTest.test_parse_variable_invalid.executor": "Run",
+    "JUnit.TokenizerTest.test_parse_variable_valid.executor": "Run",
+    "JUnit.TokenizerTest.test_tokenize_math.executor": "Run",
+    "JUnit.TokenizerTest.test_unexpected_character.executor": "Run",
+    "JUnit.TokenizerTest.test_unknown_function.executor": "Run",
+    "JUnit.TokenizerTest.test_validate_variable.executor": "Debug",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/repos/SpreadsheetApp",
     "onboarding.tips.debug.path": "/Users/Anvar/repos/SpreadsheetApp/SpreadsheetApp/src/Main.java",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.appearance"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="TableApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="TableApp" />
+  <component name="RunManager" selected="JUnit.TokenizerTest.test_parse_int_number">
+    <configuration name="TokenizerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerTest.test_bool_true" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
+      <option name="METHOD_NAME" value="test_bool_true" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerTest.test_function" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
+      <option name="METHOD_NAME" value="test_function" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerTest.test_math_operations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
+      <option name="METHOD_NAME" value="test_math_operations" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerTest.test_parse_int_number" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
+      <option name="METHOD_NAME" value="test_parse_int_number" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TableApp" />
+        <item itemvalue="JUnit.TokenizerTest.test_parse_int_number" />
+        <item itemvalue="JUnit.TokenizerTest.test_math_operations" />
+        <item itemvalue="JUnit.TokenizerTest" />
+        <item itemvalue="JUnit.TokenizerTest.test_function" />
+        <item itemvalue="JUnit.TokenizerTest.test_bool_true" />
       </list>
     </recent_temporary>
   </component>

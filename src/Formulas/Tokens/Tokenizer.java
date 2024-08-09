@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-public class Tokenizer {
+public class Tokenizer implements ITokenizer {
 
-    private static final HashSet<String> functions = new HashSet<String>(Arrays.asList("SUM", "POW", "SQRT"));
+    private static final HashSet<String> functions = new HashSet<String>(Arrays.asList("SUM", "POW", "SQRT", "MIN"));
 
     private static final HashSet<String> booleans = new HashSet<String>(Arrays.asList("TRUE", "FALSE"));
 
@@ -28,7 +28,10 @@ public class Tokenizer {
                     number.append(expression.charAt(i));
                     i++;
                 }
-                tokens.add(new Token(TokenType.NUMBER, number.toString()));
+                var str = number.toString();
+                if (isNumeric(str)) {
+                    tokens.add(new Token(TokenType.NUMBER, str));
+                }
             } else if ("+-*/><=!".indexOf(current) != -1) {
                 tokens.add(new Token(TokenType.OPERATOR, String.valueOf(current)));
                 i++;
@@ -45,19 +48,38 @@ public class Tokenizer {
                     word.append(expression.charAt(i));
                     i++;
                 }
-                String value = word.toString();
+                String value = word.toString().toUpperCase();
                 if (functions.contains(value))
                 {
                     tokens.add(new Token(TokenType.FUNCTION, value));
                 } else if (booleans.contains(value)) {
                     tokens.add(new Token(TokenType.BOOL, value));
-                }else {
+                } else if (isValidCellName(value)) {
                     tokens.add(new Token(TokenType.VARIABLE, value));
+                } else {
+                    throw new IllegalArgumentException("Unexpected character: " + current);
                 }
             } else {
                 throw new IllegalArgumentException("Unexpected character: " + current);
             }
         }
         return tokens;
+    }
+
+    private boolean isValidCellName(String input) {
+        String regex = "^[A-Za-z]+[1-9][0-9]*$";
+        return input != null && input.matches(regex);
+    }
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 }
