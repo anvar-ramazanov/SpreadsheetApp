@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +82,7 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TableApp">
+  <component name="RunManager" selected="JUnit.TokenizerTest">
     <configuration name="TableApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TableApp" />
       <module name="SpreadsheetApp" />
@@ -154,10 +155,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TokenizerTest" />
         <item itemvalue="Application.TableApp" />
         <item itemvalue="JUnit.TokenizerTest.test_parse_int_number" />
         <item itemvalue="JUnit.TokenizerTest.test_math_operations" />
-        <item itemvalue="JUnit.TokenizerTest" />
         <item itemvalue="JUnit.TokenizerTest.test_function" />
       </list>
     </recent_temporary>

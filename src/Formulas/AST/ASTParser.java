@@ -66,7 +66,7 @@ public class ASTParser {
 
         if (token.type == TokenType.NUMBER) {
             consumeToken();
-            return new NumberNode(Double.parseDouble(token.value));
+            return new FloatNumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
             consumeToken();
             return new VariableNode(token.value);

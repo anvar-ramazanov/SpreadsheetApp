@@ -1,16 +1,13 @@
 package Formulas.Tokens;
 
+import Formulas.Functions;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 public class Tokenizer implements ITokenizer {
-
-    private static final HashSet<String> functions = new HashSet<String>(Arrays.asList("SUM", "POW", "SQRT", "MIN"));
-
-    private static final HashSet<String> booleans = new HashSet<String>(Arrays.asList("TRUE", "FALSE"));
-
     public List<Token> tokenize(String expression) {
         List<Token> tokens = new ArrayList<>();
         int length = expression.length();
@@ -49,10 +46,10 @@ public class Tokenizer implements ITokenizer {
                     i++;
                 }
                 String value = word.toString().toUpperCase();
-                if (functions.contains(value))
+                if (Functions.Functions.contains(value))
                 {
                     tokens.add(new Token(TokenType.FUNCTION, value));
-                } else if (booleans.contains(value)) {
+                } else if (value.equals("FALSE") || value.equals("TRUE")) {
                     tokens.add(new Token(TokenType.BOOL, value));
                 } else if (isValidCellName(value)) {
                     tokens.add(new Token(TokenType.VARIABLE, value));

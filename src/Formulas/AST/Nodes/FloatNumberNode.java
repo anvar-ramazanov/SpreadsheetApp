@@ -4,10 +4,10 @@ import Formulas.AST.ASTNode;
 
 import java.util.Map;
 
-public class NumberNode extends ASTNode {
-    int value;
+public class FloatNumberNode extends ASTNode {
+    double value;
 
-    public NumberNode(int value) {
+    public FloatNumberNode(double value) {
         this.value = value;
     }
 
