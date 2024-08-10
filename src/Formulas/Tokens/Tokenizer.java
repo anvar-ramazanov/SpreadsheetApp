@@ -3,9 +3,10 @@ package Formulas.Tokens;
 import Formulas.Functions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
+
+import static Formulas.Tokens.TokenizerHelpers.isNumeric;
+import static Formulas.Tokens.TokenizerHelpers.isValidCellName;
 
 public class Tokenizer implements ITokenizer {
     public List<Token> tokenize(String expression) {
@@ -45,7 +46,7 @@ public class Tokenizer implements ITokenizer {
                     word.append(expression.charAt(i));
                     i++;
                 }
-                String value = word.toString().toUpperCase();
+                String value = word.toString().toUpperCase(); // storing everything in upper case
                 if (Functions.Functions.contains(value))
                 {
                     tokens.add(new Token(TokenType.FUNCTION, value));
@@ -61,22 +62,5 @@ public class Tokenizer implements ITokenizer {
             }
         }
         return tokens;
-    }
-
-    private boolean isValidCellName(String input) {
-        String regex = "^[A-Za-z]+[1-9][0-9]*$";
-        return input != null && input.matches(regex);
-    }
-
-    public static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
     }
 }

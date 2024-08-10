@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Fixed columns size">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,11 +24,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JavaAutoRunManager">
-    <enabled-run-configurations>
-      <run-configuration type="JUnit" name="TokenizerTest.test_validate_variable" />
-    </enabled-run-configurations>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -44,6 +38,9 @@
     "Application.TableApp.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.AstParserTest.testBool.executor": "Run",
+    "JUnit.TokenizerHelpersTest.executor": "Run",
+    "JUnit.TokenizerHelpersTest.isNumeric_EdgeCases.executor": "Run",
+    "JUnit.TokenizerHelpersTest.isValidCellName_ValidCellNames.executor": "Run",
     "JUnit.TokenizerTest.executor": "Run",
     "JUnit.TokenizerTest.test.executor": "Debug",
     "JUnit.TokenizerTest.test2.executor": "Run",
@@ -82,10 +79,66 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TokenizerTest">
-    <configuration name="TableApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="TableApp" />
+  <component name="RunManager" selected="JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers">
+    <configuration name="TokenizerHelpersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerHelpersTest.isNumeric_EdgeCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="METHOD_NAME" value="isNumeric_EdgeCases" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerHelpersTest.isNumeric_InvalidNumbers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="METHOD_NAME" value="isNumeric_InvalidNumbers" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenizerHelpersTest.isValidCellName_ValidCellNames" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="METHOD_NAME" value="isValidCellName_ValidCellNames" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -105,61 +158,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerTest.test_function" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpreadsheetApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.Formulas.tokens.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
-      <option name="METHOD_NAME" value="test_function" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TokenizerTest.test_math_operations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpreadsheetApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.Formulas.tokens.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
-      <option name="METHOD_NAME" value="test_math_operations" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TokenizerTest.test_parse_int_number" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpreadsheetApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.Formulas.tokens.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
-      <option name="METHOD_NAME" value="test_parse_int_number" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers" />
+        <item itemvalue="JUnit.TokenizerHelpersTest.isNumeric_EdgeCases" />
+        <item itemvalue="JUnit.TokenizerHelpersTest" />
+        <item itemvalue="JUnit.TokenizerHelpersTest.isValidCellName_ValidCellNames" />
         <item itemvalue="JUnit.TokenizerTest" />
-        <item itemvalue="Application.TableApp" />
-        <item itemvalue="JUnit.TokenizerTest.test_parse_int_number" />
-        <item itemvalue="JUnit.TokenizerTest.test_math_operations" />
-        <item itemvalue="JUnit.TokenizerTest.test_function" />
       </list>
     </recent_temporary>
   </component>
@@ -190,5 +195,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed columns size" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed columns size" />
   </component>
 </project>
