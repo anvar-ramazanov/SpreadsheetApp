@@ -1,6 +1,7 @@
 package Formulas.AST;
 
 import Formulas.AST.Nodes.*;
+import Formulas.Functions;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
@@ -96,6 +97,18 @@ public class ASTParser {
                 } else {
                     throw new RuntimeException("Expected closing parenthesis after function arguments");
                 }
+                var description = Functions.FunctionsDescription.get(functionName);
+                if (description.arguments().size() != arguments.size()) {
+                    throw new RuntimeException("Arguments number mistmach");
+                }
+                for (int i = 0; i < arguments.size(); ++i) {
+                    var allowedTypes = description.arguments().get(i);
+                    var currentType = arguments.get(i).getType();
+                    if (!allowedTypes.contains(currentType)) {
+                        throw new RuntimeException("Argument type mistmatch");
+                    }
+                }
+
                 return new FunctionNode(functionName, arguments);
             }
         } else if (token.type == TokenType.BOOL) {

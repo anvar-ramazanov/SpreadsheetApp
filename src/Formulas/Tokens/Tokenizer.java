@@ -47,7 +47,7 @@ public class Tokenizer implements ITokenizer {
                     i++;
                 }
                 String value = word.toString().toUpperCase(); // storing everything in upper case
-                if (Functions.Functions.contains(value))
+                if (Functions.FunctionsDescription.containsKey(value))
                 {
                     tokens.add(new Token(TokenType.FUNCTION, value));
                 } else if (value.equals("FALSE") || value.equals("TRUE")) {

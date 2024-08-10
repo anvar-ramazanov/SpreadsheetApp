@@ -15,4 +15,9 @@ public class NumberNode extends ASTNode {
     public Object evaluate(Map<String, Object> variables) {
         return value;
     }
+
+    @Override
+    public String getType() {
+        return "NUMBER";
+    }
 }

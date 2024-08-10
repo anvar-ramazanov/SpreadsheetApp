@@ -15,4 +15,9 @@ public class FloatNumberNode extends ASTNode {
     public Object evaluate(Map<String, Object> variables) {
         return value;
     }
+
+    @Override
+    public String getType() {
+        return "DOUBLE";
+    }
 }

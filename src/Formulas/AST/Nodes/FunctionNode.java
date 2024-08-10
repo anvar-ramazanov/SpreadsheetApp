@@ -40,4 +40,9 @@ public class FunctionNode extends ASTNode {
                 throw new RuntimeException("Unknown function: " + functionName);
         }
     }
+
+    @Override
+    public String getType() {
+        return "FUNCTION";
+    }
 }

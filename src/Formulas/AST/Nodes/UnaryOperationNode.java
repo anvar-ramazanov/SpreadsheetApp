@@ -26,4 +26,9 @@ public class UnaryOperationNode extends ASTNode {
                 throw new RuntimeException("Unknown operator: " + operator);
         }
     }
+
+    @Override
+    public String getType() {
+        return "UNARY_OPERATION";
+    }
 }
