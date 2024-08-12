@@ -73,7 +73,7 @@ public class ASTParser {
         if (token.type == TokenType.OPERATOR && (Grammar.UnaryOperations.containsKey(token.value))) {
             String operator = consumeToken().value;
             ASTNode operand = parseFactor();
-            if (!Grammar.UnaryOperations.get(token.value).arguments().getFirst().contains(operand.getType())) {
+            if (!Grammar.UnaryOperations.get(token.value).operand().contains(operand.getType())) {
                 throw new RuntimeException("Operand type mistmatch");
             }
             return new UnaryOperationNode(operator, operand);

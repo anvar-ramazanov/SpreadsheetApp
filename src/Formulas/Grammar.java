@@ -11,11 +11,17 @@ public class Grammar {
         "SUM", new FunctionDescription(List.of(numberOrDerives, numberOrDerives))
     );
 
-    public static final Map<String, FunctionDescription> UnaryOperations = Map.of(
-            "-",  new FunctionDescription(List.of(numberOrDerives)),
-            "!", new FunctionDescription(List.of(boolOrDerives)));
+    public static final Map<String, UnaryOperatorDescription> UnaryOperations = Map.of(
+            "-", new UnaryOperatorDescription(numberOrDerives),
+            "!", new UnaryOperatorDescription(boolOrDerives));
 
-    public static final Set<String> BinaryOperations = Set.of("+", "-", "/", "*", ">", "<");
+    // public static final Set<String> BinaryOperations = Set.of("+", "-", "/", "*", ">", "<");
+
+    public static final Map<String, BinaryOperatorDescription> BinaryOperations = Map.of(
+            "+", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
+            "-", new BinaryOperatorDescription(numberOrDerives, numberOrDerives)
+    );
+
 }
 
 

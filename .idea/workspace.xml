@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Add more tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FunctionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FunctionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/FunctionDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/FunctionDescription.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/Grammar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Grammar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/UnaryOperatorDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/UnaryOperatorDescription.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,14 +97,7 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UnaryOperatorTests">
-    <configuration name="TableApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="TableApp" />
-      <module name="SpreadsheetApp" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.test.Formulas.AST in SpreadsheetApp">
     <configuration name="UnaryOperatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
@@ -167,13 +161,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test.Formulas.AST in SpreadsheetApp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.AST.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.AST" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.test.Formulas.AST in SpreadsheetApp" />
         <item itemvalue="JUnit.UnaryOperatorTests" />
         <item itemvalue="JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_FunctionOperand" />
         <item itemvalue="JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_ValidVariable" />
         <item itemvalue="JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_InvalidOperandType" />
-        <item itemvalue="Application.TableApp" />
       </list>
     </recent_temporary>
   </component>
@@ -210,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723471114101</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add more tests">
+      <option name="closed" value="true" />
+      <created>1723481719661</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723481719661</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -246,7 +262,8 @@
     <MESSAGE value="Reformat + refactor" />
     <MESSAGE value="Added the common list of unary operators" />
     <MESSAGE value="Refactor tests for AST" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor tests for AST" />
+    <MESSAGE value="Add more tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add more tests" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
