@@ -22,6 +22,6 @@ public class VariableNode extends ASTNode {
     @Override
     public String getType() {
         return "VARIABLE";
-    }
+    } // FIXME
 }
 

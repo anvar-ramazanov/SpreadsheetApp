@@ -46,6 +46,11 @@ public class ASTParser {
             String operator = consumeToken().value;
             ASTNode right = parseTerm();
 
+            if (!Grammar.BinaryOperations.get(operator).leftOperand().contains(node.getType()) ||
+                !Grammar.BinaryOperations.get(operator).rightOperand().contains(right.getType())
+            ) {
+                throw new RuntimeException("Operand type mistmatch");
+            }
             node = new BinaryOperationNode(node, operator, right);
             currentToken = currentToken();
         }

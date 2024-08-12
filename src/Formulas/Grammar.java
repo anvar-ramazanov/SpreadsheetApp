@@ -19,7 +19,9 @@ public class Grammar {
 
     public static final Map<String, BinaryOperatorDescription> BinaryOperations = Map.of(
             "+", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
-            "-", new BinaryOperatorDescription(numberOrDerives, numberOrDerives)
+            "-", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
+            "*", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
+            "/", new BinaryOperatorDescription(numberOrDerives, numberOrDerives)
     );
 
 }

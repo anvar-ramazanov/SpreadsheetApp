@@ -35,6 +35,30 @@ public class BinaryOperationTests {
     }
 
     @Test(expected = RuntimeException.class)
+    public void ASTParser_ParseBinaryOperator_RightOperandTypeMistmatch() {
+        var tokens = new ArrayList<Token>();
+        tokens.add(new Token(TokenType.NUMBER, "1"));
+        tokens.add(new Token(TokenType.OPERATOR, "+"));
+        tokens.add(new Token(TokenType.BOOL, "FALSE"));
+
+        var parser = new ASTParser(tokens);
+
+        parser.parse();
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void ASTParser_ParseBinaryOperator_LeftOperandTypeMistmatch() {
+        var tokens = new ArrayList<Token>();
+        tokens.add(new Token(TokenType.BOOL, "FALSE"));
+        tokens.add(new Token(TokenType.OPERATOR, "+"));
+        tokens.add(new Token(TokenType.NUMBER, "1"));
+
+        var parser = new ASTParser(tokens);
+
+        parser.parse();
+    }
+
+    @Test(expected = RuntimeException.class)
     public void ASTParser_ParseBinaryOperator_TwoOperators() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.NUMBER, "1"));
@@ -43,17 +67,7 @@ public class BinaryOperationTests {
 
         var parser = new ASTParser(tokens);
 
-        var result = parser.parse();
-
-        assertNotEquals(null, result);
-        assertTrue(result instanceof BinaryOperationNode);
-
-        var binaryOperationNode = (BinaryOperationNode)result;
-        var left = binaryOperationNode.getLeft();
-        var right = binaryOperationNode.getRight();
-
-        assertNotEquals(null, left);
-        assertNotEquals(null, right);
+        parser.parse();
     }
 
 }
