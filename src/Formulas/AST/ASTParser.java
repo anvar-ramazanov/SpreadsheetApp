@@ -45,6 +45,7 @@ public class ASTParser {
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-"))) {
             String operator = consumeToken().value;
             ASTNode right = parseTerm();
+
             node = new BinaryOperationNode(node, operator, right);
             currentToken = currentToken();
         }
