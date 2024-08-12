@@ -5,9 +5,9 @@ import Formulas.AST.ASTNode;
 import java.util.Map;
 
 public class NumberNode extends ASTNode {
-    int value;
+    double value;
 
-    public NumberNode(int value) {
+    public NumberNode(double value) {
         this.value = value;
     }
 

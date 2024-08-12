@@ -31,25 +31,33 @@ public class ASTParser {
     }
 
     public ASTNode parse() {
-        return parseExpression();
+        var node =  parseExpression();
+        if (currentToken() != null) {
+            throw new RuntimeException("Unexpected token");
+        }
+        return node;
     }
 
     private ASTNode parseExpression() {
         ASTNode node = parseTerm();
-        while (currentToken() != null && (currentToken().type == TokenType.OPERATOR) && (currentToken().value.equals("+") || currentToken().value.equals("-"))) {
+        Token currentToken =  currentToken();
+        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-"))) {
             String operator = consumeToken().value;
             ASTNode right = parseTerm();
             node = new BinaryOperationNode(node, operator, right);
+            currentToken = currentToken();
         }
         return node;
     }
 
     private ASTNode parseTerm() {
         ASTNode node = parseFactor();
-        while (currentToken() != null && (currentToken().type == TokenType.OPERATOR) && (currentToken().value.equals("*") || currentToken().value.equals("/"))) {
+        Token currentToken =  currentToken();
+        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") ||currentToken.value.equals("/"))) {
             String operator = consumeToken().value;
             ASTNode right = parseFactor();
             node = new BinaryOperationNode(node, operator, right);
+            currentToken = currentToken();
         }
         return node;
     }
@@ -66,14 +74,14 @@ public class ASTParser {
 
         if (token.type == TokenType.NUMBER) {
             consumeToken();
-            return new FloatNumberNode(Double.parseDouble(token.value));
+            return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
             consumeToken();
             return new VariableNode(token.value);
         } else if (token.type == TokenType.PARENTHESIS && token.value.equals("(")) {
             consumeToken();
             ASTNode node = parseExpression();
-            if (currentToken().type == TokenType.PARENTHESIS && currentToken().value.equals(")")) {
+            if (currentToken() != null && currentToken().type == TokenType.PARENTHESIS && currentToken().value.equals(")")) {
                 consumeToken();
             } else {
                 throw new RuntimeException("Expected closing parenthesis");

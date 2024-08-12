@@ -5,12 +5,16 @@ import Formulas.AST.ASTNode;
 import java.util.Map;
 
 public class UnaryOperationNode extends ASTNode {
-    String operator;
-    ASTNode operand;
+    private final String operator;
+    private final ASTNode operand;
 
     public UnaryOperationNode(String operator, ASTNode operand) {
         this.operator = operator;
         this.operand = operand;
+    }
+
+    public ASTNode getOperand() {
+        return operand;
     }
 
     @Override

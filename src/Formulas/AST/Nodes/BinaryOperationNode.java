@@ -5,14 +5,22 @@ import Formulas.AST.ASTNode;
 import java.util.Map;
 
 public class BinaryOperationNode extends ASTNode {
-    ASTNode left;
-    String operator;
-    ASTNode right;
+    private final ASTNode left;
+    private final String operator;
+    private final ASTNode right;
 
     public BinaryOperationNode(ASTNode left, String operator, ASTNode right) {
         this.left = left;
         this.operator = operator;
         this.right = right;
+    }
+
+    public ASTNode getLeft() {
+        return left;
+    }
+
+    public ASTNode getRight() {
+        return right;
     }
 
     @Override
