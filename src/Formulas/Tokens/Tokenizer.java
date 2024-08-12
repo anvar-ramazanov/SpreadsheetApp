@@ -13,7 +13,6 @@ public class Tokenizer implements ITokenizer {
         List<Token> tokens = new ArrayList<>();
         int length = expression.length();
 
-        List<Character> buf = new ArrayList<>();
         for (int i = 0; i < length; ) {
             char current = expression.charAt(i);
             if (Character.isWhitespace(current)) {
@@ -55,10 +54,10 @@ public class Tokenizer implements ITokenizer {
                 } else if (isValidCellName(value)) {
                     tokens.add(new Token(TokenType.VARIABLE, value));
                 } else {
-                    throw new IllegalArgumentException("Unexpected character: " + current);
+                    throw new IllegalArgumentException("Unexpected character: " + current); // fixme
                 }
             } else {
-                throw new IllegalArgumentException("Unexpected character: " + current);
+                throw new IllegalArgumentException("Unexpected character: " + current); // fixme
             }
         }
         return tokens;

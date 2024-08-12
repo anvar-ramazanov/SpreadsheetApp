@@ -117,7 +117,6 @@ public class ASTParser {
                         throw new RuntimeException("Argument type mistmatch");
                     }
                 }
-
                 return new FunctionNode(functionName, arguments);
             }
         } else if (token.type == TokenType.BOOL) {

@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Reformat + refactor">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added the common list of unary operators">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Grammar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/FunctionDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/FunctionDescription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Grammar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Grammar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/AST/AstParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/AST/AstParserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +43,7 @@
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.AstParserTest.executor": "Run",
     "JUnit.AstParserTest.testBool.executor": "Run",
+    "JUnit.ParenthesisTests.executor": "Run",
     "JUnit.TokenizerHelpersTest.executor": "Run",
     "JUnit.TokenizerHelpersTest.isNumeric_EdgeCases.executor": "Run",
     "JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers.executor": "Run",
@@ -61,6 +65,8 @@
     "JUnit.TokenizerTest.test_unexpected_character.executor": "Run",
     "JUnit.TokenizerTest.test_unknown_function.executor": "Run",
     "JUnit.TokenizerTest.test_validate_variable.executor": "Debug",
+    "JUnit.UnaryOperatorTests.executor": "Run",
+    "JUnit.test.Formulas.AST in SpreadsheetApp.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -82,7 +88,7 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AstParserTest">
+  <component name="RunManager" selected="JUnit.ParenthesisTests">
     <configuration name="TableApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TableApp" />
       <module name="SpreadsheetApp" />
@@ -105,60 +111,57 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerHelpersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ParenthesisTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="PATTERN" value="test.Formulas.AST.Parser.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="PACKAGE_NAME" value="test.Formulas.AST.Parser" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.AST.Parser.ParenthesisTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerHelpersTest.isNumeric_EdgeCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UnaryOperatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="PATTERN" value="test.Formulas.AST.Parser.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
-      <option name="METHOD_NAME" value="isNumeric_EdgeCases" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="test.Formulas.AST.Parser" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.AST.Parser.UnaryOperatorTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerHelpersTest.isNumeric_InvalidNumbers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="test.Formulas.AST in SpreadsheetApp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.tokens.*" />
+          <option name="PATTERN" value="test.Formulas.AST.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
-      <option name="METHOD_NAME" value="isNumeric_InvalidNumbers" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="test.Formulas.AST" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ParenthesisTests" />
+        <item itemvalue="JUnit.test.Formulas.AST in SpreadsheetApp" />
+        <item itemvalue="JUnit.UnaryOperatorTests" />
         <item itemvalue="JUnit.AstParserTest" />
         <item itemvalue="Application.TableApp" />
-        <item itemvalue="JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers" />
-        <item itemvalue="JUnit.TokenizerHelpersTest.isNumeric_EdgeCases" />
-        <item itemvalue="JUnit.TokenizerHelpersTest" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723470145710</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added the common list of unary operators">
+      <option name="closed" value="true" />
+      <created>1723470464687</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723470464687</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -213,7 +224,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed columns size" />
     <MESSAGE value="Reformat + refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformat + refactor" />
+    <MESSAGE value="Added the common list of unary operators" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the common list of unary operators" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

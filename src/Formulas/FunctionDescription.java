@@ -1,4 +1,4 @@
-package Formulas.AST;
+package Formulas;
 
 import java.util.List;
 import java.util.Set;

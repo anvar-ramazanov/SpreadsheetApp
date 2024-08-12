@@ -1,7 +1,5 @@
 package Formulas;
 
-import Formulas.AST.FunctionDescription;
-
 import java.util.*;
 
 public class Grammar {
@@ -12,6 +10,8 @@ public class Grammar {
     );
 
     public static final Set UnaryOperations = Set.of("-", "!");
+
+    public static final Set BinaryOperations = Set.of("");
 }
 
 
