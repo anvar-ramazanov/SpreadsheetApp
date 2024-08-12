@@ -1,7 +1,7 @@
 package Formulas.AST;
 
 import Formulas.AST.Nodes.*;
-import Formulas.Functions;
+import Formulas.Grammar;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
@@ -70,7 +70,7 @@ public class ASTParser {
             throw new RuntimeException("Run out of tokens"); // FIXME
         }
 
-        if (token.type == TokenType.OPERATOR && (token.value.equals("-") || token.value.equals("!"))) {
+        if (token.type == TokenType.OPERATOR && (Grammar.UnaryOperations.contains(token.value))) {
             String operator = consumeToken().value;
             ASTNode operand = parseFactor();
             return new UnaryOperationNode(operator, operand);
@@ -106,7 +106,7 @@ public class ASTParser {
                 } else {
                     throw new RuntimeException("Expected closing parenthesis after function arguments"); // FIXME
                 }
-                var description = Functions.FunctionsDescription.get(functionName);
+                var description = Grammar.FunctionsDescription.get(functionName);
                 if (description.arguments().size() != arguments.size()) {
                     throw new RuntimeException("Arguments number mistmach");
                 }
