@@ -18,5 +18,10 @@ public class VariableNode extends ASTNode {
         }
         throw new RuntimeException("Variable not found: " + name);
     }
+
+    @Override
+    public String getType() {
+        return "VARIABLE";
+    }
 }
 

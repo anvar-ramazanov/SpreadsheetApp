@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Fixed columns size">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BinaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BinaryOperationNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BooleanNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BooleanNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FloatNumberNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FloatNumberNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FunctionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FunctionNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/UnaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/UnaryOperationNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/VariableNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/VariableNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Functions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Tokens/Tokenizer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,11 +34,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JavaAutoRunManager">
-    <enabled-run-configurations>
-      <run-configuration type="JUnit" name="TokenizerTest.test_validate_variable" />
-    </enabled-run-configurations>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -41,9 +45,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.TableApp.executor": "Run",
+    "Application.TableApp.executor": "Debug",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.AstParserTest.testBool.executor": "Run",
+    "JUnit.TokenizerHelpersTest.executor": "Run",
+    "JUnit.TokenizerHelpersTest.isNumeric_EdgeCases.executor": "Run",
+    "JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers.executor": "Run",
+    "JUnit.TokenizerHelpersTest.isValidCellName_ValidCellNames.executor": "Run",
     "JUnit.TokenizerTest.executor": "Run",
     "JUnit.TokenizerTest.test.executor": "Debug",
     "JUnit.TokenizerTest.test2.executor": "Run",
@@ -82,7 +90,7 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TokenizerTest">
+  <component name="RunManager" selected="Application.TableApp">
     <configuration name="TableApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TableApp" />
       <module name="SpreadsheetApp" />
@@ -90,7 +98,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TokenizerHelpersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
@@ -99,13 +107,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerTest.test_function" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TokenizerHelpersTest.isNumeric_EdgeCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
@@ -114,14 +122,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
-      <option name="METHOD_NAME" value="test_function" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="METHOD_NAME" value="isNumeric_EdgeCases" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerTest.test_math_operations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TokenizerHelpersTest.isNumeric_InvalidNumbers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
@@ -130,14 +138,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
-      <option name="METHOD_NAME" value="test_math_operations" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="METHOD_NAME" value="isNumeric_InvalidNumbers" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TokenizerTest.test_parse_int_number" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TokenizerHelpersTest.isValidCellName_ValidCellNames" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
@@ -146,8 +154,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.Formulas.tokens" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerTest" />
-      <option name="METHOD_NAME" value="test_parse_int_number" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.tokens.TokenizerHelpersTest" />
+      <option name="METHOD_NAME" value="isValidCellName_ValidCellNames" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -155,11 +163,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TokenizerTest" />
         <item itemvalue="Application.TableApp" />
-        <item itemvalue="JUnit.TokenizerTest.test_parse_int_number" />
-        <item itemvalue="JUnit.TokenizerTest.test_math_operations" />
-        <item itemvalue="JUnit.TokenizerTest.test_function" />
+        <item itemvalue="JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers" />
+        <item itemvalue="JUnit.TokenizerHelpersTest.isNumeric_EdgeCases" />
+        <item itemvalue="JUnit.TokenizerHelpersTest" />
+        <item itemvalue="JUnit.TokenizerHelpersTest.isValidCellName_ValidCellNames" />
       </list>
     </recent_temporary>
   </component>
@@ -185,10 +193,41 @@
                   <entry key="Show.Git.Branches" value="true" />
                 </map>
               </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
             </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed columns size" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed columns size" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Formulas/AST/ASTParser.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Formulas.AST.Nodes.FloatNumberNode" memberName="value" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

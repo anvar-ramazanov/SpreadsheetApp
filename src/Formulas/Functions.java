@@ -1,8 +1,16 @@
 package Formulas;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import Formulas.AST.FunctionDescription;
+
+import java.util.*;
 
 public class Functions {
-    public static final HashSet<String> Functions = new HashSet<String>(Arrays.asList("SUM", "POW", "SQRT", "MIN"));
+
+    public static final Map<String, FunctionDescription> FunctionsDescription = Map.of(
+        "MIN", new FunctionDescription(List.of(Set.of("NUMBER", "DOUBLE"), Set.of("NUMBER", "DOUBLE"))),
+        "SUM", new FunctionDescription(List.of(Set.of("NUMBER", "DOUBLE"), Set.of("NUMBER", "DOUBLE")))
+    );
+
 }
+
+

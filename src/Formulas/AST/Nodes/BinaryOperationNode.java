@@ -44,4 +44,9 @@ public class BinaryOperationNode extends ASTNode {
                 throw new RuntimeException("Unknown operator: " + operator);
         }
     }
+
+    @Override
+    public String getType() {
+        return "BINARY_OPERATION";
+    }
 }
