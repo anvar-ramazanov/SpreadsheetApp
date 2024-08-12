@@ -7,12 +7,20 @@ import java.util.List;
 import java.util.Map;
 
 public class FunctionNode extends ASTNode {
-    String functionName;
-    List<ASTNode> arguments;
+    private final String functionName;
+    private final List<ASTNode> arguments;
 
     public FunctionNode(String functionName, List<ASTNode> arguments) {
         this.functionName = functionName;
         this.arguments = arguments;
+    }
+
+    public String getFunctionName() {
+        return functionName;
+    }
+
+    public List<ASTNode> getArguments() {
+        return arguments;
     }
 
     @Override

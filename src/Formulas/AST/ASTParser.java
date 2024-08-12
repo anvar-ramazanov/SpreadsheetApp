@@ -70,9 +70,12 @@ public class ASTParser {
             throw new RuntimeException("Run out of tokens"); // FIXME
         }
 
-        if (token.type == TokenType.OPERATOR && (Grammar.UnaryOperations.contains(token.value))) {
+        if (token.type == TokenType.OPERATOR && (Grammar.UnaryOperations.containsKey(token.value))) {
             String operator = consumeToken().value;
             ASTNode operand = parseFactor();
+            if (!Grammar.UnaryOperations.get(token.value).arguments().getFirst().contains(operand.getType())) {
+                throw new RuntimeException("Operand type mistmatch");
+            }
             return new UnaryOperationNode(operator, operand);
         } else if (token.type == TokenType.NUMBER) {
             consumeToken();
