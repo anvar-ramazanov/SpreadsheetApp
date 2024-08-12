@@ -31,16 +31,16 @@ public class ASTParser {
     }
 
     public ASTNode parse() {
-        var node =  parseExpression();
+        var node = parseExpression();
         if (currentToken() != null) {
-            throw new RuntimeException("Unexpected token");
+            throw new RuntimeException("Unexpected token"); // FIXME
         }
         return node;
     }
 
     private ASTNode parseExpression() {
         ASTNode node = parseTerm();
-        Token currentToken =  currentToken();
+        Token currentToken = currentToken();
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-"))) {
             String operator = consumeToken().value;
             ASTNode right = parseTerm();
@@ -52,8 +52,8 @@ public class ASTParser {
 
     private ASTNode parseTerm() {
         ASTNode node = parseFactor();
-        Token currentToken =  currentToken();
-        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") ||currentToken.value.equals("/"))) {
+        Token currentToken = currentToken();
+        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") || currentToken.value.equals("/"))) {
             String operator = consumeToken().value;
             ASTNode right = parseFactor();
             node = new BinaryOperationNode(node, operator, right);
@@ -65,14 +65,15 @@ public class ASTParser {
     private ASTNode parseFactor() {
         Token token = currentToken();
 
-        // Handle unary operators
-        if (token != null && token.type == TokenType.OPERATOR && (token.value.equals("-") || token.value.equals("!"))) {
+        if (token == null) {
+            throw new RuntimeException("Run out of tokens"); // FIXME
+        }
+
+        if (token.type == TokenType.OPERATOR && (token.value.equals("-") || token.value.equals("!"))) {
             String operator = consumeToken().value;
             ASTNode operand = parseFactor();
             return new UnaryOperationNode(operator, operand);
-        }
-
-        if (token.type == TokenType.NUMBER) {
+        } else if (token.type == TokenType.NUMBER) {
             consumeToken();
             return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
@@ -84,7 +85,7 @@ public class ASTParser {
             if (currentToken() != null && currentToken().type == TokenType.PARENTHESIS && currentToken().value.equals(")")) {
                 consumeToken();
             } else {
-                throw new RuntimeException("Expected closing parenthesis");
+                throw new RuntimeException("Expected closing parenthesis"); // FIXME
             }
             return node;
         } else if (token.type == TokenType.FUNCTION) {
@@ -102,7 +103,7 @@ public class ASTParser {
                 if (currentToken().value.equals(")")) {
                     consumeToken();
                 } else {
-                    throw new RuntimeException("Expected closing parenthesis after function arguments");
+                    throw new RuntimeException("Expected closing parenthesis after function arguments"); // FIXME
                 }
                 return new FunctionNode(functionName, arguments);
             }
@@ -110,6 +111,6 @@ public class ASTParser {
             consumeToken();
             return new BooleanNode(Boolean.parseBoolean(token.value));
         }
-        throw new RuntimeException("Unexpected token: " + token.value);
+        throw new RuntimeException("Unexpected token: " + token.value); // FIXME
     }
 }
