@@ -1,6 +1,7 @@
 package Formulas.AST.Nodes;
 
 import Formulas.AST.ASTNode;
+import Formulas.NodeType;
 
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public class UnaryOperationNode extends ASTNode {
     }
 
     @Override
-    public String getType() {
-        return "UNARY_OPERATION";
+    public NodeType getType() {
+        return NodeType.UNARY_OPERATION;
     }
 }

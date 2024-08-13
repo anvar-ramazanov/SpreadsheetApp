@@ -1,6 +1,7 @@
 package Formulas.AST.Nodes;
 
 import Formulas.AST.ASTNode;
+import Formulas.NodeType;
 
 import java.util.Map;
 
@@ -20,8 +21,8 @@ public class VariableNode extends ASTNode {
     }
 
     @Override
-    public String getType() {
-        return "VARIABLE";
-    } // FIXME
+    public NodeType getType() {
+        return NodeType.VARIABLE;
+    }
 }
 

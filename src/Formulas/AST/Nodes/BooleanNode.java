@@ -1,6 +1,7 @@
 package Formulas.AST.Nodes;
 
 import Formulas.AST.ASTNode;
+import Formulas.NodeType;
 
 import java.util.Map;
 
@@ -17,7 +18,5 @@ public class BooleanNode extends ASTNode {
     }
 
     @Override
-    public String getType() {
-        return "BOOLEAN";
-    }
+    public NodeType getType() { return NodeType.BOOLEAN; }
 }

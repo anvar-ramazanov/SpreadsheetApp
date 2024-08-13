@@ -1,6 +1,7 @@
 package Formulas.AST.Nodes;
 
 import Formulas.AST.ASTNode;
+import Formulas.NodeType;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class NumberNode extends ASTNode {
     }
 
     @Override
-    public String getType() {
-        return "NUMBER";
+    public NodeType getType() {
+        return NodeType.NUMBER;
     }
 }

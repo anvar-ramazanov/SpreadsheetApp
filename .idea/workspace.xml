@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added forgotten files">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added test for functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/ASTNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BinaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BinaryOperationNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BooleanNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BooleanNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FunctionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FunctionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/UnaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/UnaryOperationNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/VariableNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/VariableNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/AST/Parser/BinaryOperationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/AST/Parser/BinaryOperationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/BinaryOperatorDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/BinaryOperatorDescription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/FunctionDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/FunctionDescription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Grammar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Grammar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/UnaryOperatorDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/UnaryOperatorDescription.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +28,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -41,6 +51,7 @@
     "JUnit.AstParserTest.executor": "Run",
     "JUnit.AstParserTest.testBool.executor": "Run",
     "JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator2.executor": "Run",
+    "JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator_LeftOperandTypeMistmatch.executor": "Run",
     "JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator_TwoOperators.executor": "Run",
     "JUnit.Formulas.AST.Nodes in SpreadsheetApp.executor": "Run",
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_ArgumentsNumberMismatch.executor": "Run",
@@ -74,6 +85,7 @@
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_InvalidOperandType.executor": "Run",
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_ValidVariable.executor": "Run",
     "JUnit.UnaryOperatorTests.executor": "Run",
+    "JUnit.test.Formulas in SpreadsheetApp.executor": "Run",
     "JUnit.test.Formulas.AST in SpreadsheetApp.executor": "Run",
     "JUnit.test.Formulas.AST.Parser in SpreadsheetApp.executor": "Run",
     "Repository.Attach.Annotations": "false",
@@ -82,6 +94,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/repos/SpreadsheetApp",
     "onboarding.tips.debug.path": "/Users/Anvar/repos/SpreadsheetApp/SpreadsheetApp/src/Main.java",
@@ -97,7 +110,7 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator_LeftOperandTypeMistmatch">
+  <component name="RunManager" selected="JUnit.test.Formulas in SpreadsheetApp">
     <configuration name="BinaryOperationTests.ASTParser_ParseBinaryOperator2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
@@ -146,17 +159,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UnaryOperatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="test.Formulas in SpreadsheetApp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.AST.Parser.*" />
+          <option name="PATTERN" value="test.Formulas.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.AST.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.AST.Parser.UnaryOperatorTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="test.Formulas" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -177,11 +189,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.test.Formulas in SpreadsheetApp" />
         <item itemvalue="JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator_LeftOperandTypeMistmatch" />
         <item itemvalue="JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator2" />
         <item itemvalue="JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator_TwoOperators" />
         <item itemvalue="JUnit.test.Formulas.AST in SpreadsheetApp" />
-        <item itemvalue="JUnit.UnaryOperatorTests" />
       </list>
     </recent_temporary>
   </component>
@@ -242,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723482691598</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added test for functions">
+      <option name="closed" value="true" />
+      <created>1723483703597</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1723483703597</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -281,7 +301,8 @@
     <MESSAGE value="Add more tests" />
     <MESSAGE value="Add description for unary operator" />
     <MESSAGE value="Added forgotten files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added forgotten files" />
+    <MESSAGE value="Added test for functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added test for functions" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

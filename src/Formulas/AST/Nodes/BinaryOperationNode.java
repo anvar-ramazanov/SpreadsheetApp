@@ -1,6 +1,7 @@
 package Formulas.AST.Nodes;
 
 import Formulas.AST.ASTNode;
+import Formulas.NodeType;
 
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class BinaryOperationNode extends ASTNode {
     }
 
     @Override
-    public String getType() {
-        return "BINARY_OPERATION";
+    public NodeType getType() {
+        return NodeType.BINARY_OPERATION;
     }
 }
