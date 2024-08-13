@@ -1,6 +1,7 @@
 package Formulas.AST.Nodes;
 
 import Formulas.AST.ASTNode;
+import Formulas.Grammar;
 import Formulas.NodeType;
 
 import java.util.ArrayList;
@@ -52,6 +53,6 @@ public class FunctionNode extends ASTNode {
 
     @Override
     public NodeType getType() {
-        return NodeType.FUNCTION;
+        return Grammar.FunctionsDescription.get(this.functionName).resultType();
     }
 }

@@ -7,14 +7,22 @@ import Formulas.Tokens.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ASTParser {
     private final List<Token> tokens;
     private int position;
+    private Map<String, ASTNode> otherCells;
 
     public ASTParser(List<Token> tokens) {
         this.tokens = tokens;
         this.position = 0;
+    }
+
+    public ASTParser(List<Token> tokens, Map<String, ASTNode> otherCells) {
+        this.tokens = tokens;
+        this.position = 0;
+        this.otherCells = otherCells;
     }
 
 
@@ -79,8 +87,18 @@ public class ASTParser {
         if (token.type == TokenType.OPERATOR && (Grammar.UnaryOperations.containsKey(token.value))) {
             String operator = consumeToken().value;
             ASTNode operand = parseFactor();
-            if (!Grammar.UnaryOperations.get(token.value).operand().contains(operand.getType())) {
+            if (Grammar.UnaryOperations.get(token.value).operandType() != operand.getType()) {
                 throw new RuntimeException("Operand type mistmatch");
+            }
+            if (operand instanceof FunctionNode functionNode) {
+                if (Grammar.FunctionsDescription.get(functionNode.getFunctionName()).resultType() != Grammar.UnaryOperations.get(token.value).resultType()) {
+                    throw new RuntimeException("Operand type mistmatch");
+                }
+            }
+            if (operand instanceof VariableNode variableNode) {
+                if (!otherCells.containsKey(variableNode.getName()) || otherCells.get(variableNode.getName()).getType() !=  Grammar.UnaryOperations.get(token.value).resultType()) {
+                    throw new RuntimeException("Operand type mistmatch");
+                }
             }
             return new UnaryOperationNode(operator, operand);
         } else if (token.type == TokenType.NUMBER) {
@@ -88,6 +106,10 @@ public class ASTParser {
             return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
             consumeToken();
+            if (otherCells.containsKey(token.value))
+            {
+                return new VariableNode(token.value, otherCells.get(token.value).getType());
+            }
             return new VariableNode(token.value);
         } else if (token.type == TokenType.PARENTHESIS && token.value.equals("(")) {
             consumeToken();

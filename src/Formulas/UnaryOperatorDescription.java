@@ -2,5 +2,6 @@ package Formulas;
 
 import java.util.Set;
 
-public record UnaryOperatorDescription(Set<NodeType> operand) {
+public record UnaryOperatorDescription(NodeType operandType, NodeType resultType, String operator){
+
 }

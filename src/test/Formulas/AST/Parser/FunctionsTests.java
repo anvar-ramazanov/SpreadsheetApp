@@ -4,11 +4,13 @@ import Formulas.AST.ASTParser;
 import Formulas.AST.Nodes.FunctionNode;
 import Formulas.AST.Nodes.NumberNode;
 import Formulas.AST.Nodes.VariableNode;
+import Formulas.NodeType;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -48,7 +50,7 @@ public class FunctionsTests {
         tokens.add(new Token(TokenType.VARIABLE, "A2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ASTParser(tokens, Map.of("A2", new NumberNode(2)));
 
         var result = parser.parse();
 

@@ -8,13 +8,14 @@ public class Grammar {
     private static final Set<NodeType> boolOrDerives = Set.of(NodeType.BOOLEAN,  NodeType.FUNCTION, NodeType.VARIABLE, NodeType.UNARY_OPERATION, NodeType.BINARY_OPERATION);
 
     public static final Map<String, FunctionDescription> FunctionsDescription = Map.of(
-        "MIN", new FunctionDescription(List.of(numberOrDerives, numberOrDerives)),
-        "SUM", new FunctionDescription(List.of(numberOrDerives, numberOrDerives))
+        "MIN", new FunctionDescription(List.of(numberOrDerives, numberOrDerives), NodeType.NUMBER, "MIN"),
+        "SUM", new FunctionDescription(List.of(numberOrDerives, numberOrDerives), NodeType.NUMBER, "SUM")
     );
 
     public static final Map<String, UnaryOperatorDescription> UnaryOperations = Map.of(
-            "-", new UnaryOperatorDescription(numberOrDerives),
-            "!", new UnaryOperatorDescription(boolOrDerives));
+            "-", new UnaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, "-"),
+            "!", new UnaryOperatorDescription(NodeType.BOOLEAN, NodeType.BOOLEAN, "!")
+    );
 
     public static final Map<String, BinaryOperatorDescription> BinaryOperations = Map.of(
             "+", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),

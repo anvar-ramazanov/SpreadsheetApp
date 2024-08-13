@@ -6,10 +6,17 @@ import Formulas.NodeType;
 import java.util.Map;
 
 public class VariableNode extends ASTNode {
-    String name;
+    private final String name;
+    private final NodeType nodeType;
 
     public VariableNode(String name) {
         this.name = name;
+        this.nodeType = NodeType.VARIABLE;
+    }
+
+    public VariableNode(String name, NodeType nodeType) {
+        this.name = name;
+        this.nodeType = nodeType;
     }
 
     @Override
@@ -20,9 +27,13 @@ public class VariableNode extends ASTNode {
         throw new RuntimeException("Variable not found: " + name);
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public NodeType getType() {
-        return NodeType.VARIABLE;
+        return this.nodeType;
     }
 }
 
