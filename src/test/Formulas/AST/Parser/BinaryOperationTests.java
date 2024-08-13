@@ -35,7 +35,7 @@ public class BinaryOperationTests {
     }
 
     @Test(expected = RuntimeException.class)
-    public void ASTParser_ParseBinaryOperator_RightOperandTypeMistmatch() {
+    public void ASTParser_ParseBinaryOperator_RightOperandTypeMismatch() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.NUMBER, "1"));
         tokens.add(new Token(TokenType.OPERATOR, "+"));
@@ -47,7 +47,7 @@ public class BinaryOperationTests {
     }
 
     @Test(expected = RuntimeException.class)
-    public void ASTParser_ParseBinaryOperator_LeftOperandTypeMistmatch() {
+    public void ASTParser_ParseBinaryOperator_LeftOperandTypeMismatch() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.BOOL, "FALSE"));
         tokens.add(new Token(TokenType.OPERATOR, "+"));
