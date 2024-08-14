@@ -4,8 +4,8 @@ import java.util.*;
 
 
 public class Grammar {
-    private static final Set<NodeType> numberOrDerives = Set.of(NodeType.NUMBER,  NodeType.FUNCTION, NodeType.VARIABLE, NodeType.UNARY_OPERATION, NodeType.BINARY_OPERATION);
-    private static final Set<NodeType> boolOrDerives = Set.of(NodeType.BOOLEAN,  NodeType.FUNCTION, NodeType.VARIABLE, NodeType.UNARY_OPERATION, NodeType.BINARY_OPERATION);
+    private static final Set<NodeType> numberOrDerives = Set.of(NodeType.NUMBER);
+    private static final Set<NodeType> boolOrDerives = Set.of(NodeType.BOOLEAN);
 
     public static final Map<String, FunctionDescription> FunctionsDescription = Map.of(
         "MIN", new FunctionDescription(List.of(numberOrDerives, numberOrDerives), NodeType.NUMBER, "MIN"),

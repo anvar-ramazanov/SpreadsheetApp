@@ -48,6 +48,6 @@ public class BinaryOperationNode extends ASTNode {
 
     @Override
     public NodeType getType() {
-        return NodeType.BINARY_OPERATION;
+        return NodeType.NUMBER; // FIXME
     }
 }

@@ -11,7 +11,7 @@ public class VariableNode extends ASTNode {
 
     public VariableNode(String name) {
         this.name = name;
-        this.nodeType = NodeType.VARIABLE;
+        this.nodeType = NodeType.NUMBER;
     }
 
     public VariableNode(String name, NodeType nodeType) {

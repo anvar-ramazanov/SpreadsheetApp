@@ -34,6 +34,6 @@ public class UnaryOperationNode extends ASTNode {
 
     @Override
     public NodeType getType() {
-        return NodeType.UNARY_OPERATION;
+        return operand.getType();
     }
 }
