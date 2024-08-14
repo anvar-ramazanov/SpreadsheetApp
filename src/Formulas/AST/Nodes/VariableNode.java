@@ -24,7 +24,7 @@ public class VariableNode extends ASTNode {
         if (variables.containsKey(name)) {
             return variables.get(name);
         }
-        throw new RuntimeException("Variable not found: " + name);
+        throw new RuntimeException("Variable not found: " + name); // FIXME
     }
 
     public String getName() {
