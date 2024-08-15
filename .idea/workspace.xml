@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added analyzing unary operation, binary operation and functions">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added more tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/RefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/RefNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/BinaryOperationNodeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/BinaryOperationNodeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/FunctionNodeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/FunctionNodeTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/UnaryOperationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/UnaryOperationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,6 +84,9 @@
     "JUnit.ParenthesisTests.ASTParser_ParseParenthesis_MissingClosingParenthesis.executor": "Run",
     "JUnit.ParenthesisTests.ASTParser_ParseParenthesis_MissingOpenedParenthesis.executor": "Run",
     "JUnit.ParenthesisTests.executor": "Run",
+    "JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_InvalidJump.executor": "Run",
+    "JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidJump.executor": "Run",
+    "JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumps.executor": "Run",
     "JUnit.TokenizerHelpersTest.executor": "Run",
     "JUnit.TokenizerHelpersTest.isNumeric_EdgeCases.executor": "Run",
     "JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers.executor": "Run",
@@ -105,6 +112,7 @@
     "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation.executor": "Run",
     "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedFunctionOperand.executor": "Run",
     "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_NestedFunctionOperand.executor": "Run",
+    "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation.executor": "Run",
     "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator.executor": "Run",
     "JUnit.UnaryOperatorTests (1).executor": "Run",
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_FunctionOperand.executor": "Run",
@@ -141,24 +149,8 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation">
-    <configuration name="FunctionsTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpreadsheetApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.Formulas.Expressions.Parser.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.FunctionsTests" />
-      <option name="METHOD_NAME" value="ExpressionParser_ParseFunctions_ForgottenParenthesis" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumpsWithFormula">
+    <configuration name="RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_InvalidJump" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
@@ -167,14 +159,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Analyzer" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.UnaryOperationTests" />
-      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.RefNodeTests" />
+      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_Refs_InvalidJump" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidJump" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
@@ -183,14 +175,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Analyzer" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.UnaryOperationTests" />
-      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.RefNodeTests" />
+      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidJump" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumps" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
@@ -199,8 +191,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Analyzer" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.UnaryOperationTests" />
-      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.RefNodeTests" />
+      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumps" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumpsWithFormula" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.Expressions.Analyzer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Analyzer" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.RefNodeTests" />
+      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumpsWithFormula" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -222,11 +230,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation" />
-        <item itemvalue="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation" />
-        <item itemvalue="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator" />
+        <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumpsWithFormula" />
+        <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumps" />
         <item itemvalue="JUnit.test.Formulas in SpreadsheetApp" />
-        <item itemvalue="JUnit.FunctionsTests" />
+        <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidJump" />
+        <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_InvalidJump" />
       </list>
     </recent_temporary>
   </component>
@@ -383,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723758350964</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Added more tests">
+      <option name="closed" value="true" />
+      <created>1723758660734</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1723758660735</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -432,7 +448,8 @@
     <MESSAGE value="Refactoring - moving logic to analyzer" />
     <MESSAGE value="Fixed a bug with parsing functions" />
     <MESSAGE value="Added analyzing unary operation, binary operation and functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added analyzing unary operation, binary operation and functions" />
+    <MESSAGE value="Added more tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added more tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -441,6 +458,11 @@
           <url>file://$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeParser.java</url>
           <line>99</line>
           <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeAnalyzer.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
