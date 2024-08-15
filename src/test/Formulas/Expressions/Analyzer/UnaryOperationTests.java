@@ -2,16 +2,15 @@ package test.Formulas.Expressions.Analyzer;
 
 import Formulas.Exceptions.Expressions.TreeAnalyzer.OperandTypeMismatchException;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
-import Formulas.Expressions.Nodes.BooleanNode;
-import Formulas.Expressions.Nodes.FunctionNode;
-import Formulas.Expressions.Nodes.NumberNode;
-import Formulas.Expressions.Nodes.UnaryOperationNode;
+import Formulas.Expressions.Nodes.*;
+import Formulas.NodeType;
 import org.junit.Test;
 
 import java.util.List;
 
 public class UnaryOperationTests {
 
+    @Test
     public void ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator() {
         var node = new UnaryOperationNode("-", new NumberNode(2));
 
@@ -47,6 +46,25 @@ public class UnaryOperationTests {
 
         analyzer.AnalyzeExpressionTree(node);
     }
+
+    @Test(expected = OperandTypeMismatchException.class)
+    public void ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation() {
+        var node = new UnaryOperationNode("!",  new BinaryOperationNode("+", new NumberNode(2), new NumberNode(3), NodeType.NUMBER));
+
+        var analyzer = new ExpressionTreeAnalyzer();
+
+        analyzer.AnalyzeExpressionTree(node);
+    }
+
+    @Test
+    public void ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation() {
+        var node = new UnaryOperationNode("!",  new BinaryOperationNode(">", new NumberNode(2), new NumberNode(3), NodeType.BOOLEAN));
+
+        var analyzer = new ExpressionTreeAnalyzer();
+
+        analyzer.AnalyzeExpressionTree(node);
+    }
+
 
     //    @Test
 //    public void ASTParser_ParseUnaryOperator_VariableOperand() {

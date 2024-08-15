@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Fixed a bug with parsing functions">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added analyzing unary operation, binary operation and functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/BinaryOperatorDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/BinaryOperatorDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Exceptions/Expressions/TokenExpectedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Exceptions/Expressions/TreeParser/TokenExpectedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Exceptions/Expressions/UnexpectedTokenException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Exceptions/Expressions/TreeParser/UnexpectedTokenException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/BinaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/BinaryOperationNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/UnaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/UnaryOperationNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Grammar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Grammar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/BinaryOperationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/BinaryOperationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/FunctionsTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/FunctionsTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/OperationsOrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/OperationsOrderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/ParenthesisTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/ParenthesisTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/UnaryOperatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/UnaryOperatorTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/UnaryOperationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/UnaryOperationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +72,7 @@
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_ParseArguments.executor": "Run",
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_ParseMinFunction.executor": "Run",
     "JUnit.FunctionsTests.ExpressionParser_ParseFunctions_ForgottenComma.executor": "Run",
+    "JUnit.FunctionsTests.ExpressionParser_ParseFunctions_ForgottenParenthesis.executor": "Debug",
     "JUnit.FunctionsTests.ExpressionParser_ParseFunctions_ParseMinFunction.executor": "Run",
     "JUnit.FunctionsTests.executor": "Run",
     "JUnit.OperationsOrderTest.ASTParser_Parse_CorrectOrderWithBinaryAndUnaryOperatorSameLevel.executor": "Run",
@@ -113,6 +102,7 @@
     "JUnit.TokenizerTest.test_unknown_function.executor": "Run",
     "JUnit.TokenizerTest.test_validate_variable.executor": "Debug",
     "JUnit.UnaryOperationTests.ASTParser_ParseUnaryOperator_InvalidOperandType.executor": "Run",
+    "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation.executor": "Run",
     "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedFunctionOperand.executor": "Run",
     "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_NestedFunctionOperand.executor": "Run",
     "JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator.executor": "Run",
@@ -151,7 +141,7 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.test.Formulas in SpreadsheetApp">
+  <component name="RunManager" selected="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation">
     <configuration name="FunctionsTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
@@ -168,49 +158,49 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FunctionsTests.ExpressionParser_ParseFunctions_ForgottenComma" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.Expressions.Parser.*" />
+          <option name="PATTERN" value="test.Formulas.Expressions.Analyzer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.FunctionsTests" />
-      <option name="METHOD_NAME" value="ExpressionParser_ParseFunctions_ForgottenComma" />
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Analyzer" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.UnaryOperationTests" />
+      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FunctionsTests.ExpressionParser_ParseFunctions_ForgottenParenthesis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.Expressions.Parser.*" />
+          <option name="PATTERN" value="test.Formulas.Expressions.Analyzer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.FunctionsTests" />
-      <option name="METHOD_NAME" value="ExpressionParser_ParseFunctions_ForgottenParenthesis" />
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Analyzer" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.UnaryOperationTests" />
+      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FunctionsTests.ExpressionParser_ParseFunctions_ParseMinFunction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.Expressions.Parser.*" />
+          <option name="PATTERN" value="test.Formulas.Expressions.Analyzer.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.FunctionsTests" />
-      <option name="METHOD_NAME" value="ExpressionParser_ParseFunctions_ParseMinFunction" />
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Analyzer" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Analyzer.UnaryOperationTests" />
+      <option name="METHOD_NAME" value="ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -232,11 +222,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation" />
+        <item itemvalue="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation" />
+        <item itemvalue="JUnit.UnaryOperationTests.ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidOperator" />
         <item itemvalue="JUnit.test.Formulas in SpreadsheetApp" />
         <item itemvalue="JUnit.FunctionsTests" />
-        <item itemvalue="JUnit.FunctionsTests.ExpressionParser_ParseFunctions_ForgottenParenthesis" />
-        <item itemvalue="JUnit.FunctionsTests.ExpressionParser_ParseFunctions_ForgottenComma" />
-        <item itemvalue="JUnit.FunctionsTests.ExpressionParser_ParseFunctions_ParseMinFunction" />
       </list>
     </recent_temporary>
   </component>
@@ -385,7 +375,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723707876232</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added analyzing unary operation, binary operation and functions">
+      <option name="closed" value="true" />
+      <created>1723758350964</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1723758350964</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -433,7 +431,8 @@
     <MESSAGE value="Minor changes" />
     <MESSAGE value="Refactoring - moving logic to analyzer" />
     <MESSAGE value="Fixed a bug with parsing functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug with parsing functions" />
+    <MESSAGE value="Added analyzing unary operation, binary operation and functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added analyzing unary operation, binary operation and functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
