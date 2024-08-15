@@ -1,30 +1,23 @@
-package Formulas.AST;
+package Formulas.Expressions;
 
-import Formulas.AST.Nodes.*;
+import Formulas.Exceptions.Expressions.TokenExpectedException;
+import Formulas.Exceptions.Expressions.UnexpectedTokenException;
+import Formulas.Expressions.Nodes.*;
 import Formulas.Grammar;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class ASTParser {
+public class ExpressionTreeParser {
     private final List<Token> tokens;
     private int position;
-    private Map<String, ASTNode> otherCells;
 
-    public ASTParser(List<Token> tokens) {
+    public ExpressionTreeParser(List<Token> tokens) {
         this.tokens = tokens;
         this.position = 0;
     }
-
-    public ASTParser(List<Token> tokens, Map<String, ASTNode> otherCells) {
-        this.tokens = tokens;
-        this.position = 0;
-        this.otherCells = otherCells;
-    }
-
 
     private Token currentToken() {
         if (position < tokens.size()) {
@@ -39,85 +32,62 @@ public class ASTParser {
         return token;
     }
 
-    public ASTNode parse() {
+    public ExpressionNode parse()  {
         var node = parseExpression();
         if (currentToken() != null) {
-            throw new RuntimeException("Unexpected token"); // FIXME
+            throw new UnexpectedTokenException("Unexpected token");
         }
         return node;
     }
 
-    private ASTNode parseExpression() {
-        ASTNode node = parseTerm();
+    private ExpressionNode parseExpression() {
+        ExpressionNode node = parseTerm();
         Token currentToken = currentToken();
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-"))) {
             String operator = consumeToken().value;
-            ASTNode right = parseTerm();
-
-            if (!Grammar.BinaryOperations.get(operator).leftOperand().contains(node.getType()) ||
-                !Grammar.BinaryOperations.get(operator).rightOperand().contains(right.getType())
-            ) {
-                throw new RuntimeException("Operand type mistmatch");
-            }
+            ExpressionNode right = parseTerm();
             node = new BinaryOperationNode(node, operator, right);
             currentToken = currentToken();
         }
         return node;
     }
 
-    private ASTNode parseTerm() {
-        ASTNode node = parseFactor();
+    private ExpressionNode parseTerm() {
+        ExpressionNode node = parseFactor();
         Token currentToken = currentToken();
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") || currentToken.value.equals("/"))) {
             String operator = consumeToken().value;
-            ASTNode right = parseFactor();
+            ExpressionNode right = parseFactor();
             node = new BinaryOperationNode(node, operator, right);
             currentToken = currentToken();
         }
         return node;
     }
 
-    private ASTNode parseFactor() {
+    private ExpressionNode parseFactor() {
         Token token = currentToken();
 
         if (token == null) {
-            throw new RuntimeException("Run out of tokens"); // FIXME
+            throw new TokenExpectedException();
         }
 
         if (token.type == TokenType.OPERATOR && (Grammar.UnaryOperations.containsKey(token.value))) {
             String operator = consumeToken().value;
-            ASTNode operand = parseFactor();
-            if (Grammar.UnaryOperations.get(token.value).operandType() != operand.getType()) {
-                throw new RuntimeException("Operand type mistmatch");
-            }
-            if (operand instanceof FunctionNode functionNode) {
-                if (Grammar.FunctionsDescription.get(functionNode.getFunctionName()).resultType() != Grammar.UnaryOperations.get(token.value).resultType()) {
-                    throw new RuntimeException("Operand type mistmatch");
-                }
-            }
-            if (operand instanceof VariableNode variableNode) {
-                if (!otherCells.containsKey(variableNode.getName()) || otherCells.get(variableNode.getName()).getType() !=  Grammar.UnaryOperations.get(token.value).resultType()) {
-                    throw new RuntimeException("Operand type mistmatch");
-                }
-            }
+            ExpressionNode operand = parseFactor();
             return new UnaryOperationNode(operator, operand);
         } else if (token.type == TokenType.NUMBER) {
             consumeToken();
             return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
             consumeToken();
-            if (otherCells.containsKey(token.value))
-            {
-                return new VariableNode(token.value, otherCells.get(token.value).getType());
-            }
-            return new VariableNode(token.value);
+            return new RefNode(token.value);
         } else if (token.type == TokenType.PARENTHESIS && token.value.equals("(")) {
             consumeToken();
-            ASTNode node = parseExpression();
+            ExpressionNode node = parseExpression();
             if (currentToken() != null && currentToken().type == TokenType.PARENTHESIS && currentToken().value.equals(")")) {
                 consumeToken();
             } else {
-                throw new RuntimeException("Expected closing parenthesis"); // FIXME
+                throw new TokenExpectedException("Expected closing parenthesis");
             }
             return node;
         } else if (token.type == TokenType.FUNCTION) {
@@ -125,7 +95,7 @@ public class ASTParser {
             String functionName = token.value;
             if (currentToken().type == TokenType.PARENTHESIS && currentToken().value.equals("(")) {
                 consumeToken();
-                List<ASTNode> arguments = new ArrayList<>();
+                List<ExpressionNode> arguments = new ArrayList<>();
                 while (currentToken() != null && !currentToken().value.equals(")")) {
                     arguments.add(parseExpression());
                     if (currentToken().type == TokenType.COMMA) {
@@ -135,18 +105,7 @@ public class ASTParser {
                 if (currentToken().value.equals(")")) {
                     consumeToken();
                 } else {
-                    throw new RuntimeException("Expected closing parenthesis after function arguments"); // FIXME
-                }
-                var description = Grammar.FunctionsDescription.get(functionName);
-                if (description.arguments().size() != arguments.size()) {
-                    throw new RuntimeException("Arguments number mistmach");
-                }
-                for (int i = 0; i < arguments.size(); ++i) {
-                    var allowedTypes = description.arguments().get(i);
-                    var currentType = arguments.get(i).getType();
-                    if (!allowedTypes.contains(currentType)) {
-                        throw new RuntimeException("Argument type mistmatch");
-                    }
+                    throw new TokenExpectedException("Expected closing parenthesis after function arguments"); // FIXME
                 }
                 return new FunctionNode(functionName, arguments);
             }
@@ -154,6 +113,6 @@ public class ASTParser {
             consumeToken();
             return new BooleanNode(Boolean.parseBoolean(token.value));
         }
-        throw new RuntimeException("Unexpected token: " + token.value); // FIXME
+        throw new UnexpectedTokenException("Unexpected token: " + token.value);
     }
 }

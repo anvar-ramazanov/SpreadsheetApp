@@ -1,20 +1,20 @@
-package Formulas.AST.Nodes;
+package Formulas.Expressions.Nodes;
 
-import Formulas.AST.ASTNode;
+import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;
 
 import java.util.Map;
 
-public class UnaryOperationNode extends ASTNode {
+public class UnaryOperationNode extends ExpressionNode {
     private final String operator;
-    private final ASTNode operand;
+    private final ExpressionNode operand;
 
-    public UnaryOperationNode(String operator, ASTNode operand) {
+    public UnaryOperationNode(String operator, ExpressionNode operand) {
         this.operator = operator;
         this.operand = operand;
     }
 
-    public ASTNode getOperand() {
+    public ExpressionNode getOperand() {
         return operand;
     }
 

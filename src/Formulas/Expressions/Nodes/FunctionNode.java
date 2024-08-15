@@ -1,6 +1,6 @@
-package Formulas.AST.Nodes;
+package Formulas.Expressions.Nodes;
 
-import Formulas.AST.ASTNode;
+import Formulas.Expressions.ExpressionNode;
 import Formulas.Grammar;
 import Formulas.NodeType;
 
@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FunctionNode extends ASTNode {
+public class FunctionNode extends ExpressionNode {
     private final String functionName;
-    private final List<ASTNode> arguments;
+    private final List<ExpressionNode> arguments;
 
-    public FunctionNode(String functionName, List<ASTNode> arguments) {
+    public FunctionNode(String functionName, List<ExpressionNode> arguments) {
         this.functionName = functionName;
         this.arguments = arguments;
     }
@@ -21,14 +21,14 @@ public class FunctionNode extends ASTNode {
         return functionName;
     }
 
-    public List<ASTNode> getArguments() {
+    public List<ExpressionNode> getArguments() {
         return arguments;
     }
 
     @Override
     public Object evaluate(Map<String, Object> variables) {
         List<Object> evaluatedArgs = new ArrayList<>();
-        for (ASTNode arg : arguments) {
+        for (ExpressionNode arg : arguments) {
             evaluatedArgs.add(arg.evaluate(variables));
         }
 

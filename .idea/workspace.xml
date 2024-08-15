@@ -6,11 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Minor changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BinaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BinaryOperationNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/UnaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/UnaryOperationNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/VariableNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/AST/Nodes/VariableNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Grammar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Grammar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/NodeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/NodeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SpreadsheetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SpreadsheetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/ASTParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BinaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/BinaryOperationNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/BooleanNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/BooleanNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/FunctionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/FunctionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/NumberNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/NumberNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/UnaryOperationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/UnaryOperationNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Formulas/AST/Nodes/VariableNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/RefNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/AST/Parser/BinaryOperationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/BinaryOperationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/AST/Parser/FunctionsTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/FunctionsTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/AST/Parser/OperationsOrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/OperationsOrderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/AST/Parser/ParenthesisTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/ParenthesisTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Formulas/AST/Parser/UnaryOperatorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Parser/UnaryOperatorTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,14 +58,18 @@
     "JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator2.executor": "Run",
     "JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator_LeftOperandTypeMistmatch.executor": "Run",
     "JUnit.BinaryOperationTests.ASTParser_ParseBinaryOperator_TwoOperators.executor": "Run",
+    "JUnit.BinaryOperationTests.executor": "Run",
     "JUnit.Formulas.AST.Nodes in SpreadsheetApp.executor": "Run",
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_ArgumentsNumberMismatch.executor": "Run",
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_ArgumentsTypeMismatch.executor": "Run",
+    "JUnit.FunctionsTests.ASTParser_ParseFunctions_ForgottenComma.executor": "Run",
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_MixArgumentsType.executor": "Run",
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_ParseArguments.executor": "Run",
     "JUnit.FunctionsTests.ASTParser_ParseFunctions_ParseMinFunction.executor": "Run",
     "JUnit.OperationsOrderTest.ASTParser_Parse_CorrectOrderWithBinaryAndUnaryOperatorSameLevel.executor": "Run",
     "JUnit.OperationsOrderTest.ASTParser_Parse_CorrectOrderWithUnaryOperator.executor": "Run",
+    "JUnit.ParenthesisTests.ASTParser_ParseParenthesis_MissingClosingParenthesis.executor": "Run",
+    "JUnit.ParenthesisTests.ASTParser_ParseParenthesis_MissingOpenedParenthesis.executor": "Run",
     "JUnit.ParenthesisTests.executor": "Run",
     "JUnit.TokenizerHelpersTest.executor": "Run",
     "JUnit.TokenizerHelpersTest.isNumeric_EdgeCases.executor": "Run",
@@ -79,6 +92,7 @@
     "JUnit.TokenizerTest.test_unexpected_character.executor": "Run",
     "JUnit.TokenizerTest.test_unknown_function.executor": "Run",
     "JUnit.TokenizerTest.test_validate_variable.executor": "Debug",
+    "JUnit.UnaryOperatorTests (1).executor": "Run",
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_FunctionOperand.executor": "Run",
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_FunctionOperandTypeMismatch.executor": "Run",
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_InvalidOperandType.executor": "Run",
@@ -87,9 +101,10 @@
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_ValidVariable.executor": "Run",
     "JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_VariableOperand.executor": "Run",
     "JUnit.UnaryOperatorTests.executor": "Run",
-    "JUnit.test.Formulas in SpreadsheetApp.executor": "Run",
+    "JUnit.test.Formulas in SpreadsheetApp.executor": "Debug",
     "JUnit.test.Formulas.AST in SpreadsheetApp.executor": "Run",
     "JUnit.test.Formulas.AST.Parser in SpreadsheetApp.executor": "Run",
+    "JUnit.test.Formulas.Expressions.Parser in SpreadsheetApp.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -113,56 +128,63 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.test.Formulas in SpreadsheetApp">
-    <configuration name="All in SpreadsheetApp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpreadsheetApp" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FunctionsTests.ASTParser_ParseFunctions_MixArgumentsType" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BinaryOperationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.AST.Parser.*" />
+          <option name="PATTERN" value="test.Formulas.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.AST.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.AST.Parser.FunctionsTests" />
-      <option name="METHOD_NAME" value="ASTParser_ParseFunctions_MixArgumentsType" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UnaryOperatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpreadsheetApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.Formulas.AST.Parser.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.AST.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.AST.Parser.UnaryOperatorTests" />
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.BinaryOperationTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UnaryOperatorTests.ASTParser_ParseUnaryOperator_VariableOperand" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FunctionsTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="test.Formulas.AST.Parser.*" />
+          <option name="PATTERN" value="test.Formulas.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="test.Formulas.AST.Parser" />
-      <option name="MAIN_CLASS_NAME" value="test.Formulas.AST.Parser.UnaryOperatorTests" />
-      <option name="METHOD_NAME" value="ASTParser_ParseUnaryOperator_VariableOperand" />
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.FunctionsTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParenthesisTests.ASTParser_ParseParenthesis_MissingClosingParenthesis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.Expressions.Parser.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.ParenthesisTests" />
+      <option name="METHOD_NAME" value="ASTParser_ParseParenthesis_MissingClosingParenthesis" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParenthesisTests.ASTParser_ParseParenthesis_MissingOpenedParenthesis" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpreadsheetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.Formulas.Expressions.Parser.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.Formulas.Expressions.Parser" />
+      <option name="MAIN_CLASS_NAME" value="test.Formulas.Expressions.Parser.ParenthesisTests" />
+      <option name="METHOD_NAME" value="ASTParser_ParseParenthesis_MissingOpenedParenthesis" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -185,10 +207,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.test.Formulas in SpreadsheetApp" />
-        <item itemvalue="JUnit.All in SpreadsheetApp" />
-        <item itemvalue="JUnit.FunctionsTests.ASTParser_ParseFunctions_MixArgumentsType" />
-        <item itemvalue="JUnit.UnaryOperatorTests" />
-        <item itemvalue="JUnit.UnaryOperatorTests.ASTParser_ParseUnaryOperator_VariableOperand" />
+        <item itemvalue="JUnit.FunctionsTests" />
+        <item itemvalue="JUnit.ParenthesisTests.ASTParser_ParseParenthesis_MissingClosingParenthesis" />
+        <item itemvalue="JUnit.BinaryOperationTests" />
+        <item itemvalue="JUnit.ParenthesisTests.ASTParser_ParseParenthesis_MissingOpenedParenthesis" />
       </list>
     </recent_temporary>
   </component>
@@ -313,7 +335,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723641822697</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Minor changes">
+      <option name="closed" value="true" />
+      <created>1723668556415</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1723668556415</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -362,6 +392,20 @@
     <option name="LAST_COMMIT_MESSAGE" value="Minor changes" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeParser.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeParser.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Formulas.AST.Nodes.FloatNumberNode" memberName="value" />

@@ -1,9 +1,11 @@
-package test.Formulas.AST.Parser;
+package test.Formulas.Expressions.Parser;
 
-import Formulas.AST.ASTParser;
-import Formulas.AST.Nodes.BinaryOperationNode;
-import Formulas.AST.Nodes.NumberNode;
-import Formulas.AST.Nodes.UnaryOperationNode;
+import Formulas.Exceptions.Expressions.TokenExpectedException;
+import Formulas.Exceptions.Expressions.UnexpectedTokenException;
+import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Expressions.Nodes.BinaryOperationNode;
+import Formulas.Expressions.Nodes.NumberNode;
+import Formulas.Expressions.Nodes.UnaryOperationNode;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 import org.junit.Test;
@@ -23,7 +25,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         var result = parser.parse();
 
@@ -39,7 +41,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         var result = parser.parse();
 
@@ -54,7 +56,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         var result = parser.parse();
 
@@ -62,7 +64,7 @@ public class ParenthesisTests {
         assertTrue(result instanceof NumberNode);;
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenExpectedException.class)
     public void ASTParser_ParseParenthesis_MissingClosingParenthesis() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.PARENTHESIS, "("));
@@ -70,12 +72,12 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         parser.parse();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = UnexpectedTokenException.class)
     public void ASTParser_ParseParenthesis_MissingOpenedParenthesis() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.NUMBER, "2"));
@@ -83,7 +85,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, "("));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         parser.parse();
     }
@@ -94,7 +96,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.PARENTHESIS, "("));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         parser.parse();
     }

@@ -1,13 +1,12 @@
 package Controller;
 
-import Formulas.AST.ASTParser;
+import Formulas.Expressions.ExpressionTreeParser;
 import Formulas.Tokens.Tokenizer;
 import Models.SpreadsheetModel;
 import Views.SpreadsheetView;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import java.util.HashMap;
 
 public class SpreadsheetController {
     private final SpreadsheetModel model;
@@ -35,7 +34,7 @@ public class SpreadsheetController {
                     if (newDataStr.charAt(0) == '=')  {
                         var tokenizer = new Tokenizer();
                         var tokens = tokenizer.tokenize(newDataStr.substring(1));
-                        var formulaAst = new ASTParser(tokens);
+                        var formulaAst = new ExpressionTreeParser(tokens);
                         var node = formulaAst.parse();
                         var val = node.evaluate(model.getVariables());
                         model.setShowValueAt(val, row, column);

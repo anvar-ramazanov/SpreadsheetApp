@@ -1,11 +1,11 @@
-package Formulas.AST.Nodes;
+package Formulas.Expressions.Nodes;
 
-import Formulas.AST.ASTNode;
+import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;
 
 import java.util.Map;
 
-public class BooleanNode extends ASTNode {
+public class BooleanNode extends ExpressionNode {
     boolean value;
 
     public BooleanNode(boolean value) {

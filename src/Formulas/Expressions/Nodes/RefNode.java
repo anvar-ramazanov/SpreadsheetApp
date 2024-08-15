@@ -1,20 +1,20 @@
-package Formulas.AST.Nodes;
+package Formulas.Expressions.Nodes;
 
-import Formulas.AST.ASTNode;
+import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;
 
 import java.util.Map;
 
-public class VariableNode extends ASTNode {
+public class RefNode extends ExpressionNode {
     private final String name;
     private final NodeType nodeType;
 
-    public VariableNode(String name) {
+    public RefNode(String name) {
         this.name = name;
         this.nodeType = NodeType.NUMBER;
     }
 
-    public VariableNode(String name, NodeType nodeType) {
+    public RefNode(String name, NodeType nodeType) {
         this.name = name;
         this.nodeType = nodeType;
     }

@@ -1,11 +1,11 @@
-package Formulas.AST.Nodes;
+package Formulas.Expressions.Nodes;
 
-import Formulas.AST.ASTNode;
+import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;
 
 import java.util.Map;
 
-public class NumberNode extends ASTNode {
+public class NumberNode extends ExpressionNode {
     double value;
 
     public NumberNode(double value) {

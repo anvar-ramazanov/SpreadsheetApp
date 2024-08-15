@@ -1,26 +1,26 @@
-package Formulas.AST.Nodes;
+package Formulas.Expressions.Nodes;
 
-import Formulas.AST.ASTNode;
+import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;
 
 import java.util.Map;
 
-public class BinaryOperationNode extends ASTNode {
-    private final ASTNode left;
+public class BinaryOperationNode extends ExpressionNode {
+    private final ExpressionNode left;
     private final String operator;
-    private final ASTNode right;
+    private final ExpressionNode right;
 
-    public BinaryOperationNode(ASTNode left, String operator, ASTNode right) {
+    public BinaryOperationNode(ExpressionNode left, String operator, ExpressionNode right) {
         this.left = left;
         this.operator = operator;
         this.right = right;
     }
 
-    public ASTNode getLeft() {
+    public ExpressionNode getLeft() {
         return left;
     }
 
-    public ASTNode getRight() {
+    public ExpressionNode getRight() {
         return right;
     }
 

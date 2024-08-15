@@ -1,10 +1,10 @@
-package test.Formulas.AST.Parser;
+package test.Formulas.Expressions.Parser;
 
-import Formulas.AST.ASTParser;
+import Formulas.Expressions.ExpressionTreeParser;
 
-import Formulas.AST.Nodes.BinaryOperationNode;
-import Formulas.AST.Nodes.NumberNode;
-import Formulas.AST.Nodes.UnaryOperationNode;
+import Formulas.Expressions.Nodes.BinaryOperationNode;
+import Formulas.Expressions.Nodes.NumberNode;
+import Formulas.Expressions.Nodes.UnaryOperationNode;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class OperationsOrderTest {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         var result = parser.parse();
 
@@ -54,7 +54,7 @@ public class OperationsOrderTest {
         tokens.add(new Token(TokenType.OPERATOR, "*"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         var result = parser.parse();
 
@@ -76,7 +76,7 @@ public class OperationsOrderTest {
         tokens.add(new Token(TokenType.OPERATOR, "-"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ASTParser(tokens);
+        var parser = new ExpressionTreeParser(tokens);
 
         var result = parser.parse();
 
