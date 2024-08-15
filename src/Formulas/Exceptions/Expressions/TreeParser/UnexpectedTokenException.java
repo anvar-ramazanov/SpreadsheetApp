@@ -1,4 +1,4 @@
-package Formulas.Exceptions.Expressions;
+package Formulas.Exceptions.Expressions.TreeParser;
 
 public class UnexpectedTokenException extends RuntimeException {
 

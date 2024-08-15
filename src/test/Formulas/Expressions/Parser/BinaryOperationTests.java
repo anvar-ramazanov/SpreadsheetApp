@@ -1,6 +1,6 @@
 package test.Formulas.Expressions.Parser;
 
-import Formulas.Exceptions.Expressions.UnexpectedTokenException;
+import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
 import Formulas.Expressions.ExpressionTreeParser;
 import Formulas.Expressions.Nodes.BinaryOperationNode;
 import Formulas.Tokens.Token;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class BinaryOperationTests {
     @Test
-    public void ASTParser_ParseBinaryOperator() {
+    public void ExpressionParser_ParseBinaryOperator_Plus() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.NUMBER, "1"));
         tokens.add(new Token(TokenType.OPERATOR, "+"));
@@ -28,39 +28,125 @@ public class BinaryOperationTests {
         assertTrue(result instanceof BinaryOperationNode);
 
         var binaryOperationNode = (BinaryOperationNode)result;
-        var left = binaryOperationNode.getLeft();
-        var right = binaryOperationNode.getRight();
+        var left = binaryOperationNode.getLeftOperand();
+        var right = binaryOperationNode.getRightOperand();
 
         assertNotEquals(null, left);
         assertNotEquals(null, right);
     }
 
-//    @Test(expected = RuntimeException.class)
-//    public void ASTParser_ParseBinaryOperator_RightOperandTypeMismatch() {
-//        var tokens = new ArrayList<Token>();
-//        tokens.add(new Token(TokenType.NUMBER, "1"));
-//        tokens.add(new Token(TokenType.OPERATOR, "+"));
-//        tokens.add(new Token(TokenType.BOOL, "FALSE"));
-//
-//        var parser = new ExpressionTreeParser(tokens);
-//
-//        parser.parse();
-//    }
+    @Test
+    public void ExpressionParser_ParseBinaryOperator_Minus() {
+        var tokens = new ArrayList<Token>();
+        tokens.add(new Token(TokenType.NUMBER, "1"));
+        tokens.add(new Token(TokenType.OPERATOR, "-"));
+        tokens.add(new Token(TokenType.NUMBER, "2"));
 
-//    @Test(expected = RuntimeException.class)
-//    public void ASTParser_ParseBinaryOperator_LeftOperandTypeMismatch() {
-//        var tokens = new ArrayList<Token>();
-//        tokens.add(new Token(TokenType.BOOL, "FALSE"));
-//        tokens.add(new Token(TokenType.OPERATOR, "+"));
-//        tokens.add(new Token(TokenType.NUMBER, "1"));
-//
-//        var parser = new ExpressionTreeParser(tokens);
-//
-//        parser.parse();
-//    }
+        var parser = new ExpressionTreeParser(tokens);
+
+        var result = parser.parse();
+
+        assertNotEquals(null, result);
+        assertTrue(result instanceof BinaryOperationNode);
+
+        var binaryOperationNode = (BinaryOperationNode)result;
+        var left = binaryOperationNode.getLeftOperand();
+        var right = binaryOperationNode.getRightOperand();
+
+        assertNotEquals(null, left);
+        assertNotEquals(null, right);
+    }
+
+    @Test
+    public void ExpressionParser_ParseBinaryOperator_Divide() {
+        var tokens = new ArrayList<Token>();
+        tokens.add(new Token(TokenType.NUMBER, "1"));
+        tokens.add(new Token(TokenType.OPERATOR, "/"));
+        tokens.add(new Token(TokenType.NUMBER, "2"));
+
+        var parser = new ExpressionTreeParser(tokens);
+
+        var result = parser.parse();
+
+        assertNotEquals(null, result);
+        assertTrue(result instanceof BinaryOperationNode);
+
+        var binaryOperationNode = (BinaryOperationNode)result;
+        var left = binaryOperationNode.getLeftOperand();
+        var right = binaryOperationNode.getRightOperand();
+
+        assertNotEquals(null, left);
+        assertNotEquals(null, right);
+    }
+
+    @Test
+    public void ExpressionParser_ParseBinaryOperator_Multiply() {
+        var tokens = new ArrayList<Token>();
+        tokens.add(new Token(TokenType.NUMBER, "1"));
+        tokens.add(new Token(TokenType.OPERATOR, "*"));
+        tokens.add(new Token(TokenType.NUMBER, "2"));
+
+        var parser = new ExpressionTreeParser(tokens);
+
+        var result = parser.parse();
+
+        assertNotEquals(null, result);
+        assertTrue(result instanceof BinaryOperationNode);
+
+        var binaryOperationNode = (BinaryOperationNode)result;
+        var left = binaryOperationNode.getLeftOperand();
+        var right = binaryOperationNode.getRightOperand();
+
+        assertNotEquals(null, left);
+        assertNotEquals(null, right);
+    }
+
+    @Test
+    public void ExpressionParser_ParseBinaryOperator_More() {
+        var tokens = new ArrayList<Token>();
+        tokens.add(new Token(TokenType.NUMBER, "1"));
+        tokens.add(new Token(TokenType.OPERATOR, ">"));
+        tokens.add(new Token(TokenType.NUMBER, "2"));
+
+        var parser = new ExpressionTreeParser(tokens);
+
+        var result = parser.parse();
+
+        assertNotEquals(null, result);
+        assertTrue(result instanceof BinaryOperationNode);
+
+        var binaryOperationNode = (BinaryOperationNode)result;
+        var left = binaryOperationNode.getLeftOperand();
+        var right = binaryOperationNode.getRightOperand();
+
+        assertNotEquals(null, left);
+        assertNotEquals(null, right);
+    }
+
+    @Test
+    public void ExpressionParser_ParseBinaryOperator_Less() {
+        var tokens = new ArrayList<Token>();
+        tokens.add(new Token(TokenType.NUMBER, "1"));
+        tokens.add(new Token(TokenType.OPERATOR, ">"));
+        tokens.add(new Token(TokenType.NUMBER, "2"));
+
+        var parser = new ExpressionTreeParser(tokens);
+
+        var result = parser.parse();
+
+        assertNotEquals(null, result);
+        assertTrue(result instanceof BinaryOperationNode);
+
+        var binaryOperationNode = (BinaryOperationNode)result;
+        var left = binaryOperationNode.getLeftOperand();
+        var right = binaryOperationNode.getRightOperand();
+
+        assertNotEquals(null, left);
+        assertNotEquals(null, right);
+    }
 
     @Test(expected = UnexpectedTokenException.class)
-    public void ASTParser_ParseBinaryOperator_TwoOperators() {
+    public void ExpressionParser_ParseBinaryOperator_TwoOperators() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.NUMBER, "1"));
         tokens.add(new Token(TokenType.OPERATOR, "+"));

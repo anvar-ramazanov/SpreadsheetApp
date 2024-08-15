@@ -6,28 +6,39 @@ import Formulas.NodeType;
 import java.util.Map;
 
 public class BinaryOperationNode extends ExpressionNode {
-    private final ExpressionNode left;
+    private final ExpressionNode leftOperand;
     private final String operator;
-    private final ExpressionNode right;
+    private final ExpressionNode rightOperand;
+    private final NodeType resultType;
 
-    public BinaryOperationNode(ExpressionNode left, String operator, ExpressionNode right) {
-        this.left = left;
+    public BinaryOperationNode(String operator, ExpressionNode leftOperand,  ExpressionNode rightOperand, NodeType resultType) {
         this.operator = operator;
-        this.right = right;
+        this.leftOperand = leftOperand;
+        this.rightOperand = rightOperand;
+        this.resultType = resultType;
     }
 
-    public ExpressionNode getLeft() {
-        return left;
+    public String getOperator() {
+        return operator;
     }
 
-    public ExpressionNode getRight() {
-        return right;
+    public ExpressionNode getLeftOperand() {
+        return leftOperand;
+    }
+
+    public ExpressionNode getRightOperand() {
+        return rightOperand;
+    }
+
+    @Override
+    public NodeType getType() {
+        return resultType;
     }
 
     @Override
     public Object evaluate(Map<String, Object> variables) {
-        Object leftValue = left.evaluate(variables);
-        Object rightValue = right.evaluate(variables);
+        Object leftValue = leftOperand.evaluate(variables);
+        Object rightValue = rightOperand.evaluate(variables);
 
         switch (operator) {
             case "+": {
@@ -44,10 +55,5 @@ public class BinaryOperationNode extends ExpressionNode {
             default:
                 throw new RuntimeException("Unknown operator: " + operator);
         }
-    }
-
-    @Override
-    public NodeType getType() {
-        return NodeType.NUMBER; // FIXME
     }
 }

@@ -18,6 +18,10 @@ public class UnaryOperationNode extends ExpressionNode {
         return operand;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
     @Override
     public Object evaluate(Map<String, Object> variables) {
         Object operandValue = operand.evaluate(variables);

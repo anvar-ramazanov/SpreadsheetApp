@@ -1,6 +1,4 @@
 package Formulas;
 
-import java.util.Set;
-
-public record BinaryOperatorDescription(Set<NodeType> leftOperand, Set<NodeType> rightOperand) {
+public record BinaryOperatorDescription(NodeType leftOperandType, NodeType rightOperandType, NodeType resultType) {
 }

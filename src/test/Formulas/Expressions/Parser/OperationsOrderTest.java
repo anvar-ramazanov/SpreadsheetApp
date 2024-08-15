@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class OperationsOrderTest {
     @Test
-    public void ASTParser_Parse_CorrectOrderWithBinaryOperatorAndParenthesis() {
+    public void ExpressionParser_Parse_CorrectOrderWithBinaryOperatorAndParenthesis() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.OPERATOR, "*"));
@@ -34,20 +34,20 @@ public class OperationsOrderTest {
         assertTrue(result instanceof BinaryOperationNode);
 
         var multiplyNode = (BinaryOperationNode)result;
-        assertNotEquals(null, multiplyNode.getLeft());
-        assertTrue( multiplyNode.getLeft() instanceof NumberNode);
-        assertNotEquals(null, multiplyNode.getRight());
-        assertTrue( multiplyNode.getRight() instanceof BinaryOperationNode);
+        assertNotEquals(null, multiplyNode.getLeftOperand());
+        assertTrue( multiplyNode.getLeftOperand() instanceof NumberNode);
+        assertNotEquals(null, multiplyNode.getRightOperand());
+        assertTrue( multiplyNode.getRightOperand() instanceof BinaryOperationNode);
 
-        var addNode = (BinaryOperationNode) multiplyNode.getRight();
-        assertNotEquals(null, addNode.getLeft());
-        assertTrue( addNode.getLeft() instanceof NumberNode);
-        assertNotEquals(null, addNode.getRight());
-        assertTrue( addNode.getRight() instanceof NumberNode);
+        var addNode = (BinaryOperationNode) multiplyNode.getRightOperand();
+        assertNotEquals(null, addNode.getLeftOperand());
+        assertTrue( addNode.getLeftOperand() instanceof NumberNode);
+        assertNotEquals(null, addNode.getRightOperand());
+        assertTrue( addNode.getRightOperand() instanceof NumberNode);
     }
 
     @Test
-    public void ASTParser_Parse_CorrectOrderWithBinaryAndUnaryOperator() {
+    public void ExpressionParser_Parse_CorrectOrderWithBinaryAndUnaryOperator() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.OPERATOR, "-"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
@@ -62,14 +62,14 @@ public class OperationsOrderTest {
         assertTrue(result instanceof BinaryOperationNode);
 
         var multiplyNode = (BinaryOperationNode)result;
-        assertNotEquals(null, multiplyNode.getLeft());
-        assertTrue( multiplyNode.getLeft() instanceof UnaryOperationNode);
-        assertNotEquals(null, multiplyNode.getRight());
-        assertTrue( multiplyNode.getRight() instanceof NumberNode);
+        assertNotEquals(null, multiplyNode.getLeftOperand());
+        assertTrue( multiplyNode.getLeftOperand() instanceof UnaryOperationNode);
+        assertNotEquals(null, multiplyNode.getRightOperand());
+        assertTrue( multiplyNode.getRightOperand() instanceof NumberNode);
     }
 
     @Test
-    public void ASTParser_Parse_CorrectOrderWithBinaryAndUnaryOperatorSameLevel() {
+    public void ExpressionParser_Parse_CorrectOrderWithBinaryAndUnaryOperatorSameLevel() {
         var tokens = new ArrayList<Token>();
         tokens.add(new Token(TokenType.OPERATOR, "-"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
@@ -84,10 +84,10 @@ public class OperationsOrderTest {
         assertTrue(result instanceof BinaryOperationNode);
 
         var subtractNode = (BinaryOperationNode)result;
-        assertNotEquals(null, subtractNode.getLeft());
-        assertTrue( subtractNode.getLeft() instanceof UnaryOperationNode);
-        assertNotEquals(null, subtractNode.getRight());
-        assertTrue( subtractNode.getRight() instanceof NumberNode);
+        assertNotEquals(null, subtractNode.getLeftOperand());
+        assertTrue( subtractNode.getLeftOperand() instanceof UnaryOperationNode);
+        assertNotEquals(null, subtractNode.getRightOperand());
+        assertTrue( subtractNode.getRightOperand() instanceof NumberNode);
     }
 
 

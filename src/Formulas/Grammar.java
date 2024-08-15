@@ -18,12 +18,12 @@ public class Grammar {
     );
 
     public static final Map<String, BinaryOperatorDescription> BinaryOperations = Map.of(
-            "+", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
-            "-", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
-            "*", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
-            "/", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
-            ">", new BinaryOperatorDescription(numberOrDerives, numberOrDerives),
-            "<", new BinaryOperatorDescription(numberOrDerives, numberOrDerives)
+            "+", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
+            "-", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
+            "*", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
+            "/", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
+            ">", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.BOOLEAN),
+            "<", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.BOOLEAN)
 
     );
 

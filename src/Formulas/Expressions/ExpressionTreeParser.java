@@ -1,9 +1,10 @@
 package Formulas.Expressions;
 
-import Formulas.Exceptions.Expressions.TokenExpectedException;
-import Formulas.Exceptions.Expressions.UnexpectedTokenException;
+import Formulas.Exceptions.Expressions.TreeParser.TokenExpectedException;
+import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
 import Formulas.Expressions.Nodes.*;
 import Formulas.Grammar;
+import Formulas.NodeType;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
@@ -43,10 +44,11 @@ public class ExpressionTreeParser {
     private ExpressionNode parseExpression() {
         ExpressionNode node = parseTerm();
         Token currentToken = currentToken();
-        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-"))) {
+        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-")  || currentToken.value.equals(">") || currentToken.value.equals("<"))) { // FIXME
             String operator = consumeToken().value;
             ExpressionNode right = parseTerm();
-            node = new BinaryOperationNode(node, operator, right);
+            NodeType resultType = Grammar.BinaryOperations.get(operator).resultType();
+            node = new BinaryOperationNode(operator, node, right, resultType);
             currentToken = currentToken();
         }
         return node;
@@ -58,7 +60,8 @@ public class ExpressionTreeParser {
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") || currentToken.value.equals("/"))) {
             String operator = consumeToken().value;
             ExpressionNode right = parseFactor();
-            node = new BinaryOperationNode(node, operator, right);
+            NodeType resultType = Grammar.BinaryOperations.get(operator).resultType();
+            node = new BinaryOperationNode(operator, node, right, resultType);
             currentToken = currentToken();
         }
         return node;
@@ -100,6 +103,8 @@ public class ExpressionTreeParser {
                     arguments.add(parseExpression());
                     if (currentToken() != null && currentToken().type == TokenType.COMMA) {
                         consumeToken();
+                    } else if (currentToken() != null && currentToken().type != TokenType.PARENTHESIS){
+                        throw new UnexpectedTokenException("Expected comma");
                     }
                 }
                 if (currentToken() != null && currentToken().value.equals(")")) {
