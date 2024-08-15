@@ -98,14 +98,14 @@ public class ExpressionTreeParser {
                 List<ExpressionNode> arguments = new ArrayList<>();
                 while (currentToken() != null && !currentToken().value.equals(")")) {
                     arguments.add(parseExpression());
-                    if (currentToken().type == TokenType.COMMA) {
+                    if (currentToken() != null && currentToken().type == TokenType.COMMA) {
                         consumeToken();
                     }
                 }
-                if (currentToken().value.equals(")")) {
+                if (currentToken() != null && currentToken().value.equals(")")) {
                     consumeToken();
                 } else {
-                    throw new TokenExpectedException("Expected closing parenthesis after function arguments"); // FIXME
+                    throw new TokenExpectedException("Expected closing parenthesis after function arguments");
                 }
                 return new FunctionNode(functionName, arguments);
             }
