@@ -75,7 +75,7 @@ public class UnaryOperationTests {
 
     @Test
     public void ASTParser_ParseUnaryOperator_VariableOperand() {
-        var node1 = new UnaryOperationNode("-",  new RefNode("A2"));
+        var node1 = new UnaryOperationNode("-",  new ReferencesNode("A2"));
         var node2 = new NumberNode(5);
         var nodes = Map.of(
                 "A1", node1,

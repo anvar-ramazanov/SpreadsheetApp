@@ -24,13 +24,15 @@ public class ExpressionTreeAnalyzer {
             nodeType = AnalyzeBinaryOperationNode(binaryOperationNode, nodes, visitedNodes);
         } else if (node instanceof FunctionNode functionNode) {
             nodeType = AnalyzeFunctionNode(functionNode, nodes, visitedNodes);
-        } else if (node instanceof RefNode refNode) {
+        } else if (node instanceof ReferencesNode refNode) {
             nodeType = AnalyzeRefNode(refNode, nodes, visitedNodes);
         } else if (node instanceof NumberNode)  {
             nodeType = NodeType.NUMBER;
         } else if (node instanceof BooleanNode) {
             nodeType = NodeType.BOOLEAN;
-        } // else if (node instanceof StringNode) {
+        } else if (node instanceof StringNode) {
+            nodeType = NodeType.STRING;
+        }
         return nodeType;
     }
 
@@ -88,7 +90,7 @@ public class ExpressionTreeAnalyzer {
         return Grammar.FunctionsDescription.get(functionName).resultType();
     }
 
-    private NodeType AnalyzeRefNode(RefNode node, Map<String, ExpressionNode> nodes,  HashSet<ExpressionNode> visitedNodes) {
+    private NodeType AnalyzeRefNode(ReferencesNode node, Map<String, ExpressionNode> nodes, HashSet<ExpressionNode> visitedNodes) {
         var nextNodeName = node.getName();
         if (!nodes.containsKey(nextNodeName)) {
             throw new InvalidReferenceException("Node " + nextNodeName + " doesn't exist");

@@ -83,7 +83,7 @@ public class ExpressionTreeParser {
             return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
             consumeToken();
-            return new RefNode(token.value);
+            return new ReferencesNode(token.value);
         } else if (token.type == TokenType.PARENTHESIS && token.value.equals("(")) {
             consumeToken();
             ExpressionNode node = parseExpression();

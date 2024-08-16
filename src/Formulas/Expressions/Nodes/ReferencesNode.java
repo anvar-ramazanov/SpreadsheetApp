@@ -5,11 +5,11 @@ import Formulas.NodeType;
 
 import java.util.Map;
 
-public class RefNode extends ExpressionNode {
+public class ReferencesNode extends ExpressionNode {
     private final String name;
     private NodeType nodeType;
 
-    public RefNode(String name) {
+    public ReferencesNode(String name) {
         this.name = name;
     }
 
