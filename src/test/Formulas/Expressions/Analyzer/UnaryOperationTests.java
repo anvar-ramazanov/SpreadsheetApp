@@ -73,22 +73,17 @@ public class UnaryOperationTests {
     }
 
 
-    //    @Test
-//    public void ASTParser_ParseUnaryOperator_VariableOperand() {
-//        var tokens = new ArrayList<Token>();
-//        tokens.add(new Token(TokenType.OPERATOR, "-"));
-//        tokens.add(new Token(TokenType.VARIABLE, "A2"));
-//
-//        var parser = new ExpressionTreeParser(tokens, Map.of("A2", new NumberNode(2)));
-//
-//        var result = parser.parse();
-//
-//        assertNotEquals(null, result);
-//        assertTrue(result instanceof UnaryOperationNode);
-//
-//        var unaryOperationNode = (UnaryOperationNode)result;
-//        var operand = unaryOperationNode.getOperand();
-//
-//        assertNotEquals(null, operand);
-//    }
+    @Test
+    public void ASTParser_ParseUnaryOperator_VariableOperand() {
+        var node1 = new UnaryOperationNode("-",  new RefNode("A2"));
+        var node2 = new NumberNode(5);
+        var nodes = Map.of(
+                "A1", node1,
+                "A2", node2
+        );
+
+        var analyzer = new ExpressionTreeAnalyzer();
+
+        analyzer.AnalyzeExpressionTree(nodes, "A1");
+    }
 }

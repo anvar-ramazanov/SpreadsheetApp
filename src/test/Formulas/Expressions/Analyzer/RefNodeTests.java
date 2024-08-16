@@ -1,12 +1,10 @@
 package test.Formulas.Expressions.Analyzer;
 
+import Formulas.Exceptions.Expressions.TreeAnalyzer.CircularDependencyException;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.InvalidReferenceException;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
-import Formulas.Expressions.Nodes.BooleanNode;
-import Formulas.Expressions.Nodes.FunctionNode;
-import Formulas.Expressions.Nodes.NumberNode;
-import Formulas.Expressions.Nodes.RefNode;
+import Formulas.Expressions.Nodes.*;
 import Formulas.NodeType;
 import org.junit.Test;
 
@@ -72,6 +70,61 @@ public class RefNodeTests {
         var node1 = new RefNode("A2");
         var nodes = Map.of(
                 "A1", (ExpressionNode)node1
+        );
+
+        var analyzer = new ExpressionTreeAnalyzer();
+
+        analyzer.AnalyzeExpressionTree(nodes, "A1");
+    }
+
+    @Test(expected = CircularDependencyException.class)
+    public void ExpressionAnalyzer_AnalyzeExpressionTree_Refs_CircularDependency() {
+        var node1 = new RefNode("A2");
+        var node2 = new RefNode("A3");
+        var node3 = new RefNode("A1");
+        var nodes = Map.of(
+                "A1", (ExpressionNode)node1,
+                "A2", node2,
+                "A3", node3
+        );
+
+        var analyzer = new ExpressionTreeAnalyzer();
+
+        analyzer.AnalyzeExpressionTree(nodes, "A1");
+    }
+
+    @Test(expected = CircularDependencyException.class)
+    public void ExpressionAnalyzer_AnalyzeExpressionTree_Refs_CircularDependencyLongChain() {
+        var node_b1 = new BinaryOperationNode("/", new RefNode("C1"), new RefNode("A1"));
+        var node_c1 = new BinaryOperationNode("+", new RefNode("E1"), new RefNode("G1"));
+        var node_d1 = new NumberNode(1);
+        var node_e1 = new BinaryOperationNode("*", new RefNode("D1"), new RefNode("B1"));
+        var node_f1 = new NumberNode(2);
+        var node_g1 = new BinaryOperationNode("*", new RefNode("F1"), new RefNode("B1"));
+
+        var nodes = Map.of(
+                "B1", node_b1,
+                "C1", node_c1,
+                "D1", node_d1,
+                "E1", node_e1,
+                "F1", node_f1,
+                "G1", node_g1
+        );
+
+        var analyzer = new ExpressionTreeAnalyzer();
+
+        analyzer.AnalyzeExpressionTree(nodes, "B1");
+    }
+
+    @Test
+    public void ExpressionAnalyzer_AnalyzeExpressionTree_Refs_TwoLinksOnLevel() {
+        var node1 = new RefNode("A2");
+        var node2 = new BinaryOperationNode("+", new RefNode("A3"), new RefNode("A3"));
+        var node3 = new NumberNode(5);
+        var nodes = Map.of(
+                "A1", node1,
+                "A2", node2,
+                "A3", node3
         );
 
         var analyzer = new ExpressionTreeAnalyzer();
