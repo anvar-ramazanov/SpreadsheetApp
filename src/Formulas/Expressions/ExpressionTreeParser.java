@@ -48,7 +48,7 @@ public class ExpressionTreeParser {
             String operator = consumeToken().value;
             ExpressionNode right = parseTerm();
             NodeType resultType = Grammar.BinaryOperations.get(operator).resultType();
-            node = new BinaryOperationNode(operator, node, right, resultType);
+            node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }
         return node;
@@ -61,7 +61,7 @@ public class ExpressionTreeParser {
             String operator = consumeToken().value;
             ExpressionNode right = parseFactor();
             NodeType resultType = Grammar.BinaryOperations.get(operator).resultType();
-            node = new BinaryOperationNode(operator, node, right, resultType);
+            node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }
         return node;

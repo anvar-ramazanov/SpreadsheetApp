@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added more tests">
+    <list default="true" id="7f69b1f3-77dc-4875-bfc9-a3db994d4ae6" name="Changes" comment="Added analyzer for ref nodes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/ExpressionTreeAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/RefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Formulas/Expressions/Nodes/RefNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/BinaryOperationNodeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/BinaryOperationNodeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/FunctionNodeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/FunctionNodeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/UnaryOperationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Formulas/Expressions/Analyzer/UnaryOperationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +82,7 @@
     "JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_InvalidJump.executor": "Run",
     "JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidJump.executor": "Run",
     "JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumps.executor": "Run",
+    "JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumpsWithFormula.executor": "Run",
     "JUnit.TokenizerHelpersTest.executor": "Run",
     "JUnit.TokenizerHelpersTest.isNumeric_EdgeCases.executor": "Run",
     "JUnit.TokenizerHelpersTest.isNumeric_InvalidNumbers.executor": "Run",
@@ -149,7 +145,7 @@
       <recent name="Formulas.AST.Nodes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumpsWithFormula">
+  <component name="RunManager" selected="JUnit.test.Formulas in SpreadsheetApp">
     <configuration name="RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_InvalidJump" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpreadsheetApp" />
       <extension name="coverage">
@@ -230,9 +226,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.test.Formulas in SpreadsheetApp" />
         <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumpsWithFormula" />
         <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidTwoJumps" />
-        <item itemvalue="JUnit.test.Formulas in SpreadsheetApp" />
         <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_ValidJump" />
         <item itemvalue="JUnit.RefNodeTests.ExpressionAnalyzer_AnalyzeExpressionTree_Refs_InvalidJump" />
       </list>
@@ -399,7 +395,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723758660735</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added analyzer for ref nodes">
+      <option name="closed" value="true" />
+      <created>1723761412796</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1723761412797</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -449,7 +453,8 @@
     <MESSAGE value="Fixed a bug with parsing functions" />
     <MESSAGE value="Added analyzing unary operation, binary operation and functions" />
     <MESSAGE value="Added more tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added more tests" />
+    <MESSAGE value="Added analyzer for ref nodes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added analyzer for ref nodes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

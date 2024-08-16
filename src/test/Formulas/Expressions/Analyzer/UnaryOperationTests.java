@@ -4,7 +4,6 @@ import Formulas.Exceptions.Expressions.TreeAnalyzer.OperandTypeMismatchException
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.Nodes.*;
-import Formulas.NodeType;
 import org.junit.Test;
 
 import java.util.List;
@@ -55,7 +54,7 @@ public class UnaryOperationTests {
 
     @Test(expected = OperandTypeMismatchException.class)
     public void ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_InvalidNestedBinaryOperation() {
-        var node = new UnaryOperationNode("!",  new BinaryOperationNode("+", new NumberNode(2), new NumberNode(3), NodeType.NUMBER));
+        var node = new UnaryOperationNode("!",  new BinaryOperationNode("+", new NumberNode(2), new NumberNode(3)));
         var nodes = Map.of("A1", (ExpressionNode)node);
 
         var analyzer = new ExpressionTreeAnalyzer();
@@ -65,7 +64,7 @@ public class UnaryOperationTests {
 
     @Test
     public void ExpressionAnalyzer_AnalyzeExpressionTree_UnaryOperation_ValidNestedBinaryOperation() {
-        var node = new UnaryOperationNode("!",  new BinaryOperationNode(">", new NumberNode(2), new NumberNode(3), NodeType.BOOLEAN));
+        var node = new UnaryOperationNode("!",  new BinaryOperationNode(">", new NumberNode(2), new NumberNode(3)));
         var nodes = Map.of("A1", (ExpressionNode)node);
 
         var analyzer = new ExpressionTreeAnalyzer();
