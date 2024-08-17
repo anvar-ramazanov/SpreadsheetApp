@@ -2,13 +2,13 @@ package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Grammar;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 public class BinaryOperationNode extends ExpressionNode {
     private final String operator;
     private final ExpressionNode leftOperand;
     private final ExpressionNode rightOperand;
-    private final NodeType resultType;
+    private final DataType resultType;
 
     public BinaryOperationNode(String operator, ExpressionNode leftOperand,  ExpressionNode rightOperand) {
         this.operator = operator;
@@ -18,7 +18,7 @@ public class BinaryOperationNode extends ExpressionNode {
     }
 
     @Override
-    public NodeType getType() {
+    public DataType getType() {
         return resultType;
     }
 

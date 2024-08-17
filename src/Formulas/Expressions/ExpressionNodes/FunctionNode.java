@@ -2,7 +2,7 @@ package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Grammar;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class FunctionNode extends ExpressionNode {
     }
 
     @Override
-    public NodeType getType() {
+    public DataType getType() {
         return Grammar.FunctionsDescription.get(this.functionName).resultType();
     }
 

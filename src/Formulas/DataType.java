@@ -1,6 +1,6 @@
 package Formulas;
 
-public enum NodeType {
+public enum DataType {
     NUMBER,
     BOOLEAN,
     STRING

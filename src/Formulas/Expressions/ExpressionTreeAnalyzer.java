@@ -3,7 +3,7 @@ package Formulas.Expressions;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.*;
 import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Grammar;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -16,8 +16,8 @@ public class ExpressionTreeAnalyzer {
         AnalyzeNode(context.get(nodeToStart), context, visitedNodes);
     }
 
-    private NodeType AnalyzeNode(ExpressionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
-        NodeType nodeType = null;
+    private DataType AnalyzeNode(ExpressionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+        DataType nodeType = null;
         if (node instanceof UnaryOperationNode unaryOperationNode) {
             nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, context, visitedNodes);
         } else if (node instanceof BinaryOperationNode binaryOperationNode) {
@@ -27,16 +27,16 @@ public class ExpressionTreeAnalyzer {
         } else if (node instanceof ReferencesNode refNode) {
             nodeType = AnalyzeRefNode(refNode, context, visitedNodes);
         } else if (node instanceof NumberNode)  {
-            nodeType = NodeType.NUMBER;
+            nodeType = DataType.NUMBER;
         } else if (node instanceof BooleanNode) {
-            nodeType = NodeType.BOOLEAN;
+            nodeType = DataType.BOOLEAN;
         } else if (node instanceof StringNode) {
-            nodeType = NodeType.STRING;
+            nodeType = DataType.STRING;
         }
         return nodeType;
     }
 
-    private NodeType AnalyzeUnaryOperationNode(UnaryOperationNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeUnaryOperationNode(UnaryOperationNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var operator = node.getOperator();
         var operand = node.getOperand();
 
@@ -49,7 +49,7 @@ public class ExpressionTreeAnalyzer {
         return Grammar.UnaryOperations.get(node.getOperator()).resultType();
     }
 
-    private NodeType AnalyzeBinaryOperationNode(BinaryOperationNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var operator = node.getOperator();
         var leftOperand = node.getLeftOperand();
         var rightOperand = node.getRightOperand();
@@ -68,7 +68,7 @@ public class ExpressionTreeAnalyzer {
         return Grammar.BinaryOperations.get(operator).resultType();
     }
 
-    private NodeType AnalyzeFunctionNode(FunctionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeFunctionNode(FunctionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var functionName = node.getFunctionName();
         var arguments = node.getArguments();
         var description = Grammar.FunctionsDescription.get(functionName);
@@ -90,7 +90,7 @@ public class ExpressionTreeAnalyzer {
         return Grammar.FunctionsDescription.get(functionName).resultType();
     }
 
-    private NodeType AnalyzeRefNode(ReferencesNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeRefNode(ReferencesNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var nextNodeName = node.getReferences();
         if (!context.containsKey(nextNodeName)) {
             throw new InvalidReferenceException("Node " + nextNodeName + " doesn't exist");

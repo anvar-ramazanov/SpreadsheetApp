@@ -1,7 +1,7 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 public class UnaryOperationNode extends ExpressionNode {
     private final String operator;
@@ -13,7 +13,7 @@ public class UnaryOperationNode extends ExpressionNode {
     }
 
     @Override
-    public NodeType getType() {
+    public DataType getType() {
         return operand.getType();
     }
 

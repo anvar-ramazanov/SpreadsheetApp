@@ -5,7 +5,7 @@ import Formulas.Exceptions.Expressions.TreeAnalyzer.InvalidReferenceException;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.ExpressionNodes.*;
-import Formulas.NodeType;
+import Formulas.DataType;
 import org.junit.Test;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class ReferencesNodeTests {
 
         analyzer.AnalyzeExpressionTree("A1", nodes);
 
-        assertSame(NodeType.BOOLEAN, node1.getType());
+        assertSame(DataType.BOOLEAN, node1.getType());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ReferencesNodeTests {
 
         analyzer.AnalyzeExpressionTree("A1", nodes);
 
-        assertSame(NodeType.BOOLEAN, node1.getType());
+        assertSame(DataType.BOOLEAN, node1.getType());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ReferencesNodeTests {
 
         analyzer.AnalyzeExpressionTree("A1", nodes);
 
-        assertSame(NodeType.NUMBER, node1.getType());
+        assertSame(DataType.NUMBER, node1.getType());
     }
 
 

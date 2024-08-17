@@ -1,7 +1,7 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 public class BooleanNode extends ExpressionNode {
     private final boolean value;
@@ -11,8 +11,8 @@ public class BooleanNode extends ExpressionNode {
     }
 
     @Override
-    public NodeType getType() {
-        return NodeType.BOOLEAN;
+    public DataType getType() {
+        return DataType.BOOLEAN;
     }
 
     public Boolean getValue() {

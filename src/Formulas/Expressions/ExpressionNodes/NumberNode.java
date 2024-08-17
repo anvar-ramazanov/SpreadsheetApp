@@ -1,7 +1,7 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 public class NumberNode extends ExpressionNode {
     private final double value;
@@ -11,8 +11,8 @@ public class NumberNode extends ExpressionNode {
     }
 
     @Override
-    public NodeType getType() {
-        return NodeType.NUMBER;
+    public DataType getType() {
+        return DataType.NUMBER;
     }
 
     public Double getValue() {

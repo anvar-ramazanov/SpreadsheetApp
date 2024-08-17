@@ -1,18 +1,18 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 public class ReferencesNode extends ExpressionNode {
     private final String references;
-    private NodeType referenceType;
+    private DataType referenceType;
 
     public ReferencesNode(String references) {
         this.references = references;
     }
 
     @Override
-    public NodeType getType() {
+    public DataType getType() {
         return this.referenceType;
     }
 
@@ -20,7 +20,7 @@ public class ReferencesNode extends ExpressionNode {
         return references;
     }
 
-    public void setReferenceType(NodeType nodeType) {
+    public void setReferenceType(DataType nodeType) {
         this.referenceType = nodeType;
     }
 }

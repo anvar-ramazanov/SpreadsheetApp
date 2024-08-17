@@ -3,8 +3,7 @@ package Formulas;
 import Formulas.Expressions.Evaluators.Evaluator;
 
 import java.util.List;
-import java.util.Set;
 
-public record FunctionDescription(List<NodeType> arguments, NodeType resultType, String functionName, Evaluator evaluator) {
+public record FunctionDescription(List<DataType> arguments, DataType resultType, String functionName, Evaluator evaluator) {
 }
 

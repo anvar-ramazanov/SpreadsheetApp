@@ -1,7 +1,7 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.NodeType;
+import Formulas.DataType;
 
 public class StringNode extends ExpressionNode {
     private final String value;
@@ -11,8 +11,8 @@ public class StringNode extends ExpressionNode {
     }
 
     @Override
-    public NodeType getType() {
-        return NodeType.STRING;
+    public DataType getType() {
+        return DataType.STRING;
     }
 
     public String getValue() {

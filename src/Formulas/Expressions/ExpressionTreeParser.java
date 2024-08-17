@@ -4,7 +4,7 @@ import Formulas.Exceptions.Expressions.TreeParser.TokenExpectedException;
 import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
 import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Grammar;
-import Formulas.NodeType;
+import Formulas.DataType;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
@@ -47,7 +47,7 @@ public class ExpressionTreeParser {
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-")  || currentToken.value.equals(">") || currentToken.value.equals("<"))) { // FIXME
             String operator = consumeToken().value;
             ExpressionNode right = parseTerm();
-            NodeType resultType = Grammar.BinaryOperations.get(operator).resultType();
+            DataType resultType = Grammar.BinaryOperations.get(operator).resultType();
             node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }
@@ -60,7 +60,7 @@ public class ExpressionTreeParser {
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") || currentToken.value.equals("/"))) {
             String operator = consumeToken().value;
             ExpressionNode right = parseFactor();
-            NodeType resultType = Grammar.BinaryOperations.get(operator).resultType();
+            DataType resultType = Grammar.BinaryOperations.get(operator).resultType();
             node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }

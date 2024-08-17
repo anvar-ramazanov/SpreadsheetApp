@@ -1,7 +1,7 @@
 package Formulas.Expressions;
 
-import Formulas.NodeType;
+import Formulas.DataType;
 
 public abstract class ExpressionNode {
-    public abstract NodeType getType();
+    public abstract DataType getType();
 }
