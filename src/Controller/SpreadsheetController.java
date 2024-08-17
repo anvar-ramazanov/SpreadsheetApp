@@ -35,8 +35,8 @@ public class SpreadsheetController {
                     if (newDataStr.charAt(0) == '=')  {
                         var tokenizer = new Tokenizer();
                         var tokens = tokenizer.tokenize(newDataStr.substring(1));
-                        var expression = new ExpressionTreeParser(tokens);
-                        var node = expression.parse();
+                        var expression = new ExpressionTreeParser();
+                        var node = expression.parse(tokens);
 //                        var expressionAnalyzer = new ExpressionTreeAnalyzer();
 //                        expressionAnalyzer.AnalyzeExpressionTree();
 //                        model.setShowValueAt(val, row, column);

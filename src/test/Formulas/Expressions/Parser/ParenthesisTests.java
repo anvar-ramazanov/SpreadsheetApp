@@ -25,9 +25,9 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        var result = parser.parse();
+        var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
         assertTrue(result instanceof BinaryOperationNode);;
@@ -41,9 +41,9 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        var result = parser.parse();
+        var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
         assertTrue(result instanceof UnaryOperationNode);;
@@ -56,9 +56,9 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        var result = parser.parse();
+        var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
         assertTrue(result instanceof NumberNode);;
@@ -72,9 +72,9 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        parser.parse();
+        parser.parse(tokens);
     }
 
     @Test(expected = UnexpectedTokenException.class)
@@ -85,9 +85,9 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, "("));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        parser.parse();
+        parser.parse(tokens);
     }
 
     @Test(expected = RuntimeException.class)
@@ -96,8 +96,8 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.PARENTHESIS, "("));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        parser.parse();
+        parser.parse(tokens);
     }
 }

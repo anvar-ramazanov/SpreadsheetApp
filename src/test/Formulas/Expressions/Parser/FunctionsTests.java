@@ -24,9 +24,9 @@ public class FunctionsTests {
         tokens.add(new Token(TokenType.NUMBER, "1"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        var result = parser.parse();
+        var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
         assertTrue(result instanceof FunctionNode);
@@ -48,9 +48,9 @@ public class FunctionsTests {
         tokens.add(new Token(TokenType.COMMA, ","));
         tokens.add(new Token(TokenType.NUMBER, "1"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        parser.parse();
+        parser.parse(tokens);
     }
 
     @Test(expected = UnexpectedTokenException.class)
@@ -62,9 +62,9 @@ public class FunctionsTests {
         tokens.add(new Token(TokenType.NUMBER, "1"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        parser.parse();
+        parser.parse(tokens);
     }
 
 

@@ -12,13 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpressionTreeParser {
-    private final List<Token> tokens;
+    private List<Token> tokens;
     private int position;
-
-    public ExpressionTreeParser(List<Token> tokens) {
-        this.tokens = tokens;
-        this.position = 0;
-    }
 
     private Token currentToken() {
         if (position < tokens.size()) {
@@ -33,7 +28,9 @@ public class ExpressionTreeParser {
         return token;
     }
 
-    public ExpressionNode parse()  {
+    public ExpressionNode parse(List<Token> tokens)  {
+        this.tokens = tokens;
+        this.position = 0;
         var node = parseExpression();
         if (currentToken() != null) {
             throw new UnexpectedTokenException("Unexpected token");

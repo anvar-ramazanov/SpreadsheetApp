@@ -18,9 +18,9 @@ public class UnaryOperatorTests {
         tokens.add(new Token(TokenType.OPERATOR, "-"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        var result = parser.parse();
+        var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
         assertTrue(result instanceof UnaryOperationNode);
@@ -42,9 +42,9 @@ public class UnaryOperatorTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        var result = parser.parse();
+        var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
         assertTrue(result instanceof UnaryOperationNode);
@@ -62,8 +62,8 @@ public class UnaryOperatorTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser(tokens);
+        var parser = new ExpressionTreeParser();
 
-        parser.parse();
+        parser.parse(tokens);
     }
 }

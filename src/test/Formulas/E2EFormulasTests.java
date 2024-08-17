@@ -1,4 +1,4 @@
-package test.Formulas.Expressions;
+package test.Formulas;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
@@ -25,19 +25,18 @@ public class E2EFormulasTests {
                 "B2", b2));
 
         var tokenizer = new Tokenizer();
+        var expressionTreeParser = new ExpressionTreeParser();
+        var expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
+        var expressionEvaluator = new ExpressionTreeEvaluator();
 
         var tokens = tokenizer.tokenize(expression);
-        var expressionTreeParser = new ExpressionTreeParser(tokens);
 
-        var expressionTree = expressionTreeParser.parse();
+        var expressionTree = expressionTreeParser.parse(tokens);
 
         context.put("A2", expressionTree);
 
-        var expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
-
         expressionTreeAnalyzer.AnalyzeExpressionTree("A2", context);
 
-        var expressionEvaluator = new ExpressionTreeEvaluator();
         var result = expressionEvaluator.EvaluateExpressionTree("A2", context);
 
         assertEquals(-360.0, result);
