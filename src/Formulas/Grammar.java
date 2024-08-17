@@ -1,5 +1,7 @@
 package Formulas;
 
+import Formulas.Expressions.Evaluators.Impl.*;
+
 import java.util.*;
 
 
@@ -13,17 +15,17 @@ public class Grammar {
     );
 
     public static final Map<String, UnaryOperatorDescription> UnaryOperations = Map.of(
-            "-", new UnaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, "-"),
-            "!", new UnaryOperatorDescription(NodeType.BOOLEAN, NodeType.BOOLEAN, "!")
+            "-", new UnaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, "-", new UnaryMinusEvaluator()),
+            "!", new UnaryOperatorDescription(NodeType.BOOLEAN, NodeType.BOOLEAN, "!", new UnaryNotEvaluator())
     );
 
     public static final Map<String, BinaryOperatorDescription> BinaryOperations = Map.of(
-            "+", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
-            "-", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
-            "*", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
-            "/", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER),
-            ">", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.BOOLEAN),
-            "<", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.BOOLEAN)
+            "+", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER, new BinaryPlusEvaluator()),
+            "-", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER, new BinaryMinusEvaluator()),
+            "*", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER, new BinaryMultiplyEvaluator()),
+            "/", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.NUMBER, new BinaryDivideEvaluator()),
+            ">", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.BOOLEAN, new BinaryGreatEvaluator() ),
+            "<", new BinaryOperatorDescription(NodeType.NUMBER, NodeType.NUMBER, NodeType.BOOLEAN, new BinaryLessEvaluator())
 
     );
 

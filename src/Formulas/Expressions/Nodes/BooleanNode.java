@@ -6,7 +6,7 @@ import Formulas.NodeType;
 import java.util.Map;
 
 public class BooleanNode extends ExpressionNode {
-    boolean value;
+    private final boolean value;
 
     public BooleanNode(boolean value) {
         this.value = value;
@@ -18,5 +18,11 @@ public class BooleanNode extends ExpressionNode {
     }
 
     @Override
-    public NodeType getType() { return NodeType.BOOLEAN; }
+    public NodeType getType() {
+        return NodeType.BOOLEAN;
+    }
+
+    public Boolean getValue() {
+        return value;
+    }
 }

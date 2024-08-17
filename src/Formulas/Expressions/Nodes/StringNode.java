@@ -21,4 +21,8 @@ public class StringNode extends ExpressionNode {
     public NodeType getType() {
         return NodeType.STRING;
     }
+
+    public String getValue() {
+        return this.value;
+    }
 }

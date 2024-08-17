@@ -1,4 +1,6 @@
 package Formulas;
 
-public record BinaryOperatorDescription(NodeType leftOperandType, NodeType rightOperandType, NodeType resultType) {
+import Formulas.Expressions.Evaluators.Evaluator;
+
+public record BinaryOperatorDescription(NodeType leftOperandType, NodeType rightOperandType, NodeType resultType, Evaluator evaluator) {
 }

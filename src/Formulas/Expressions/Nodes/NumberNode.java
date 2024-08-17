@@ -6,7 +6,7 @@ import Formulas.NodeType;
 import java.util.Map;
 
 public class NumberNode extends ExpressionNode {
-    double value;
+    private final double value;
 
     public NumberNode(double value) {
         this.value = value;
@@ -20,5 +20,9 @@ public class NumberNode extends ExpressionNode {
     @Override
     public NodeType getType() {
         return NodeType.NUMBER;
+    }
+
+    public Double getValue() {
+        return this.value;
     }
 }
