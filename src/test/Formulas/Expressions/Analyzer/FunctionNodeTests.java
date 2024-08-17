@@ -22,7 +22,7 @@ public class FunctionNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class FunctionNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 
     @Test(expected = ArgumentsNumberMismatchException.class)
@@ -42,7 +42,7 @@ public class FunctionNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 
     @Test(expected = ArgumentTypeMismatchException.class)
@@ -52,7 +52,7 @@ public class FunctionNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 
     @Test(expected = ArgumentTypeMismatchException.class)
@@ -62,6 +62,6 @@ public class FunctionNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 }

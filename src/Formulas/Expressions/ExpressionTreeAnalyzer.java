@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ExpressionTreeAnalyzer {
 
-    public void AnalyzeExpressionTree(Map<String, ExpressionNode> context, String nodeToStart) {
+    public void AnalyzeExpressionTree(String nodeToStart, Map<String, ExpressionNode> context) {
         var visitedNodes = new HashSet<ExpressionNode>();
         visitedNodes.add(context.get(nodeToStart));
         AnalyzeNode(context.get(nodeToStart), context, visitedNodes);

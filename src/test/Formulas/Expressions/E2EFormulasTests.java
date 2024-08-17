@@ -35,10 +35,10 @@ public class E2EFormulasTests {
 
         var expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
 
-        expressionTreeAnalyzer.AnalyzeExpressionTree(context, "A2");
+        expressionTreeAnalyzer.AnalyzeExpressionTree("A2", context);
 
         var expressionEvaluator = new ExpressionTreeEvaluator();
-        var result = expressionEvaluator.EvaluateExpressionTree(context, "A2");
+        var result = expressionEvaluator.EvaluateExpressionTree("A2", context);
 
         assertEquals(-360.0, result);
 

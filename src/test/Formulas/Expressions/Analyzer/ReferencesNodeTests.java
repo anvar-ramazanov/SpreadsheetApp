@@ -25,7 +25,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
 
         assertSame(NodeType.BOOLEAN, node1.getType());
     }
@@ -43,7 +43,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
 
         assertSame(NodeType.BOOLEAN, node1.getType());
     }
@@ -59,7 +59,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
 
         assertSame(NodeType.NUMBER, node1.getType());
     }
@@ -74,7 +74,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 
     @Test(expected = CircularDependencyException.class)
@@ -90,7 +90,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 
     @Test(expected = CircularDependencyException.class)
@@ -113,7 +113,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "B1");
+        analyzer.AnalyzeExpressionTree("B1", nodes);
     }
 
     @Test
@@ -129,6 +129,6 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(nodes, "A1");
+        analyzer.AnalyzeExpressionTree("A1", nodes);
     }
 }

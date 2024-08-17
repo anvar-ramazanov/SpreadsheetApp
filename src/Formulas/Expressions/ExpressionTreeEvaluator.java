@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ExpressionTreeEvaluator {
 
-    public Object EvaluateExpressionTree(Map<String, ExpressionNode> context, String nodeToStart) {
+    public Object EvaluateExpressionTree(String nodeToStart, Map<String, ExpressionNode> context) {
         return EvaluateNode(context.get(nodeToStart), context);
     }
 
@@ -29,7 +29,7 @@ public class ExpressionTreeEvaluator {
         } else if (node instanceof StringNode stringNode) {
             return stringNode.getValue();
         }
-        return ""; // perhaps better to throw
+        return ""; //TODO throw exception
     }
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionNode> context) {

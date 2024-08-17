@@ -18,7 +18,7 @@ public class ExpressionEvaluatorTests {
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree(nodes, "A1");
+        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
 
         assertEquals(4.0, result);
     }
@@ -35,7 +35,7 @@ public class ExpressionEvaluatorTests {
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree(nodes, "A1");
+        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
 
         assertEquals(3.0, result);
     }
@@ -47,7 +47,7 @@ public class ExpressionEvaluatorTests {
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree(nodes, "A1");
+        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
 
         assertEquals(-2.0, result);
     }
@@ -59,7 +59,7 @@ public class ExpressionEvaluatorTests {
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree(nodes, "A1");
+        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
 
         assertEquals(1.0, result);
     }
@@ -71,7 +71,7 @@ public class ExpressionEvaluatorTests {
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree(nodes, "A1");
+        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
 
         assertEquals(-1.0, result);
     }
