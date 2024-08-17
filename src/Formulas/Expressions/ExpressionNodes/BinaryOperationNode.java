@@ -1,8 +1,8 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.Grammar;
-import Formulas.DataType;
+import Formulas.Language.ExpressionLanguage;
+import Formulas.Language.DataType;
 
 public class BinaryOperationNode extends ExpressionNode {
     private final String operator;
@@ -14,7 +14,7 @@ public class BinaryOperationNode extends ExpressionNode {
         this.operator = operator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
-        this.resultType = Grammar.BinaryOperations.get(this.operator).resultType();
+        this.resultType = ExpressionLanguage.BinaryOperations.get(this.operator).resultType();
     }
 
     @Override

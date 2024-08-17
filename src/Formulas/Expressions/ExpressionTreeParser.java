@@ -3,8 +3,8 @@ package Formulas.Expressions;
 import Formulas.Exceptions.Expressions.TreeParser.TokenExpectedException;
 import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
 import Formulas.Expressions.ExpressionNodes.*;
-import Formulas.Grammar;
-import Formulas.DataType;
+import Formulas.Language.ExpressionLanguage;
+import Formulas.Language.DataType;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
@@ -47,7 +47,7 @@ public class ExpressionTreeParser {
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-")  || currentToken.value.equals(">") || currentToken.value.equals("<"))) { // FIXME
             String operator = consumeToken().value;
             ExpressionNode right = parseTerm();
-            DataType resultType = Grammar.BinaryOperations.get(operator).resultType();
+            DataType resultType = ExpressionLanguage.BinaryOperations.get(operator).resultType();
             node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }
@@ -60,7 +60,7 @@ public class ExpressionTreeParser {
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") || currentToken.value.equals("/"))) {
             String operator = consumeToken().value;
             ExpressionNode right = parseFactor();
-            DataType resultType = Grammar.BinaryOperations.get(operator).resultType();
+            DataType resultType = ExpressionLanguage.BinaryOperations.get(operator).resultType();
             node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }
@@ -74,7 +74,7 @@ public class ExpressionTreeParser {
             throw new TokenExpectedException();
         }
 
-        if (token.type == TokenType.OPERATOR && (Grammar.UnaryOperations.containsKey(token.value))) {
+        if (token.type == TokenType.OPERATOR && (ExpressionLanguage.UnaryOperations.containsKey(token.value))) {
             String operator = consumeToken().value;
             ExpressionNode operand = parseFactor();
             return new UnaryOperationNode(operator, operand);

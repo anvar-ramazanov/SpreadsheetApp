@@ -1,6 +1,6 @@
 package Formulas.Tokens;
 
-import Formulas.Grammar;
+import Formulas.Language.ExpressionLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class Tokenizer implements ITokenizer {
                     i++;
                 }
                 String value = word.toString().toUpperCase(); // storing everything in upper case
-                if (Grammar.FunctionsDescription.containsKey(value))
+                if (ExpressionLanguage.FunctionsDescription.containsKey(value))
                 {
                     tokens.add(new Token(TokenType.FUNCTION, value));
                 } else if (value.equals("FALSE") || value.equals("TRUE")) {

@@ -1,8 +1,8 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.Grammar;
-import Formulas.DataType;
+import Formulas.Language.ExpressionLanguage;
+import Formulas.Language.DataType;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class FunctionNode extends ExpressionNode {
 
     @Override
     public DataType getType() {
-        return Grammar.FunctionsDescription.get(this.functionName).resultType();
+        return ExpressionLanguage.FunctionsDescription.get(this.functionName).resultType();
     }
 
     public String getFunctionName() {

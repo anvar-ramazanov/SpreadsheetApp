@@ -1,4 +1,4 @@
-package Formulas;
+package Formulas.Language;
 
 import Formulas.Expressions.Evaluators.BinaryOperationsEvaluators.*;
 import Formulas.Expressions.Evaluators.FunctionsEvaluators.*;
@@ -8,7 +8,7 @@ import Formulas.Expressions.Evaluators.UnaryOperatorsEvaluators.UnaryNotEvaluato
 import java.util.*;
 
 
-public class Grammar {
+public class ExpressionLanguage {
 
     public static final Map<String, FunctionDescription> FunctionsDescription = Map.of(
         "MIN", new FunctionDescription(List.of(DataType.NUMBER, DataType.NUMBER), DataType.NUMBER, "MIN", new MinFunctionEvaluator()),

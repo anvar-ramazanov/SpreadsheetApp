@@ -1,7 +1,7 @@
 package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
-import Formulas.DataType;
+import Formulas.Language.DataType;
 
 public class StringNode extends ExpressionNode {
     private final String value;

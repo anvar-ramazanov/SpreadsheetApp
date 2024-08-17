@@ -5,7 +5,7 @@ import Formulas.Exceptions.Expressions.TreeAnalyzer.InvalidReferenceException;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.ExpressionNodes.*;
-import Formulas.DataType;
+import Formulas.Language.DataType;
 import org.junit.Test;
 
 import java.util.List;

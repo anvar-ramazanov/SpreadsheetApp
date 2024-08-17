@@ -3,7 +3,7 @@ package Formulas.Expressions;
 import Formulas.Exceptions.Evaluators.UnknownTypeOfNodeException;
 import Formulas.Expressions.Evaluators.*;
 import Formulas.Expressions.ExpressionNodes.*;
-import Formulas.Grammar;
+import Formulas.Language.ExpressionLanguage;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,7 +41,7 @@ public class ExpressionTreeEvaluator {
 
     private Object EvaluateFunction(FunctionNode functionNode, Map<String, ExpressionNode> context) {
         var functionName = functionNode.getFunctionName();
-        var evaluator = (FunctionEvaluator)Grammar.FunctionsDescription.get(functionName).evaluator();
+        var evaluator = (FunctionEvaluator) ExpressionLanguage.FunctionsDescription.get(functionName).evaluator();
         var arguments = functionNode.getArguments();
         return evaluator.evaluate(arguments
                 .stream()
@@ -54,14 +54,14 @@ public class ExpressionTreeEvaluator {
         var operator = binaryOperationNode.getOperator();
         var leftOperand = binaryOperationNode.getLeftOperand();
         var rightOperand = binaryOperationNode.getRightOperand();
-        var evaluator = (BinaryOperationEvaluator)Grammar.BinaryOperations.get(operator).evaluator();
+        var evaluator = (BinaryOperationEvaluator) ExpressionLanguage.BinaryOperations.get(operator).evaluator();
         return evaluator.evaluate(EvaluateNode(leftOperand, context), EvaluateNode(rightOperand, context));
     }
 
     private Object EvaluateUnaryOperation(UnaryOperationNode node, Map<String, ExpressionNode> context) {
         var operator = node.getOperator();
         var operand = node.getOperand();
-        var evaluator = (UnaryOperationEvaluator) Grammar.UnaryOperations.get(operator).evaluator();
+        var evaluator = (UnaryOperationEvaluator) ExpressionLanguage.UnaryOperations.get(operator).evaluator();
         return evaluator.evaluate(EvaluateNode(operand, context));
     }
 }

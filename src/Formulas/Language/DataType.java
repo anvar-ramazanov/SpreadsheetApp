@@ -1,4 +1,4 @@
-package Formulas;
+package Formulas.Language;
 
 public enum DataType {
     NUMBER,

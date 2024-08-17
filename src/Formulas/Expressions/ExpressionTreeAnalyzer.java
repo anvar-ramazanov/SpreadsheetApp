@@ -2,8 +2,8 @@ package Formulas.Expressions;
 
 import Formulas.Exceptions.Expressions.TreeAnalyzer.*;
 import Formulas.Expressions.ExpressionNodes.*;
-import Formulas.Grammar;
-import Formulas.DataType;
+import Formulas.Language.ExpressionLanguage;
+import Formulas.Language.DataType;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -42,11 +42,11 @@ public class ExpressionTreeAnalyzer {
 
         AnalyzeNode(operand, context, visitedNodes);
 
-        if (Grammar.UnaryOperations.get(node.getOperator()).operandType() != node.getOperand().getType()) {
+        if (ExpressionLanguage.UnaryOperations.get(node.getOperator()).operandType() != node.getOperand().getType()) {
             throw new OperandTypeMismatchException("Operator = " + operator + " operand type " + node.getOperand().getType());
         }
 
-        return Grammar.UnaryOperations.get(node.getOperator()).resultType();
+        return ExpressionLanguage.UnaryOperations.get(node.getOperator()).resultType();
     }
 
     private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
@@ -57,21 +57,21 @@ public class ExpressionTreeAnalyzer {
         AnalyzeNode(leftOperand, context, visitedNodes);
         AnalyzeNode(rightOperand, context, visitedNodes);
 
-        if (Grammar.BinaryOperations.get(operator).leftOperandType() != leftOperand.getType()) {
+        if (ExpressionLanguage.BinaryOperations.get(operator).leftOperandType() != leftOperand.getType()) {
             throw new OperandTypeMismatchException("Operator = " + operator + " left operand type " + node.getLeftOperand().getType());
         }
 
-        if (Grammar.BinaryOperations.get(operator).rightOperandType() != rightOperand.getType()) {
+        if (ExpressionLanguage.BinaryOperations.get(operator).rightOperandType() != rightOperand.getType()) {
             throw new OperandTypeMismatchException("Operator = " + operator + " right operand type " + node.getLeftOperand().getType());
         }
 
-        return Grammar.BinaryOperations.get(operator).resultType();
+        return ExpressionLanguage.BinaryOperations.get(operator).resultType();
     }
 
     private DataType AnalyzeFunctionNode(FunctionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var functionName = node.getFunctionName();
         var arguments = node.getArguments();
-        var description = Grammar.FunctionsDescription.get(functionName);
+        var description = ExpressionLanguage.FunctionsDescription.get(functionName);
         if (description.arguments().size() != arguments.size()) {
             throw new ArgumentsNumberMismatchException("Arguments number mismatch for function " + functionName + " Awaited = " + description.arguments().size() + " but has " + arguments.size());
         }
@@ -87,7 +87,7 @@ public class ExpressionTreeAnalyzer {
                 throw new ArgumentTypeMismatchException("Argument type mismatch for function " + functionName + " Awaited = " + allowedType + " but has " + currentType);
             }
         }
-        return Grammar.FunctionsDescription.get(functionName).resultType();
+        return ExpressionLanguage.FunctionsDescription.get(functionName).resultType();
     }
 
     private DataType AnalyzeRefNode(ReferencesNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
