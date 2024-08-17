@@ -12,7 +12,8 @@ public class Grammar {
 
     public static final Map<String, FunctionDescription> FunctionsDescription = Map.of(
         "MIN", new FunctionDescription(List.of(NodeType.NUMBER, NodeType.NUMBER), NodeType.NUMBER, "MIN", new MinFunctionEvaluator()),
-        "SUM", new FunctionDescription(List.of(NodeType.NUMBER, NodeType.NUMBER), NodeType.NUMBER, "SUM", new SumFunctionEvaluator())
+        "SUM", new FunctionDescription(List.of(NodeType.NUMBER, NodeType.NUMBER), NodeType.NUMBER, "SUM", new SumFunctionEvaluator()),
+        "POW", new FunctionDescription(List.of(NodeType.NUMBER, NodeType.NUMBER), NodeType.NUMBER, "SUM", new PowFunctionEvaluator())
     );
 
     public static final Map<String, UnaryOperatorDescription> UnaryOperations = Map.of(

@@ -64,45 +64,4 @@ public class FunctionNodeTests {
 
         analyzer.AnalyzeExpressionTree(nodes, "A1");
     }
-
-
-//    @Test(expected = RuntimeException.class)
-//    public void ASTParser_ParseFunctions_ArgumentsTypeMismatch() {
-//        var tokens = new ArrayList<Token>();
-//        tokens.add(new Token(TokenType.FUNCTION, "MIN"));
-//        tokens.add(new Token(TokenType.PARENTHESIS, "("));
-//        tokens.add(new Token(TokenType.BOOL, "TRUE"));
-//        tokens.add(new Token(TokenType.COMMA, ","));
-//        tokens.add(new Token(TokenType.NUMBER, "1"));
-//        tokens.add(new Token(TokenType.PARENTHESIS, ")"));
-//
-//        var parser = new ExpressionTreeParser(tokens);
-//
-//        parser.parse();
-//    }
-
-    //    @Test
-//    public void ASTParser_ParseFunctions_MixArgumentsType() {
-//        var tokens = new ArrayList<Token>();
-//        tokens.add(new Token(TokenType.FUNCTION, "MIN"));
-//        tokens.add(new Token(TokenType.PARENTHESIS, "("));
-//        tokens.add(new Token(TokenType.NUMBER, "2"));
-//        tokens.add(new Token(TokenType.COMMA, ","));
-//        tokens.add(new Token(TokenType.VARIABLE, "A2"));
-//        tokens.add(new Token(TokenType.PARENTHESIS, ")"));
-//
-//        var parser = new ExpressionTreeParser(tokens, Map.of("A2", new NumberNode(2)));
-//
-//        var result = parser.parse();
-//
-//        assertNotEquals(null, result);
-//        assertTrue(result instanceof FunctionNode);
-//
-//        var functionNode = (FunctionNode)result;
-//
-//        assertEquals("MIN", functionNode.getFunctionName());
-//        assertEquals(2, functionNode.getArguments().size());
-//        assertTrue(functionNode.getArguments().get(0) instanceof NumberNode);
-//        assertTrue(functionNode.getArguments().get(1) instanceof RefNode);
-//    }
 }
