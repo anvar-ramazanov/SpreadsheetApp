@@ -1,5 +1,7 @@
 package Models;
 
+import Formulas.Expressions.ExpressionNode;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,12 +11,13 @@ public class SpreadsheetModel extends AbstractTableModel {
     private final int columnCount;
     // private final Object[][] data;
     private final Map<String, CellModel> cells;
+    private final Map<String, ExpressionNode> expressionNodeMap;
 
     public SpreadsheetModel(int rowCount, int columnCount) {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
-        //this.data = new Object[rowCount][columnCount];
         this.cells = new HashMap<>();
+        this.expressionNodeMap = new HashMap<>();
     }
 
     @Override
@@ -27,8 +30,16 @@ public class SpreadsheetModel extends AbstractTableModel {
         return columnCount;
     }
 
-    private String getCellName(int rowIndex, int columnIndex) {
+    public String getCellName(int rowIndex, int columnIndex) {
         return String.format("%s%d", (char)('A' + columnIndex), rowIndex+1);
+    }
+
+    public Map<String, ExpressionNode> getExpressionNodeMap() {
+        return this.expressionNodeMap;
+    }
+
+    public void setExpressionNode(String name, ExpressionNode node) {
+        this.expressionNodeMap.put(name, node);
     }
 
     @Override
@@ -73,14 +84,7 @@ public class SpreadsheetModel extends AbstractTableModel {
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
-    public HashMap<String, Object> getVariables() {
-        //
-        var model = new HashMap<String, Object>();
-        cells.forEach((s, cellModel) -> {
-            model.put(s, cellModel.Value);
-        });
-        return model;
-    }
+
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
