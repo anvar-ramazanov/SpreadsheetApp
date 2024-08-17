@@ -13,11 +13,6 @@ public class BooleanNode extends ExpressionNode {
     }
 
     @Override
-    public Object evaluate(Map<String, Object> variables) {
-        return value;
-    }
-
-    @Override
     public NodeType getType() {
         return NodeType.BOOLEAN;
     }

@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class ExpressionTreeEvaluator {
 
-    public Object EvaluateExpressionTree(Map<String, ExpressionNode> nodes, String nodeToStart) {
-        return EvaluateNode(nodes.get(nodeToStart), nodes);
+    public Object EvaluateExpressionTree(Map<String, ExpressionNode> context, String nodeToStart) {
+        return EvaluateNode(context.get(nodeToStart), context);
     }
 
     private Object EvaluateNode(ExpressionNode node, Map<String, ExpressionNode> context) {

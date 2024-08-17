@@ -26,32 +26,6 @@ public class FunctionNode extends ExpressionNode {
     }
 
     @Override
-    public Object evaluate(Map<String, Object> variables) {
-        List<Object> evaluatedArgs = new ArrayList<>();
-        for (ExpressionNode arg : arguments) {
-            evaluatedArgs.add(arg.evaluate(variables));
-        }
-
-        switch (functionName) {
-            case "SUM":
-                double sum = 0;
-                for (Object arg : evaluatedArgs) {
-                    sum += (double) arg;
-                }
-                return sum;
-            case "MIN":
-                double min = Double.MAX_VALUE;
-                for (Object arg : evaluatedArgs) {
-                    min = Math.min(min, (double) arg);
-                }
-                return min;
-            // Add more functions as needed
-            default:
-                throw new RuntimeException("Unknown function: " + functionName);
-        }
-    }
-
-    @Override
     public NodeType getType() {
         return Grammar.FunctionsDescription.get(this.functionName).resultType();
     }
