@@ -2,8 +2,8 @@ package test.Formulas.Expressions.Evaluator;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeEvaluator;
-import Formulas.Expressions.Nodes.BinaryOperationNode;
-import Formulas.Expressions.Nodes.NumberNode;
+import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.NumberNode;
 import org.junit.Test;
 
 import java.util.Map;

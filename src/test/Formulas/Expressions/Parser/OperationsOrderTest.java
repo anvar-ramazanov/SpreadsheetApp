@@ -2,9 +2,9 @@ package test.Formulas.Expressions.Parser;
 
 import Formulas.Expressions.ExpressionTreeParser;
 
-import Formulas.Expressions.Nodes.BinaryOperationNode;
-import Formulas.Expressions.Nodes.NumberNode;
-import Formulas.Expressions.Nodes.UnaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.NumberNode;
+import Formulas.Expressions.ExpressionNodes.UnaryOperationNode;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 import org.junit.Test;

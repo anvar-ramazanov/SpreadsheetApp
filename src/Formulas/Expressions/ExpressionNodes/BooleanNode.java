@@ -1,9 +1,7 @@
-package Formulas.Expressions.Nodes;
+package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;
-
-import java.util.Map;
 
 public class BooleanNode extends ExpressionNode {
     private final boolean value;

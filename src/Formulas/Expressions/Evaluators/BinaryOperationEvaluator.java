@@ -1,5 +1,5 @@
 package Formulas.Expressions.Evaluators;
 
-public interface BinaryEvaluator extends Evaluator {
+public interface BinaryOperationEvaluator extends Evaluator {
     Object evaluate(Object leftOperand, Object rightOperand);
 }

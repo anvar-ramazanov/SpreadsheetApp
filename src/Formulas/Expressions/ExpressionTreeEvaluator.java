@@ -1,7 +1,7 @@
 package Formulas.Expressions;
 
 import Formulas.Expressions.Evaluators.*;
-import Formulas.Expressions.Nodes.*;
+import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Grammar;
 
 import java.util.Map;
@@ -53,14 +53,14 @@ public class ExpressionTreeEvaluator {
         var operator = binaryOperationNode.getOperator();
         var leftOperand = binaryOperationNode.getLeftOperand();
         var rightOperand = binaryOperationNode.getRightOperand();
-        var evaluator = (BinaryEvaluator)Grammar.BinaryOperations.get(operator).evaluator();
+        var evaluator = (BinaryOperationEvaluator)Grammar.BinaryOperations.get(operator).evaluator();
         return evaluator.evaluate(EvaluateNode(leftOperand, context), EvaluateNode(rightOperand, context));
     }
 
     private Object EvaluateUnaryOperation(UnaryOperationNode node, Map<String, ExpressionNode> context) {
         var operator = node.getOperator();
         var operand = node.getOperand();
-        var evaluator = (UnaryEvaluator) Grammar.UnaryOperations.get(operator).evaluator();
+        var evaluator = (UnaryOperationEvaluator) Grammar.UnaryOperations.get(operator).evaluator();
         return evaluator.evaluate(EvaluateNode(operand, context));
     }
 }

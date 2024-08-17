@@ -1,5 +1,6 @@
 package Controller;
 
+import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.ExpressionTreeParser;
 import Formulas.Tokens.Tokenizer;
 import Models.SpreadsheetModel;
@@ -34,10 +35,11 @@ public class SpreadsheetController {
                     if (newDataStr.charAt(0) == '=')  {
                         var tokenizer = new Tokenizer();
                         var tokens = tokenizer.tokenize(newDataStr.substring(1));
-                        var formulaAst = new ExpressionTreeParser(tokens);
-                        var node = formulaAst.parse();
-                        var val = node.evaluate(model.getVariables());
-                        model.setShowValueAt(val, row, column);
+                        var expression = new ExpressionTreeParser(tokens);
+                        var node = expression.parse();
+//                        var expressionAnalyzer = new ExpressionTreeAnalyzer();
+//                        expressionAnalyzer.AnalyzeExpressionTree();
+//                        model.setShowValueAt(val, row, column);
                     }
 
                 }

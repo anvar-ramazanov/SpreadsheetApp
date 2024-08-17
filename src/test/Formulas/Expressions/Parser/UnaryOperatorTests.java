@@ -1,14 +1,12 @@
 package test.Formulas.Expressions.Parser;
 
 import Formulas.Expressions.ExpressionTreeParser;
-import Formulas.Expressions.Nodes.NumberNode;
-import Formulas.Expressions.Nodes.UnaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.UnaryOperationNode;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;

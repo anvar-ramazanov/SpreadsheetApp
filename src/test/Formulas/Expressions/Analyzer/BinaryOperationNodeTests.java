@@ -3,9 +3,9 @@ package test.Formulas.Expressions.Analyzer;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.OperandTypeMismatchException;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
-import Formulas.Expressions.Nodes.BinaryOperationNode;
-import Formulas.Expressions.Nodes.BooleanNode;
-import Formulas.Expressions.Nodes.NumberNode;
+import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.BooleanNode;
+import Formulas.Expressions.ExpressionNodes.NumberNode;
 import org.junit.Test;
 
 import java.util.Map;

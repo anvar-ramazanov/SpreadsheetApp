@@ -4,11 +4,11 @@ import Formulas.Exceptions.Expressions.TreeAnalyzer.ArgumentTypeMismatchExceptio
 import Formulas.Exceptions.Expressions.TreeAnalyzer.ArgumentsNumberMismatchException;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
-import Formulas.Expressions.Nodes.BooleanNode;
-import Formulas.Expressions.Nodes.FunctionNode;
-import Formulas.Expressions.Nodes.NumberNode;
+import Formulas.Expressions.ExpressionNodes.BooleanNode;
+import Formulas.Expressions.ExpressionNodes.FunctionNode;
+import Formulas.Expressions.ExpressionNodes.NumberNode;
 
-import Formulas.Expressions.Nodes.UnaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.UnaryOperationNode;
 import org.junit.Test;
 import java.util.*;
 

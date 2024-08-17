@@ -1,10 +1,10 @@
 package test.Formulas.Expressions.Evaluator;
 
 import Formulas.Expressions.ExpressionTreeEvaluator;
-import Formulas.Expressions.Nodes.BinaryOperationNode;
-import Formulas.Expressions.Nodes.FunctionNode;
-import Formulas.Expressions.Nodes.NumberNode;
-import Formulas.Expressions.Nodes.ReferencesNode;
+import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.FunctionNode;
+import Formulas.Expressions.ExpressionNodes.NumberNode;
+import Formulas.Expressions.ExpressionNodes.ReferencesNode;
 import org.junit.Test;
 
 import java.util.List;

@@ -1,8 +1,8 @@
-package Formulas.Expressions.Evaluators.Impl;
+package Formulas.Expressions.Evaluators.BinaryOperationsEvaluators;
 
-import Formulas.Expressions.Evaluators.BinaryEvaluator;
+import Formulas.Expressions.Evaluators.BinaryOperationEvaluator;
 
-public class BinaryLessEvaluator implements BinaryEvaluator {
+public class BinaryLessEvaluator implements BinaryOperationEvaluator {
     @Override
     public Object evaluate(Object leftOperand, Object rightOperand) {
         var leftOperandValue = Double.parseDouble(leftOperand.toString());

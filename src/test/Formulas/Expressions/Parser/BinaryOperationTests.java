@@ -2,7 +2,7 @@ package test.Formulas.Expressions.Parser;
 
 import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
 import Formulas.Expressions.ExpressionTreeParser;
-import Formulas.Expressions.Nodes.BinaryOperationNode;
+import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 import org.junit.Test;

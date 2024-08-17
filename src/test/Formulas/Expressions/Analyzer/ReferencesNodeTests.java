@@ -4,7 +4,7 @@ import Formulas.Exceptions.Expressions.TreeAnalyzer.CircularDependencyException;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.InvalidReferenceException;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
-import Formulas.Expressions.Nodes.*;
+import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.NodeType;
 import org.junit.Test;
 

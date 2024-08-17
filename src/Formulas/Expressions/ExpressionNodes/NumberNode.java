@@ -1,4 +1,4 @@
-package Formulas.Expressions.Nodes;
+package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;

@@ -2,7 +2,7 @@ package Formulas.Expressions;
 
 import Formulas.Exceptions.Expressions.TreeParser.TokenExpectedException;
 import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
-import Formulas.Expressions.Nodes.*;
+import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Grammar;
 import Formulas.NodeType;
 import Formulas.Tokens.Token;

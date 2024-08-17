@@ -1,10 +1,8 @@
-package Formulas.Expressions.Nodes;
+package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Grammar;
 import Formulas.NodeType;
-
-import java.util.Map;
 
 public class BinaryOperationNode extends ExpressionNode {
     private final String operator;

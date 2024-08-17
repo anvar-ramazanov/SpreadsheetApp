@@ -3,7 +3,7 @@ package test.Formulas.Expressions.Analyzer;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.OperandTypeMismatchException;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
-import Formulas.Expressions.Nodes.*;
+import Formulas.Expressions.ExpressionNodes.*;
 import org.junit.Test;
 
 import java.util.List;

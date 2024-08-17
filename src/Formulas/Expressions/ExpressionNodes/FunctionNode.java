@@ -1,12 +1,10 @@
-package Formulas.Expressions.Nodes;
+package Formulas.Expressions.ExpressionNodes;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Grammar;
 import Formulas.NodeType;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FunctionNode extends ExpressionNode {
     private final String functionName;
