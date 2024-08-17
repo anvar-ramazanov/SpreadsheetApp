@@ -10,22 +10,22 @@ import java.util.Map;
 
 public class ExpressionTreeAnalyzer {
 
-    public void AnalyzeExpressionTree(Map<String, ExpressionNode> nodes, String nodeToStart) {
+    public void AnalyzeExpressionTree(Map<String, ExpressionNode> context, String nodeToStart) {
         var visitedNodes = new HashSet<ExpressionNode>();
-        visitedNodes.add(nodes.get(nodeToStart));
-        AnalyzeNode(nodes.get(nodeToStart), nodes, visitedNodes);
+        visitedNodes.add(context.get(nodeToStart));
+        AnalyzeNode(context.get(nodeToStart), context, visitedNodes);
     }
 
-    private NodeType AnalyzeNode(ExpressionNode node, Map<String, ExpressionNode> nodes, HashSet<ExpressionNode> visitedNodes) {
+    private NodeType AnalyzeNode(ExpressionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         NodeType nodeType = null;
         if (node instanceof UnaryOperationNode unaryOperationNode) {
-            nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, nodes, visitedNodes);
+            nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, context, visitedNodes);
         } else if (node instanceof BinaryOperationNode binaryOperationNode) {
-            nodeType = AnalyzeBinaryOperationNode(binaryOperationNode, nodes, visitedNodes);
+            nodeType = AnalyzeBinaryOperationNode(binaryOperationNode, context, visitedNodes);
         } else if (node instanceof FunctionNode functionNode) {
-            nodeType = AnalyzeFunctionNode(functionNode, nodes, visitedNodes);
+            nodeType = AnalyzeFunctionNode(functionNode, context, visitedNodes);
         } else if (node instanceof ReferencesNode refNode) {
-            nodeType = AnalyzeRefNode(refNode, nodes, visitedNodes);
+            nodeType = AnalyzeRefNode(refNode, context, visitedNodes);
         } else if (node instanceof NumberNode)  {
             nodeType = NodeType.NUMBER;
         } else if (node instanceof BooleanNode) {
@@ -36,11 +36,11 @@ public class ExpressionTreeAnalyzer {
         return nodeType;
     }
 
-    private NodeType AnalyzeUnaryOperationNode(UnaryOperationNode node, Map<String, ExpressionNode> nodes, HashSet<ExpressionNode> visitedNodes) {
+    private NodeType AnalyzeUnaryOperationNode(UnaryOperationNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var operator = node.getOperator();
         var operand = node.getOperand();
 
-        AnalyzeNode(operand, nodes, visitedNodes);
+        AnalyzeNode(operand, context, visitedNodes);
 
         if (Grammar.UnaryOperations.get(node.getOperator()).operandType() != node.getOperand().getType()) {
             throw new OperandTypeMismatchException("Operator = " + operator + " operand type " + node.getOperand().getType());
@@ -49,13 +49,13 @@ public class ExpressionTreeAnalyzer {
         return Grammar.UnaryOperations.get(node.getOperator()).resultType();
     }
 
-    private NodeType AnalyzeBinaryOperationNode(BinaryOperationNode node, Map<String, ExpressionNode> nodes, HashSet<ExpressionNode> visitedNodes) {
+    private NodeType AnalyzeBinaryOperationNode(BinaryOperationNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var operator = node.getOperator();
         var leftOperand = node.getLeftOperand();
         var rightOperand = node.getRightOperand();
 
-        AnalyzeNode(leftOperand, nodes, visitedNodes);
-        AnalyzeNode(rightOperand, nodes, visitedNodes);
+        AnalyzeNode(leftOperand, context, visitedNodes);
+        AnalyzeNode(rightOperand, context, visitedNodes);
 
         if (Grammar.BinaryOperations.get(operator).leftOperandType() != leftOperand.getType()) {
             throw new OperandTypeMismatchException("Operator = " + operator + " left operand type " + node.getLeftOperand().getType());
@@ -68,7 +68,7 @@ public class ExpressionTreeAnalyzer {
         return Grammar.BinaryOperations.get(operator).resultType();
     }
 
-    private NodeType AnalyzeFunctionNode(FunctionNode node, Map<String, ExpressionNode> nodes, HashSet<ExpressionNode> visitedNodes) {
+    private NodeType AnalyzeFunctionNode(FunctionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var functionName = node.getFunctionName();
         var arguments = node.getArguments();
         var description = Grammar.FunctionsDescription.get(functionName);
@@ -79,7 +79,7 @@ public class ExpressionTreeAnalyzer {
             var allowedType = description.arguments().get(i);
             var argument = arguments.get(i);
 
-            AnalyzeNode(argument, nodes, visitedNodes);
+            AnalyzeNode(argument, context, visitedNodes);
 
             var currentType = arguments.get(i).getType();
 
@@ -90,17 +90,17 @@ public class ExpressionTreeAnalyzer {
         return Grammar.FunctionsDescription.get(functionName).resultType();
     }
 
-    private NodeType AnalyzeRefNode(ReferencesNode node, Map<String, ExpressionNode> nodes, HashSet<ExpressionNode> visitedNodes) {
+    private NodeType AnalyzeRefNode(ReferencesNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var nextNodeName = node.getReferences();
-        if (!nodes.containsKey(nextNodeName)) {
+        if (!context.containsKey(nextNodeName)) {
             throw new InvalidReferenceException("Node " + nextNodeName + " doesn't exist");
         }
-        var nextNode = nodes.get(nextNodeName);
+        var nextNode = context.get(nextNodeName);
         if (visitedNodes.contains(nextNode)) {
             throw new CircularDependencyException();
         }
 
-        var nextNodeType = AnalyzeNode(nextNode, nodes, visitedNodes);
+        var nextNodeType = AnalyzeNode(nextNode, context, visitedNodes);
 
         node.setReferenceType(nextNodeType);
 
