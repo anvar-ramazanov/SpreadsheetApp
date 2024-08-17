@@ -1,7 +1,6 @@
 package Formulas.Expressions;
 
 import Formulas.Expressions.Evaluators.*;
-import Formulas.Expressions.Evaluators.Impl.MinFunctionEvaluator;
 import Formulas.Expressions.Nodes.*;
 import Formulas.Grammar;
 
@@ -9,10 +8,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExpressionTreeEvaluator {
-
-    private static final Map<String, Evaluator> functionEvaluator = Map.of(
-            "MIN", new MinFunctionEvaluator()
-    );
 
     public Object EvaluateExpressionTree(Map<String, ExpressionNode> nodes, String nodeToStart) {
         return EvaluateNode(nodes.get(nodeToStart), nodes);
@@ -34,7 +29,7 @@ public class ExpressionTreeEvaluator {
         } else if (node instanceof StringNode stringNode) {
             return stringNode.getValue();
         }
-        return "";
+        return ""; // perhaps better to throw
     }
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionNode> context) {
@@ -45,7 +40,7 @@ public class ExpressionTreeEvaluator {
 
     private Object EvaluateFunction(FunctionNode functionNode, Map<String, ExpressionNode> context) {
         var functionName = functionNode.getFunctionName();
-        var evaluator = (FunctionEvaluator)functionEvaluator.get(functionName);
+        var evaluator = (FunctionEvaluator)Grammar.FunctionsDescription.get(functionName).evaluator();
         var arguments = functionNode.getArguments();
         return evaluator.evaluate(arguments
                 .stream()

@@ -76,15 +76,15 @@ public class ExpressionTreeAnalyzer {
             throw new ArgumentsNumberMismatchException("Arguments number mismatch for function " + functionName + " Awaited = " + description.arguments().size() + " but has " + arguments.size());
         }
         for (int i = 0; i < arguments.size(); ++i) {
-            var allowedTypes = description.arguments().get(i);
+            var allowedType = description.arguments().get(i);
             var argument = arguments.get(i);
 
             AnalyzeNode(argument, nodes, visitedNodes);
 
             var currentType = arguments.get(i).getType();
 
-            if (!allowedTypes.contains(currentType)) {
-                throw new ArgumentTypeMismatchException("Argument type mismatch for function " + functionName + " Awaited = " + allowedTypes + " but has " + currentType);
+            if (allowedType != currentType) {
+                throw new ArgumentTypeMismatchException("Argument type mismatch for function " + functionName + " Awaited = " + allowedType + " but has " + currentType);
             }
         }
         return Grammar.FunctionsDescription.get(functionName).resultType();
