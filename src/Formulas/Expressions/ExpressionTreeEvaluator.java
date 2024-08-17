@@ -1,5 +1,6 @@
 package Formulas.Expressions;
 
+import Formulas.Exceptions.Evaluators.UnknownTypeOfNodeException;
 import Formulas.Expressions.Evaluators.*;
 import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Grammar;
@@ -29,7 +30,7 @@ public class ExpressionTreeEvaluator {
         } else if (node instanceof StringNode stringNode) {
             return stringNode.getValue();
         }
-        return ""; //TODO throw exception
+        throw new UnknownTypeOfNodeException("Unknow type of node: " + node.getType());
     }
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionNode> context) {
