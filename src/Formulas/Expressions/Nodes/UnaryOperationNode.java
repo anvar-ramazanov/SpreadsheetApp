@@ -12,16 +12,16 @@ public class UnaryOperationNode extends ExpressionNode {
         this.operand = operand;
     }
 
+    @Override
+    public NodeType getType() {
+        return operand.getType();
+    }
+
     public ExpressionNode getOperand() {
         return operand;
     }
 
     public String getOperator() {
         return operator;
-    }
-
-    @Override
-    public NodeType getType() {
-        return operand.getType();
     }
 }

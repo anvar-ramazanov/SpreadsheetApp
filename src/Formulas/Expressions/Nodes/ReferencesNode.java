@@ -4,24 +4,24 @@ import Formulas.Expressions.ExpressionNode;
 import Formulas.NodeType;
 
 public class ReferencesNode extends ExpressionNode {
-    private final String name;
-    private NodeType nodeType;
+    private final String references;
+    private NodeType referenceType;
 
-    public ReferencesNode(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+    public ReferencesNode(String references) {
+        this.references = references;
     }
 
     @Override
     public NodeType getType() {
-        return this.nodeType;
+        return this.referenceType;
     }
 
-    public void setType(NodeType nodeType) {
-        this.nodeType = nodeType;
+    public String getReferences() {
+        return references;
+    }
+
+    public void setReferenceType(NodeType nodeType) {
+        this.referenceType = nodeType;
     }
 }
 

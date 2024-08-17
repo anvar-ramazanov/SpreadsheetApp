@@ -19,6 +19,11 @@ public class BinaryOperationNode extends ExpressionNode {
         this.resultType = Grammar.BinaryOperations.get(this.operator).resultType();
     }
 
+    @Override
+    public NodeType getType() {
+        return resultType;
+    }
+
     public String getOperator() {
         return operator;
     }
@@ -29,10 +34,5 @@ public class BinaryOperationNode extends ExpressionNode {
 
     public ExpressionNode getRightOperand() {
         return rightOperand;
-    }
-
-    @Override
-    public NodeType getType() {
-        return resultType;
     }
 }

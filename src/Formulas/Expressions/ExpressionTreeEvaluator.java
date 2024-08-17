@@ -33,7 +33,7 @@ public class ExpressionTreeEvaluator {
     }
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionNode> context) {
-        var nextNodeName = refNode.getName();
+        var nextNodeName = refNode.getReferences();
         var nextNode = context.get(nextNodeName);
         return EvaluateNode(nextNode, context);
     }

@@ -91,7 +91,7 @@ public class ExpressionTreeAnalyzer {
     }
 
     private NodeType AnalyzeRefNode(ReferencesNode node, Map<String, ExpressionNode> nodes, HashSet<ExpressionNode> visitedNodes) {
-        var nextNodeName = node.getName();
+        var nextNodeName = node.getReferences();
         if (!nodes.containsKey(nextNodeName)) {
             throw new InvalidReferenceException("Node " + nextNodeName + " doesn't exist");
         }
@@ -102,7 +102,7 @@ public class ExpressionTreeAnalyzer {
 
         var nextNodeType = AnalyzeNode(nextNode, nodes, visitedNodes);
 
-        node.setType(nextNodeType);
+        node.setReferenceType(nextNodeType);
 
         return nextNodeType;
     }

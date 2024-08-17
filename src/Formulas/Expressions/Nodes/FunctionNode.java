@@ -17,16 +17,16 @@ public class FunctionNode extends ExpressionNode {
         this.arguments = arguments;
     }
 
+    @Override
+    public NodeType getType() {
+        return Grammar.FunctionsDescription.get(this.functionName).resultType();
+    }
+
     public String getFunctionName() {
         return functionName;
     }
 
     public List<ExpressionNode> getArguments() {
         return arguments;
-    }
-
-    @Override
-    public NodeType getType() {
-        return Grammar.FunctionsDescription.get(this.functionName).resultType();
     }
 }
