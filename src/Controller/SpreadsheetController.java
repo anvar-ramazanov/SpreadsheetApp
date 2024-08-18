@@ -26,7 +26,6 @@ public class SpreadsheetController {
         this.model = model;
         this.view = view;
 
-        // Add listeners to handle user actions
         var table = view.getTable();
         table.getModel().addTableModelListener(this::onTableChanged);
         table.addPropertyChangeListener("tableCellEditor", this::onShowTableCellEditor);
@@ -38,23 +37,23 @@ public class SpreadsheetController {
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
             System.out.println("Editor started at row " + row + ", column " + column);
-            var v = this.model.getRealValueAt(row, column);
-            if (v != null && v != ""){
-                if (v.charAt(0) == '=') {
+            var realValue = this.model.getRealValueAt(row, column);
+            if (realValue != null && !realValue.isEmpty()){
+                if (realValue.charAt(0) == '=') {
                     var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
                     System.out.println(source.getClass());
                     var component = (JTextField)source.getComponent();
-                    component.setText(v);
+                    component.setText(realValue);
                 }
             }
         }
 
     }
 
-    public void onTableChanged(TableModelEvent e) {
-        int row = e.getFirstRow();
-        int column = e.getColumn();
-        var tabelModelEvent = e.getType();
+    public void onTableChanged(TableModelEvent tableModelEvent) {
+        int row = tableModelEvent.getFirstRow();
+        int column = tableModelEvent.getColumn();
+        var tabelModelEvent = tableModelEvent.getType();
         if (tabelModelEvent == TableModelEvent.UPDATE) {
             Object newData = this.model.getValueAt(row, column);
 
@@ -62,7 +61,7 @@ public class SpreadsheetController {
                 return;
             }
             var newDataStr = newData.toString();
-            if (newDataStr.equals("")) {
+            if (newDataStr.isEmpty()) {
                 return;
             }
 

@@ -17,31 +17,11 @@ public class SpreadsheetView {
 
         this.table = new JTable(model);
 
+        var border = BorderFactory.createMatteBorder(0, 0, 1, 1,  Color.LIGHT_GRAY);
+
         // Set custom renderer for main table
         table.setDefaultRenderer(Object.class, new CustomCellRenderer());
-
-//        table.getSelectionModel().addListSelectionListener(e -> {
-//            int row = table.getSelectedRow();
-//            int col = table.getSelectedColumn();
-//            System.out.println("Editor started at row " + row + ", column " + col);
-//        });
-
-//        table.getDefaultEditor(String.class).addCellEditorListener(new javax.swing.event.CellEditorListener() {
-//            @Override
-//            public void editingStopped(javax.swing.event.ChangeEvent e) {
-//                int row = table.getSelectedRow();
-//                int col = table.getSelectedColumn();
-//                if (row >= 0 && col >= 0) {
-//                    System.out.println("Editing stopped at row " + row + ", column " + col);
-//                }
-//            }
-//
-//            @Override
-//            public void editingCanceled(javax.swing.event.ChangeEvent e) {
-//                // Handle editing canceled
-//            }
-//        });
-
+        table.getTableHeader().setReorderingAllowed(false);
 
 
         for (int i = 0; i < table.getColumnCount(); i++) {
@@ -49,6 +29,7 @@ public class SpreadsheetView {
             column.setPreferredWidth(50);
             column.setMinWidth(50);
             column.setMaxWidth(50);
+            column.setResizable(true);
         }
 
         RowHeaderModel rowHeaderModel = new RowHeaderModel(model.getRowCount());
@@ -60,8 +41,10 @@ public class SpreadsheetView {
         rowHeaderTable.setEnabled(false);
         var rowHeaderTableCellRenderer = new CustomCellRenderer();
         rowHeaderTableCellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        rowHeaderTableCellRenderer.setBorder(border);
         rowHeaderTable.setDefaultRenderer(Object.class, rowHeaderTableCellRenderer);
         rowHeaderTable.getColumnModel().getColumn(0).setHeaderValue(""); // FIXME
+
 
 
         // Ensure row selection is synchronized
