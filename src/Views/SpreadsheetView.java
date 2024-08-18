@@ -17,8 +17,6 @@ public class SpreadsheetView {
 
         this.table = new JTable(model);
 
-        var border = BorderFactory.createMatteBorder(0, 0, 1, 1,  Color.LIGHT_GRAY);
-
         // Set custom renderer for main table
         table.setDefaultRenderer(Object.class, new CustomCellRenderer());
         table.getTableHeader().setReorderingAllowed(false);
@@ -36,6 +34,8 @@ public class SpreadsheetView {
         JTable rowHeaderTable = new JTable(rowHeaderModel);
 
         // Customize row header table
+        var border = BorderFactory.createMatteBorder(0, 0, 1, 1,  Color.LIGHT_GRAY);
+
         rowHeaderTable.setPreferredScrollableViewportSize(new Dimension(40, 0));
         rowHeaderTable.setRowHeight(table.getRowHeight());
         rowHeaderTable.setEnabled(false);
