@@ -9,7 +9,7 @@ import java.util.Map;
 public class SpreadsheetModel extends AbstractTableModel {
     private final int rowCount;
     private final int columnCount;
-    // private final Object[][] data;
+
     private final Map<String, CellModel> cells;
     private final Map<String, ExpressionNode> expressionNodeMap;
 
@@ -88,7 +88,6 @@ public class SpreadsheetModel extends AbstractTableModel {
             cell.ShowValue = value.toString();
         }
 
-        //data[rowIndex][columnIndex] = value;
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
@@ -96,6 +95,6 @@ public class SpreadsheetModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true; // All cells are editable
+        return true;
     }
 }
