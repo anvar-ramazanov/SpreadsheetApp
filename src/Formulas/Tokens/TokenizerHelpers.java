@@ -17,4 +17,8 @@ public class TokenizerHelpers {
         }
         return true;
     }
+
+    public static boolean isBoolean(String str) {
+        return str.equalsIgnoreCase("true") || str.equalsIgnoreCase("false");
+    }
 }
