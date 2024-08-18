@@ -51,6 +51,14 @@ public class SpreadsheetModel extends AbstractTableModel {
         return cells.get(cellName).ShowValue;
     }
 
+    public String getRealValueAt(int rowIndex, int columnIndex) {
+        var cellName = getCellName(rowIndex, columnIndex);
+        if (!cells.containsKey(cellName))  {
+            return null;
+        }
+        return cells.get(cellName).Value.toString();
+    }
+
     public void setShowValueAt(Object value, int rowIndex, int columnIndex)  {
         var cellName = getCellName(rowIndex, columnIndex);
         if (!cells.containsKey(cellName))
