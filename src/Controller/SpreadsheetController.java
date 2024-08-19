@@ -6,19 +6,16 @@ import Formulas.Expressions.ExpressionNodes.StringNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.ExpressionTreeEvaluator;
 import Formulas.Expressions.ExpressionTreeParser;
-import Formulas.Expressions.ExpressionTreeWalker;
 import Formulas.Tokens.Tokenizer;
 import Formulas.Tokens.TokenizerHelpers;
 import Models.SpreadsheetModel;
 import Views.SpreadsheetView;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import java.beans.PropertyChangeEvent;
 import java.text.DecimalFormat;
-import java.util.List;
+import java.util.HashSet;
 
 public class SpreadsheetController {
     private final SpreadsheetModel model;
@@ -57,45 +54,43 @@ public class SpreadsheetController {
         int column = tableModelEvent.getColumn();
         var tabelModelEvent = tableModelEvent.getType();
         if (tabelModelEvent == TableModelEvent.UPDATE) {
-            Object newData = this.model.getValueAt(row, column);
-            updateCell(row, column, newData);
+            Object newValue = this.model.getValueAt(row, column);
+            updateCell(row, column, newValue);
         }
     }
 
-    private void updateCell(int row, int column, Object newData) {
-        if (newData == null) {
+    private void updateCell(int row, int column, Object newValue) {
+        if (newValue == null) {
             return;
         }
-        var newDataStr = newData.toString();
-        if (newDataStr.isEmpty()) {
+        var newValueStr = newValue.toString();
+        if (newValueStr.isEmpty()) {
             return;
         }
 
-        System.out.println("Start updating cell at (" + row + ", " + column + ") to have value: " + newDataStr);
+        System.out.println("Start updating cell at (" + row + ", " + column + ") to have value: " + newValueStr);
 
         var cellName = model.getCellName(row, column);
 
-        if (newDataStr.charAt(0) == '=') {
-            newDataStr = newDataStr.substring(1);
+        if (newValueStr.charAt(0) == '=') {
+
+            HashSet<String> oldDependencies = null;
+            if (model.getExpressionNodeMap().containsKey(cellName)){
+                oldDependencies = model.getExpressionNodeMap().get(cellName).getDependencies();
+            }
+
+            newValueStr = newValueStr.substring(1);
             var tokenizer = new Tokenizer();
-            var tokens = tokenizer.tokenize(newDataStr);
+            var tokens = tokenizer.tokenize(newValueStr);
             var expressionTreeParser = new ExpressionTreeParser();
             var node = expressionTreeParser.parse(tokens);
             model.setExpressionNode(cellName, node);
 
             var context = model.getExpressionNodeMap();
 
-            var expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
-
-            var expressionTreeWalker = new ExpressionTreeWalker();
-            var dependedNodes = expressionTreeWalker.GetDependedNodes(cellName, context); // check self reference
-
-            for (var dependedNode:dependedNodes) {
-                model.setChildNode(dependedNode, cellName);
-            }
-
+            var expressionTreeAnalyzer = new ExpressionTreeAnalyzer(); // fixme add test if formula contains value
             try {
-                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context); // add test  if cell contains itself
+                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context);
                 var expressionEvaluator = new ExpressionTreeEvaluator();
                 var val = expressionEvaluator.EvaluateExpressionTree(cellName, context);
                 if (val instanceof Double doubleValue) {
@@ -111,8 +106,19 @@ public class SpreadsheetController {
                 model.setShowValueAt("ERROR", row, column);
             }
 
-        } else if (TokenizerHelpers.isNumeric(newDataStr)) {
-            var doubleValue = Double.parseDouble(newDataStr);
+            if (oldDependencies != null) {
+                for (var dependedNode: oldDependencies) {
+                    model.removeChildNode(dependedNode, cellName);
+                }
+            }
+            for (var dependedNode: node.getDependencies()) {
+                if (!dependedNode.equals(cellName)) {
+                    model.setChildNode(dependedNode, cellName);
+                }
+            }
+
+        } else if (TokenizerHelpers.isNumeric(newValueStr)) {
+            var doubleValue = Double.parseDouble(newValueStr);
             var numericNode = new NumberNode(doubleValue);
             model.setExpressionNode(cellName, numericNode);
 
@@ -120,25 +126,25 @@ public class SpreadsheetController {
             String formattedValue = decimalFormat.format(doubleValue);
             model.setShowValueAt(formattedValue, row, column);
 
-        } else if(TokenizerHelpers.isBoolean(newDataStr)) {
+        } else if(TokenizerHelpers.isBoolean(newValueStr)) {
 
-            var booleanValue = Boolean.parseBoolean(newDataStr);
+            var booleanValue = Boolean.parseBoolean(newValueStr);
             var booleanNode = new BooleanNode(booleanValue);
             model.setExpressionNode(cellName, booleanNode);
             model.setShowValueAt(booleanValue, row, column);
 
         } else {
-            var stringNode = new StringNode(newDataStr);
+            var stringNode = new StringNode(newValueStr);
             model.setExpressionNode(cellName, stringNode);
-            model.setShowValueAt(newDataStr, row, column);
+            model.setShowValueAt(newValueStr, row, column);
         }
 
         var childNodes = model.getChildNodes(cellName);
         if (childNodes != null) {
             for (var childNode:childNodes) {
                 var adress = model.getCellAddress(childNode);
-                updateCell(adress[0], adress[1], model.getRealValueAt(adress[0], adress[1]));
-                model.fireTableCellUpdated(adress[0], adress[1]);
+                updateCell(adress[0], adress[1], model.getRealValueAt(adress[0], adress[1])); // fixme should be only analyze and recalc - no parse
+                model.fireTableCellUpdated(adress[0], adress[1]); // fixme prerhaps a bug because we updating one cell twice
             }
         }
     }

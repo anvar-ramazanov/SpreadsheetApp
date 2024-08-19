@@ -60,6 +60,12 @@ public class SpreadsheetModel extends AbstractTableModel {
         return null;
     }
 
+    public void removeChildNode(String parentNode, String childNode) {
+        if (this.nodeRaltions.containsKey(parentNode)) {
+            this.nodeRaltions.get(parentNode).remove(childNode);
+        }
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         var cellName = getCellName(rowIndex, columnIndex);
@@ -96,7 +102,7 @@ public class SpreadsheetModel extends AbstractTableModel {
         System.out.println("changing cell: " + cellName);
         if (!cells.containsKey(cellName))
         {
-            var cell = new CellModel(); // fixme excessive allocation
+            var cell = new CellModel();
             cell.Value = value;
             cell.ShowValue = (String)value;
             cells.put(cellName, cell);
@@ -109,7 +115,7 @@ public class SpreadsheetModel extends AbstractTableModel {
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
-    public int[] getCellAddress(String cellName) {
+    public int[] getCellAddress(String cellName) { // fixme ugly code
         // Extract the column part (first character)
         char columnChar = cellName.charAt(0);
 

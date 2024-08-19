@@ -9,11 +9,25 @@ import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class ExpressionTreeParser {
     private List<Token> tokens;
     private int position;
+    private HashSet<String> dependecies;
+
+    public ExpressionNode parse(List<Token> tokens)  {
+        this.tokens = tokens;
+        this.position = 0;
+        this.dependecies = new HashSet<>();
+        var node = parseExpression();
+        if (currentToken() != null) {
+            throw new UnexpectedTokenException("Unexpected token");
+        }
+        node.setDependencies(dependecies);
+        return node;
+    }
 
     private Token currentToken() {
         if (position < tokens.size()) {
@@ -28,23 +42,12 @@ public class ExpressionTreeParser {
         return token;
     }
 
-    public ExpressionNode parse(List<Token> tokens)  {
-        this.tokens = tokens;
-        this.position = 0;
-        var node = parseExpression();
-        if (currentToken() != null) {
-            throw new UnexpectedTokenException("Unexpected token");
-        }
-        return node;
-    }
-
     private ExpressionNode parseExpression() {
         ExpressionNode node = parseTerm();
         Token currentToken = currentToken();
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-")  || currentToken.value.equals(">") || currentToken.value.equals("<"))) { // FIXME
             String operator = consumeToken().value;
             ExpressionNode right = parseTerm();
-            DataType resultType = ExpressionLanguage.BinaryOperations.get(operator).resultType();
             node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }
@@ -79,6 +82,7 @@ public class ExpressionTreeParser {
             return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
             consumeToken();
+            this.dependecies.add(token.value);
             return new ReferencesNode(token.value);
         } else if (token.type == TokenType.PARENTHESIS && token.value.equals("(")) {
             consumeToken();
