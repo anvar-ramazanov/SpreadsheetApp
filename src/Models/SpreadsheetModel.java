@@ -4,6 +4,7 @@ import Formulas.Expressions.ExpressionNode;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class SpreadsheetModel extends AbstractTableModel {
@@ -12,12 +13,14 @@ public class SpreadsheetModel extends AbstractTableModel {
 
     private final Map<String, CellModel> cells;
     private final Map<String, ExpressionNode> expressionNodeMap;
+    private final Map<String, HashSet<String>> nodeRaltions;
 
     public SpreadsheetModel(int rowCount, int columnCount) {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
         this.cells = new HashMap<>();
         this.expressionNodeMap = new HashMap<>();
+        this.nodeRaltions = new HashMap<>();
     }
 
     @Override
@@ -40,6 +43,21 @@ public class SpreadsheetModel extends AbstractTableModel {
 
     public void setExpressionNode(String name, ExpressionNode node) {
         this.expressionNodeMap.put(name, node);
+    }
+
+    public void setChildNode(String parentNode, String childNode) {
+        if (!this.nodeRaltions.containsKey(parentNode)) {
+            this.nodeRaltions.put(parentNode, new HashSet<>());
+
+        }
+        this.nodeRaltions.get(parentNode).add(childNode);
+    }
+
+    public HashSet<String> getChildNodes(String node) {
+        if (this.nodeRaltions.containsKey(node)) {
+            return this.nodeRaltions.get(node);
+        }
+        return null;
     }
 
     @Override
@@ -78,7 +96,7 @@ public class SpreadsheetModel extends AbstractTableModel {
         System.out.println("changing cell: " + cellName);
         if (!cells.containsKey(cellName))
         {
-            var cell = new CellModel();
+            var cell = new CellModel(); // fixme excessive allocation
             cell.Value = value;
             cell.ShowValue = (String)value;
             cells.put(cellName, cell);
@@ -89,6 +107,22 @@ public class SpreadsheetModel extends AbstractTableModel {
         }
 
         fireTableCellUpdated(rowIndex, columnIndex);
+    }
+
+    public int[] getCellAddress(String cellName) {
+        // Extract the column part (first character)
+        char columnChar = cellName.charAt(0);
+
+        // Extract the row part (remaining substring after the first character)
+        String rowString = cellName.substring(1);
+
+        // Convert column character to index
+        int columnIndex = columnChar - 'A';
+
+        // Convert row string to index (and subtract 1 to make it zero-based)
+        int rowIndex = Integer.parseInt(rowString) - 1;
+
+        return new int[] { rowIndex,  columnIndex};
     }
 
 

@@ -43,9 +43,7 @@ public class SpreadsheetView {
         rowHeaderTableCellRenderer.setHorizontalAlignment(JLabel.CENTER);
         rowHeaderTableCellRenderer.setBorder(border);
         rowHeaderTable.setDefaultRenderer(Object.class, rowHeaderTableCellRenderer);
-        rowHeaderTable.getColumnModel().getColumn(0).setHeaderValue(""); // FIXME
-
-
+        rowHeaderTable.getColumnModel().getColumn(0).setHeaderValue("");
 
         // Ensure row selection is synchronized
         ListSelectionModel selectionModel = table.getSelectionModel();
