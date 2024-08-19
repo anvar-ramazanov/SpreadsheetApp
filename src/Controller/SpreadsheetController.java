@@ -88,14 +88,14 @@ public class SpreadsheetController {
             var expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
 
             var expressionTreeWalker = new ExpressionTreeWalker();
-            var dependedNodes = expressionTreeWalker.GetDependedNodes(cellName, context);
+            var dependedNodes = expressionTreeWalker.GetDependedNodes(cellName, context); // check self reference
 
             for (var dependedNode:dependedNodes) {
                 model.setChildNode(dependedNode, cellName);
             }
 
             try {
-                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context);
+                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context); // add test  if cell contains itself
                 var expressionEvaluator = new ExpressionTreeEvaluator();
                 var val = expressionEvaluator.EvaluateExpressionTree(cellName, context);
                 if (val instanceof Double doubleValue) {
