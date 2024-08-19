@@ -57,7 +57,6 @@ public class ExpressionTreeParser {
         while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") || currentToken.value.equals("/"))) {
             String operator = consumeToken().value;
             ExpressionNode right = parseFactor();
-            DataType resultType = ExpressionLanguage.BinaryOperations.get(operator).resultType();
             node = new BinaryOperationNode(operator, node, right);
             currentToken = currentToken();
         }
