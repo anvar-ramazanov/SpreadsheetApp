@@ -98,7 +98,7 @@ public class SpreadsheetController {
             var context = model.getExpressionNodeMap();
 
             try {
-                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context); // fixme add test if formula contains value
+                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context);
                 var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
                 if (newShowValue instanceof Double doubleValue) {
                     DecimalFormat decimalFormat = new DecimalFormat("#.#");

@@ -97,7 +97,7 @@ public class ExpressionTreeAnalyzer {
         }
         var nextNode = context.get(nextNodeName);
         if (visitedNodes.contains(nextNode)) {
-            throw new CircularDependencyException();
+            throw new CircularDependencyException("Node contains circular dependency");
         }
 
         var nextNodeType = AnalyzeNode(nextNode, context, visitedNodes);
