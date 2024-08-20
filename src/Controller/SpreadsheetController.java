@@ -93,7 +93,7 @@ public class SpreadsheetController {
 
             Object newShowValue;
             try {
-                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context);
+                expressionTreeAnalyzer.AnalyzeExpressionTree(node, context);
                 newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
                 if (newShowValue instanceof Double doubleValue) {
                     DecimalFormat decimalFormat = new DecimalFormat("#.#");
@@ -151,10 +151,11 @@ public class SpreadsheetController {
 
         System.out.println("Recalculating cell " + cellName);
 
+        var expressionNode  = model.getExpressionNodeMap().get(cellName);
         var context = model.getExpressionNodeMap();
 
         try {
-            expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context);
+            expressionTreeAnalyzer.AnalyzeExpressionTree(expressionNode, context);
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
             if (newShowValue instanceof Double doubleValue) {
                 DecimalFormat decimalFormat = new DecimalFormat("#.#");

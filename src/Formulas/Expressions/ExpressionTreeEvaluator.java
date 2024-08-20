@@ -30,7 +30,7 @@ public class ExpressionTreeEvaluator {
         } else if (node instanceof StringNode stringNode) {
             return stringNode.getValue();
         }
-        throw new UnknownTypeOfNodeException("Unknow type of node: " + node.getType());
+        throw new UnknownTypeOfNodeException("Unknown type of node: " + node.getType());
     }
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionNode> context) {

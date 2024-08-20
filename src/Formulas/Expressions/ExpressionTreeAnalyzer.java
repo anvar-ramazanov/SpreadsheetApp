@@ -10,16 +10,13 @@ import java.util.Map;
 
 public class ExpressionTreeAnalyzer {
 
-    public void AnalyzeExpressionTree(String nodeToStart, Map<String, ExpressionNode> context) {
+    public void AnalyzeExpressionTree(ExpressionNode expressionNode, Map<String, ExpressionNode> context) {
         var visitedNodes = new HashSet<ExpressionNode>();
-        visitedNodes.add(context.get(nodeToStart));
-        AnalyzeNode(context.get(nodeToStart), context, visitedNodes);
+        visitedNodes.add(expressionNode);
+        AnalyzeNode(expressionNode, context, visitedNodes);
     }
 
     private DataType AnalyzeNode(ExpressionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
-        if (node == null) {
-            throw new InvalidReferenceException("Node doesn't exist");
-        }
         DataType nodeType = null;
         if (node instanceof UnaryOperationNode unaryOperationNode) {
             nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, context, visitedNodes);

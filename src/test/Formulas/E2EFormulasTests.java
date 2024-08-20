@@ -35,7 +35,7 @@ public class E2EFormulasTests {
 
         context.put("A2", expressionTree);
 
-        expressionTreeAnalyzer.AnalyzeExpressionTree("A2", context);
+        expressionTreeAnalyzer.AnalyzeExpressionTree(expressionTree, context);
 
         var result = expressionEvaluator.EvaluateExpressionTree("A2", context);
 
