@@ -1,11 +1,11 @@
 package Formulas.Tokens;
 
 import Formulas.Language.ExpressionLanguage;
+import Helpers.StringHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static Formulas.Tokens.TokenizerHelpers.isNumeric;
 import static Formulas.Tokens.TokenizerHelpers.isValidCellName;
 
 public class Tokenizer implements ITokenizer {
@@ -26,7 +26,7 @@ public class Tokenizer implements ITokenizer {
                     i++;
                 }
                 var str = number.toString();
-                if (isNumeric(str)) {
+                if (StringHelpers.isNumeric(str)) {
                     tokens.add(new Token(TokenType.NUMBER, str));
                 }
             } else if ("+-*/><=!".indexOf(current) != -1) {

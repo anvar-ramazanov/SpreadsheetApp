@@ -34,41 +34,4 @@ public class TokenizerHelpersTest {
         assertFalse(TokenizerHelpers.isValidCellName(null));
     }
 
-    @Test
-    public void isNumeric_ValidNumbers() {
-        assertTrue(TokenizerHelpers.isNumeric("123"));           // Integer
-        assertTrue(TokenizerHelpers.isNumeric("123.456"));       // Floating-point number
-        assertTrue(TokenizerHelpers.isNumeric("-123.456"));      // Negative floating-point
-        assertTrue(TokenizerHelpers.isNumeric("0"));             // Zero
-        assertTrue(TokenizerHelpers.isNumeric("-0"));            // Negative zero
-        assertTrue(TokenizerHelpers.isNumeric("1.23e4"));        // Scientific notation
-        assertTrue(TokenizerHelpers.isNumeric("1E10"));          // Scientific notation with integer exponent
-        assertTrue(TokenizerHelpers.isNumeric(".5"));            // Leading decimal
-        assertTrue(TokenizerHelpers.isNumeric("-.5"));           // Negative leading decimal
-    }
-
-    @Test
-    public void isNumeric_InvalidNumbers() {
-        assertFalse(TokenizerHelpers.isNumeric("abc"));          // Alphabetic string
-        assertFalse(TokenizerHelpers.isNumeric("123a"));         // Alphanumeric string
-        assertFalse(TokenizerHelpers.isNumeric("1.2.3"));        // Multiple decimals
-        assertFalse(TokenizerHelpers.isNumeric(""));             // Empty string
-        assertFalse(TokenizerHelpers.isNumeric(" "));            // Space character
-        assertFalse(TokenizerHelpers.isNumeric("--123"));        // Double negative
-    }
-
-
-    @Test
-    public void isNumeric_NullInput() {
-        assertFalse(TokenizerHelpers.isNumeric(null));           // Null input
-    }
-
-    @Test
-    public void isNumeric_EdgeCases() {
-        assertTrue(TokenizerHelpers.isNumeric(String.valueOf(Double.MAX_VALUE)));   // Max double value
-        assertTrue(TokenizerHelpers.isNumeric(String.valueOf(Double.MIN_VALUE)));   // Min double value
-        assertTrue(TokenizerHelpers.isNumeric("4.9E-324"));       // Smallest positive double value
-        assertTrue(TokenizerHelpers.isNumeric("1e-324"));         // Subnormal value
-    }
-
 }

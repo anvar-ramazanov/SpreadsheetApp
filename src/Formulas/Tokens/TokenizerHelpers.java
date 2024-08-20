@@ -5,20 +5,4 @@ public class TokenizerHelpers {
         String regex = "^[A-Za-z]+[1-9][0-9]*$";
         return input != null && input.matches(regex);
     }
-
-    public static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean isBoolean(String str) {
-        return str.equalsIgnoreCase("true") || str.equalsIgnoreCase("false");
-    }
 }

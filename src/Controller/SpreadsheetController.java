@@ -9,6 +9,7 @@ import Formulas.Expressions.ExpressionTreeParser;
 import Formulas.Tokens.ITokenizer;
 import Formulas.Tokens.Tokenizer;
 import Formulas.Tokens.TokenizerHelpers;
+import Helpers.StringHelpers;
 import Models.SpreadsheetModel;
 import Views.SpreadsheetView;
 
@@ -91,7 +92,6 @@ public class SpreadsheetController {
             newValueStr = newValueStr.substring(1);
             var tokens = this.tokenizer.tokenize(newValueStr);
             var node = this.expressionTreeParser.parse(tokens);
-            model.setExpressionNode(cellName, node);
 
             var context = model.getExpressionNodeMap();
 
@@ -101,8 +101,10 @@ public class SpreadsheetController {
                 if (newShowValue instanceof Double doubleValue) {
                     DecimalFormat decimalFormat = new DecimalFormat("#.#");
                     String formattedValue = decimalFormat.format(doubleValue);
+                    model.setExpressionNode(cellName, node);
                     model.setShowValueAt(formattedValue, row, column);
                 } else {
+                    model.setExpressionNode(cellName, node);
                     model.setShowValueAt(newShowValue.toString(), row, column);
                 }
             }
@@ -125,40 +127,40 @@ public class SpreadsheetController {
                 }
             }
 
-        } else if (TokenizerHelpers.isNumeric(newValueStr)) {
+        } else if (StringHelpers.isNumeric(newValueStr)) {
             var doubleValue = Double.parseDouble(newValueStr);
             var numericNode = new NumberNode(doubleValue);
-            model.setExpressionNode(cellName, numericNode);
 
             DecimalFormat decimalFormat = new DecimalFormat("#.#");
             String formattedValue = decimalFormat.format(doubleValue);
             model.setShowValueAt(formattedValue, row, column);
+            model.setExpressionNode(cellName, numericNode);
 
-        } else if(TokenizerHelpers.isBoolean(newValueStr)) {
+        } else if(StringHelpers.isBoolean(newValueStr)) {
 
             var booleanValue = Boolean.parseBoolean(newValueStr);
             var booleanNode = new BooleanNode(booleanValue);
-            model.setExpressionNode(cellName, booleanNode);
             model.setShowValueAt(booleanValue, row, column);
+            model.setExpressionNode(cellName, booleanNode);
 
         } else {
             var stringNode = new StringNode(newValueStr);
-            model.setExpressionNode(cellName, stringNode);
             model.setShowValueAt(newValueStr, row, column);
+            model.setExpressionNode(cellName, stringNode);
         }
 
         var childNodes = model.getChildNodes(cellName);
         if (childNodes != null) {
             for (var childNode:childNodes) {
-                recalcCell(childNode);
+                recalculateCell(childNode);
             }
         }
         model.fireTableDataChanged();
     }
 
-    private void recalcCell(String cellName) {
+    private void recalculateCell(String cellName) {
 
-        System.out.println("recalc cell " + cellName);
+        System.out.println("Recalculating cell " + cellName);
 
         var address = model.getCellAddress(cellName);
         var row = address[0];
@@ -185,7 +187,7 @@ public class SpreadsheetController {
         var childNodes = model.getChildNodes(cellName);
         if (childNodes != null) {
             for (var childNode:childNodes) {
-                recalcCell(childNode);
+                recalculateCell(childNode);
             }
         }
     }

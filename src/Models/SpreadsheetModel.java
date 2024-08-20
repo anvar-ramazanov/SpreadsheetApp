@@ -34,7 +34,7 @@ public class SpreadsheetModel extends AbstractTableModel {
     }
 
     public String getCellName(int rowIndex, int columnIndex) {
-        return String.format("%s%d", (char)('A' + columnIndex), rowIndex+1);
+        return String.format("%s%d", (char)('A' + columnIndex), rowIndex + 1);
     }
 
     public Map<String, ExpressionNode> getExpressionNodeMap() {
