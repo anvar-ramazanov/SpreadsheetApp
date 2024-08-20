@@ -6,6 +6,7 @@ import Formulas.Expressions.ExpressionNodes.StringNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.ExpressionTreeEvaluator;
 import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Tokens.ITokenizer;
 import Formulas.Tokens.Tokenizer;
 import Formulas.Tokens.TokenizerHelpers;
 import Models.SpreadsheetModel;
@@ -21,9 +22,19 @@ public class SpreadsheetController {
     private final SpreadsheetModel model;
     private final SpreadsheetView view;
 
+    private final ITokenizer tokenizer;
+    private final ExpressionTreeParser expressionTreeParser;
+    private final ExpressionTreeAnalyzer expressionTreeAnalyzer;
+    private final ExpressionTreeEvaluator expressionTreeEvaluator;
+
     public SpreadsheetController(SpreadsheetModel model, SpreadsheetView view) {
         this.model = model;
         this.view = view;
+
+        this.tokenizer = new Tokenizer();
+        this.expressionTreeParser = new ExpressionTreeParser();
+        this.expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
+        this.expressionTreeEvaluator = new ExpressionTreeEvaluator();
 
         var table = view.getTable();
         table.getModel().addTableModelListener(this::onTableChanged);
@@ -80,25 +91,21 @@ public class SpreadsheetController {
             }
 
             newValueStr = newValueStr.substring(1);
-            var tokenizer = new Tokenizer();
-            var tokens = tokenizer.tokenize(newValueStr);
-            var expressionTreeParser = new ExpressionTreeParser();
-            var node = expressionTreeParser.parse(tokens);
+            var tokens = this.tokenizer.tokenize(newValueStr);
+            var node = this.expressionTreeParser.parse(tokens);
             model.setExpressionNode(cellName, node);
 
             var context = model.getExpressionNodeMap();
 
-            var expressionTreeAnalyzer = new ExpressionTreeAnalyzer(); // fixme add test if formula contains value
             try {
-                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context);
-                var expressionEvaluator = new ExpressionTreeEvaluator();
-                var val = expressionEvaluator.EvaluateExpressionTree(cellName, context);
-                if (val instanceof Double doubleValue) {
+                expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context); // fixme add test if formula contains value
+                var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
+                if (newShowValue instanceof Double doubleValue) {
                     DecimalFormat decimalFormat = new DecimalFormat("#.#");
                     String formattedValue = decimalFormat.format(doubleValue);
                     model.setShowValueAt(formattedValue, row, column);
                 } else {
-                    model.setShowValueAt(val.toString(), row, column);
+                    model.setShowValueAt(newShowValue.toString(), row, column);
                 }
             }
             catch (RuntimeException exception) {
@@ -107,8 +114,10 @@ public class SpreadsheetController {
             }
 
             if (oldDependencies != null) {
-                for (var dependedNode: oldDependencies) {
-                    model.removeChildNode(dependedNode, cellName);
+                for (var oldDependency: oldDependencies) {
+                    if (!node.getDependencies().contains(oldDependency)) {
+                        model.removeChildNode(oldDependency, cellName);
+                    }
                 }
             }
             for (var dependedNode: node.getDependencies()) {
