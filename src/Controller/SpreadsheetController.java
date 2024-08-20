@@ -46,12 +46,10 @@ public class SpreadsheetController {
         if (table.isEditing()) {
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
-            System.out.println("Editor started at row " + row + ", column " + column);
             var realValue = this.model.getRealValueAt(row, column);
             if (realValue != null && !realValue.isEmpty()){
                 if (realValue.charAt(0) == '=') {
                     var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
-                    System.out.println(source.getClass());
                     var component = (JTextField)source.getComponent();
                     component.setText(realValue);
                 }
@@ -79,7 +77,7 @@ public class SpreadsheetController {
             return;
         }
 
-        System.out.println("Start updating cell at (" + row + ", " + column + ") to have value: " + newValueStr);
+        System.out.println("Updating cell at (" + row + ", " + column + ") to have value: " + newValueStr);
 
         var cellName = model.getCellName(row, column);
 
@@ -152,9 +150,42 @@ public class SpreadsheetController {
         var childNodes = model.getChildNodes(cellName);
         if (childNodes != null) {
             for (var childNode:childNodes) {
-                var address = model.getCellAddress(childNode);
-                updateCell(address[0], address[1], model.getRealValueAt(address[0], address[1])); // fixme should be only analyze and recalc - no parse
-                model.fireTableDataChanged();
+                recalcCell(childNode);
+            }
+        }
+        model.fireTableDataChanged();
+    }
+
+    private void recalcCell(String cellName) {
+
+        System.out.println("recalc cell " + cellName);
+
+        var address = model.getCellAddress(cellName);
+        var row = address[0];
+        var column = address[1];
+
+        var context = model.getExpressionNodeMap();
+
+        try {
+            expressionTreeAnalyzer.AnalyzeExpressionTree(cellName, context);
+            var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
+            if (newShowValue instanceof Double doubleValue) {
+                DecimalFormat decimalFormat = new DecimalFormat("#.#");
+                String formattedValue = decimalFormat.format(doubleValue);
+                model.setShowValueAt(formattedValue, row, column);
+            } else {
+                model.setShowValueAt(newShowValue.toString(), row, column);
+            }
+        }
+        catch (RuntimeException exception) {
+            System.out.println("Cell at (" + row + ", " + column + ") has formula with error: " + exception.getMessage());
+            model.setShowValueAt("ERROR", row, column);
+        }
+
+        var childNodes = model.getChildNodes(cellName);
+        if (childNodes != null) {
+            for (var childNode:childNodes) {
+                recalcCell(childNode);
             }
         }
     }
