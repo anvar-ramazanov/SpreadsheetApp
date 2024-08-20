@@ -41,10 +41,6 @@ public class SpreadsheetModel extends AbstractTableModel {
         return this.expressionNodeMap;
     }
 
-    public void setExpressionNode(String name, ExpressionNode node) {
-        this.expressionNodeMap.put(name, node);
-    }
-
     public void setChildNode(String parentNode, String childNode) {
         if (!this.nodeRelations.containsKey(parentNode)) {
             this.nodeRelations.put(parentNode, new HashSet<>());
@@ -83,19 +79,6 @@ public class SpreadsheetModel extends AbstractTableModel {
         return cells.get(cellName).Value.toString();
     }
 
-    public void setShowValueAt(Object value, int rowIndex, int columnIndex)  {
-        var cellName = getCellName(rowIndex, columnIndex);
-        if (!cells.containsKey(cellName))
-        {
-            var cell = new CellModel();
-            cell.ShowValue = (String)value;
-            cells.put(cellName, cell);
-        } else {
-            var cell = cells.get(cellName);
-            cell.ShowValue = value.toString();
-        }
-    }
-
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         var cellName = getCellName(rowIndex, columnIndex);
@@ -115,20 +98,22 @@ public class SpreadsheetModel extends AbstractTableModel {
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
-    public int[] getCellAddress(String cellName) { // fixme ugly code
-        // Extract the column part (first character)
-        char columnChar = cellName.charAt(0);
+    public void setCell(String cellName, ExpressionNode expression, Object showValue)
+    {
+        updateCellShowValue(cellName, showValue);
+        this.expressionNodeMap.put(cellName, expression);
+    }
 
-        // Extract the row part (remaining substring after the first character)
-        String rowString = cellName.substring(1);
-
-        // Convert column character to index
-        int columnIndex = columnChar - 'A';
-
-        // Convert row string to index (and subtract 1 to make it zero-based)
-        int rowIndex = Integer.parseInt(rowString) - 1;
-
-        return new int[] { rowIndex,  columnIndex};
+    public void updateCellShowValue(String cellName, Object showValue) {
+        if (!cells.containsKey(cellName))
+        {
+            var cell = new CellModel();
+            cell.ShowValue = (String)showValue;
+            cells.put(cellName, cell);
+        } else {
+            var cell = cells.get(cellName);
+            cell.ShowValue = showValue.toString();
+        }
     }
 
 

@@ -17,6 +17,9 @@ public class ExpressionTreeAnalyzer {
     }
 
     private DataType AnalyzeNode(ExpressionNode node, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+        if (node == null) {
+            throw new InvalidReferenceException("Node doesn't exist");
+        }
         DataType nodeType = null;
         if (node instanceof UnaryOperationNode unaryOperationNode) {
             nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, context, visitedNodes);
