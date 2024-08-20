@@ -13,14 +13,14 @@ public class SpreadsheetModel extends AbstractTableModel {
 
     private final Map<String, CellModel> cells;
     private final Map<String, ExpressionNode> expressionNodeMap;
-    private final Map<String, HashSet<String>> nodeRaltions;
+    private final Map<String, HashSet<String>> nodeRelations;
 
     public SpreadsheetModel(int rowCount, int columnCount) {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
         this.cells = new HashMap<>();
         this.expressionNodeMap = new HashMap<>();
-        this.nodeRaltions = new HashMap<>();
+        this.nodeRelations = new HashMap<>();
     }
 
     @Override
@@ -46,23 +46,23 @@ public class SpreadsheetModel extends AbstractTableModel {
     }
 
     public void setChildNode(String parentNode, String childNode) {
-        if (!this.nodeRaltions.containsKey(parentNode)) {
-            this.nodeRaltions.put(parentNode, new HashSet<>());
+        if (!this.nodeRelations.containsKey(parentNode)) {
+            this.nodeRelations.put(parentNode, new HashSet<>());
 
         }
-        this.nodeRaltions.get(parentNode).add(childNode);
+        this.nodeRelations.get(parentNode).add(childNode);
     }
 
     public HashSet<String> getChildNodes(String node) {
-        if (this.nodeRaltions.containsKey(node)) {
-            return this.nodeRaltions.get(node);
+        if (this.nodeRelations.containsKey(node)) {
+            return this.nodeRelations.get(node);
         }
         return null;
     }
 
     public void removeChildNode(String parentNode, String childNode) {
-        if (this.nodeRaltions.containsKey(parentNode)) {
-            this.nodeRaltions.get(parentNode).remove(childNode);
+        if (this.nodeRelations.containsKey(parentNode)) {
+            this.nodeRelations.get(parentNode).remove(childNode);
         }
     }
 

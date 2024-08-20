@@ -63,8 +63,8 @@ public class SpreadsheetController {
     public void onTableChanged(TableModelEvent tableModelEvent) {
         int row = tableModelEvent.getFirstRow();
         int column = tableModelEvent.getColumn();
-        var tabelModelEvent = tableModelEvent.getType();
-        if (tabelModelEvent == TableModelEvent.UPDATE) {
+        var tableModelEventType = tableModelEvent.getType();
+        if (tableModelEventType == TableModelEvent.UPDATE) {
             Object newValue = this.model.getValueAt(row, column);
             updateCell(row, column, newValue);
         }
@@ -120,7 +120,8 @@ public class SpreadsheetController {
                     }
                 }
             }
-            for (var dependedNode: node.getDependencies()) {
+            var newDependencies = node.getDependencies();
+            for (var dependedNode: newDependencies) {
                 if (!dependedNode.equals(cellName)) {
                     model.setChildNode(dependedNode, cellName);
                 }
@@ -151,9 +152,9 @@ public class SpreadsheetController {
         var childNodes = model.getChildNodes(cellName);
         if (childNodes != null) {
             for (var childNode:childNodes) {
-                var adress = model.getCellAddress(childNode);
-                updateCell(adress[0], adress[1], model.getRealValueAt(adress[0], adress[1])); // fixme should be only analyze and recalc - no parse
-                model.fireTableCellUpdated(adress[0], adress[1]); // fixme prerhaps a bug because we updating one cell twice
+                var address = model.getCellAddress(childNode);
+                updateCell(address[0], address[1], model.getRealValueAt(address[0], address[1])); // fixme should be only analyze and recalc - no parse
+                model.fireTableDataChanged();
             }
         }
     }
