@@ -26,7 +26,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
 
         assertSame(DataType.BOOLEAN, a1.getType());
     }
@@ -44,7 +44,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
 
         assertSame(DataType.BOOLEAN, a1.getType());
     }
@@ -60,7 +60,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
 
         assertSame(DataType.NUMBER, a1.getType());
     }
@@ -75,7 +75,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
     @Test(expected = CircularDependencyException.class)
@@ -91,7 +91,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
     @Test(expected = CircularDependencyException.class)
@@ -114,7 +114,7 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(b1, nodes);
+        analyzer.AnalyzeExpressionTree(b1,"B1", nodes);
     }
 
     @Test
@@ -130,15 +130,15 @@ public class ReferencesNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
-    @Test(expected = InvalidReferenceException.class)
+    @Test(expected = CircularDependencyException.class)
     public void ExpressionAnalyzer_AnalyzeExpressionTree_Refs_SelfLink() {
         var a1 = new ReferencesNode("A1");
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, new HashMap<>());
+        analyzer.AnalyzeExpressionTree(a1,"A1", new HashMap<>());
     }
 }

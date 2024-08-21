@@ -100,7 +100,7 @@ public class SpreadsheetController {
 
                 var context = model.getExpressionNodeMap();
 
-                expressionTreeAnalyzer.AnalyzeExpressionTree(node, context);
+                expressionTreeAnalyzer.AnalyzeExpressionTree(node, cellName, context);
 
                 newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(node, context);
                 if (newShowValue instanceof Double doubleValue) {
@@ -177,7 +177,7 @@ public class SpreadsheetController {
         var context = model.getExpressionNodeMap();
 
         try {
-            expressionTreeAnalyzer.AnalyzeExpressionTree(expressionNode, context);
+            expressionTreeAnalyzer.AnalyzeExpressionTree(expressionNode, cellName, context);
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expressionNode, context);
             if (newShowValue instanceof Double doubleValue) {
                 DecimalFormat decimalFormat = new DecimalFormat("#.#");

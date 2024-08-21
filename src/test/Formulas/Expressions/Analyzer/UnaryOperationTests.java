@@ -18,7 +18,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
 
@@ -29,7 +29,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
@@ -49,7 +49,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
@@ -59,7 +59,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 
 
@@ -84,6 +84,6 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzer();
 
-        analyzer.AnalyzeExpressionTree(a1, nodes);
+        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
 }
