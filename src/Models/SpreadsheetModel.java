@@ -79,6 +79,22 @@ public class SpreadsheetModel extends AbstractTableModel {
         return cells.get(cellName).Value.toString();
     }
 
+    public String getErrorAt(int rowIndex, int columnIndex) {
+        var cellName = getCellName(rowIndex, columnIndex);
+        if (!cells.containsKey(cellName))  {
+            return null;
+        }
+        return cells.get(cellName).ErrorText;
+    }
+
+    public void setErrorTextTo(String cellName, String errorText) {
+        if (!cells.containsKey(cellName))  {
+            return;
+        }
+        var cell = cells.get(cellName);
+        cell.ErrorText = errorText;
+    }
+
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         var cellName = getCellName(rowIndex, columnIndex);

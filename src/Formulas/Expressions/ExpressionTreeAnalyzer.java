@@ -93,14 +93,14 @@ public class ExpressionTreeAnalyzer {
     private DataType AnalyzeRefNode(ReferencesNode node, String nodeName, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
         var nextNodeName = node.getReferences();
         if (nextNodeName.equals(nodeName)) {
-            throw new CircularDependencyException("Node contains circular dependency");
+            throw new CircularDependencyException("Cell contains circular dependency");
         }
         if (!context.containsKey(nextNodeName)) {
-            throw new InvalidReferenceException("Node " + nextNodeName + " doesn't exist");
+            throw new InvalidReferenceException("Cell " + nextNodeName + " doesn't exist");
         }
         var nextNode = context.get(nextNodeName);
         if (visitedNodes.contains(nextNode)) {
-            throw new CircularDependencyException("Node contains circular dependency");
+            throw new CircularDependencyException("Cell contains circular dependency");
         }
 
         var nextNodeType = AnalyzeNode(nextNode, nextNodeName, context, visitedNodes);

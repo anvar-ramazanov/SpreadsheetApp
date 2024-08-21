@@ -4,10 +4,8 @@ import Models.RowHeaderModel;
 import Models.SpreadsheetModel;
 
 import javax.swing.*;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.util.EventObject;
+import java.awt.event.MouseEvent;
 
 public class SpreadsheetView {
     private final JFrame frame;
@@ -15,7 +13,21 @@ public class SpreadsheetView {
 
     public SpreadsheetView(SpreadsheetModel model) {
 
-        this.table = new JTable(model);
+        this.table = new JTable(model) {
+            public String getToolTipText(MouseEvent e) {
+                String tooltipText = null;
+                java.awt.Point p = e.getPoint();
+                int rowIndex = rowAtPoint(p);
+                int columnIndex = columnAtPoint(p);
+
+                try {
+                    tooltipText = model.getErrorAt(rowIndex, columnIndex);
+                } catch (RuntimeException exception) {
+                    //catch null pointer exception if mouse is over an empty line
+                }
+                return tooltipText;
+            }
+        };
 
         // Set custom renderer for main table
         table.setDefaultRenderer(Object.class, new CustomCellRenderer());

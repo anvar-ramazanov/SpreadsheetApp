@@ -9,7 +9,7 @@ public class BinaryDivideEvaluator implements BinaryOperationEvaluator {
         var leftOperandValue = Double.parseDouble(leftOperand.toString());
         var rightOperandValue = Double.parseDouble(rightOperand.toString());
         if (rightOperandValue == 0) {
-            throw new DivideByZeroException("Divide by zero");
+            throw new DivideByZeroException("Dividing by zero");
         }
         return leftOperandValue / rightOperandValue;
     }

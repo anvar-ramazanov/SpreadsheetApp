@@ -108,21 +108,29 @@ public class SpreadsheetController {
                     newShowValue = decimalFormat.format(doubleValue);
                 }
             }
-            catch (TokenizerException exception){
+            catch (TokenizerException exception) {
+                var errorText = "Error during parsing formula: " + exception.getMessage(); // even if it tokenizer to customer we will say it was parsing
+                model.setErrorTextTo(cellName, errorText);
                 System.out.println("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
                 newShowValue = "ERROR";
             }
             catch (ExpressionTreeParserException exception){
+                var errorText = "Error during parsing formula: " + exception.getMessage();
+                model.setErrorTextTo(cellName, errorText);
                 System.out.println("Cell " + cellName + " has error during parsing: " + exception.getMessage());
                 newShowValue = "ERROR";
             }
             catch (ExpressionTreeAnalyzerException exception) {
+                var errorText = "Problem with formula: " + exception.getMessage();
+                model.setErrorTextTo(cellName, errorText);
                 System.out.println("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
-                newShowValue = "ERROR";
+                newShowValue = "REF!";
             }
             catch (ExpressionTreeEvaluatorException exception) {
+                var errorText = "Problem with formula: " + exception.getMessage();
+                model.setErrorTextTo(cellName, errorText);
                 System.out.println("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
-                newShowValue = "ERROR";
+                newShowValue = "REF!";
             }
             model.setCell(cellName, node, newShowValue.toString());
 
@@ -187,9 +195,17 @@ public class SpreadsheetController {
                 model.updateCellShowValue(cellName, newShowValue.toString());
             }
         }
-        catch (RuntimeException exception) {
-            System.out.println("Cell " + cellName + " has formula with error: " + exception.getMessage());
-            model.updateCellShowValue(cellName, "ERROR");
+        catch (ExpressionTreeAnalyzerException exception) {
+            var errorText = "Problem with formula: " + exception.getMessage();
+            model.setErrorTextTo(cellName, errorText);
+            System.out.println("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
+            model.updateCellShowValue(cellName, "REF!");
+        }
+        catch (ExpressionTreeEvaluatorException exception) {
+            var errorText = "Problem with formula: " + exception.getMessage();
+            model.setErrorTextTo(cellName, errorText);
+            System.out.println("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
+            model.updateCellShowValue(cellName, "REF!");
         }
 
         var childNodes = model.getChildNodes(cellName);
