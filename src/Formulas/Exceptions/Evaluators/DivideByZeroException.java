@@ -1,6 +1,6 @@
 package Formulas.Exceptions.Evaluators;
 
-public class DivideByZeroException extends EvaluatorException {
+public class DivideByZeroException extends ExpressionTreeEvaluatorException {
 
     public DivideByZeroException() {
         super();

@@ -1,5 +1,10 @@
 package Controller;
 
+import Formulas.Exceptions.Evaluators.ExpressionTreeEvaluatorException;
+import Formulas.Exceptions.Expressions.TreeAnalyzer.ExpressionTreeAnalyzerException;
+import Formulas.Exceptions.Expressions.TreeParser.ExpressionTreeParserException;
+import Formulas.Exceptions.Tokenizer.TokenizerException;
+import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionNodes.BooleanNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Expressions.ExpressionNodes.StringNode;
@@ -86,13 +91,15 @@ public class SpreadsheetController {
             }
 
             newValueStr = newValueStr.substring(1);
-            var tokens = this.tokenizer.tokenize(newValueStr);
-            var node = this.expressionTreeParser.parse(tokens);
-
-            var context = model.getExpressionNodeMap();
-
             Object newShowValue;
+            ExpressionNode node = null;
+
             try {
+                var tokens = this.tokenizer.tokenize(newValueStr);
+                node = this.expressionTreeParser.parse(tokens);
+
+                var context = model.getExpressionNodeMap();
+
                 expressionTreeAnalyzer.AnalyzeExpressionTree(node, context);
                 newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
                 if (newShowValue instanceof Double doubleValue) {
@@ -100,23 +107,37 @@ public class SpreadsheetController {
                     newShowValue = decimalFormat.format(doubleValue);
                 }
             }
-            catch (RuntimeException exception) {
+            catch (TokenizerException exception){
+                System.out.println("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
+                newShowValue = "ERROR";
+            }
+            catch (ExpressionTreeParserException exception){
+                System.out.println("Cell " + cellName + " has error during parsing: " + exception.getMessage());
+                newShowValue = "ERROR";
+            }
+            catch (ExpressionTreeAnalyzerException exception) {
+                System.out.println("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
+                newShowValue = "ERROR";
+            }
+            catch (ExpressionTreeEvaluatorException exception) {
                 System.out.println("Cell " + cellName + " has formula with error: " + exception.getMessage());
                 newShowValue = "ERROR";
             }
             model.setCell(cellName, node, newShowValue.toString());
 
-            if (oldDependencies != null) {
-                for (var oldDependency: oldDependencies) {
-                    if (!node.getDependencies().contains(oldDependency)) {
-                        model.removeChildNode(oldDependency, cellName);
+            if (node != null) {
+                if (oldDependencies != null) {
+                    for (var oldDependency : oldDependencies) {
+                        if (!node.getDependencies().contains(oldDependency)) {
+                            model.removeChildNode(oldDependency, cellName);
+                        }
                     }
                 }
-            }
-            var newDependencies = node.getDependencies();
-            for (var dependedNode: newDependencies) {
-                if (!dependedNode.equals(cellName)) {
-                    model.setChildNode(dependedNode, cellName);
+                var newDependencies = node.getDependencies();
+                for (var dependedNode : newDependencies) {
+                    if (!dependedNode.equals(cellName)) {
+                        model.setChildNode(dependedNode, cellName);
+                    }
                 }
             }
 

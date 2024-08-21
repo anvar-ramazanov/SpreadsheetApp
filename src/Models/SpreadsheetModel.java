@@ -101,7 +101,9 @@ public class SpreadsheetModel extends AbstractTableModel {
     public void setCell(String cellName, ExpressionNode expression, Object showValue)
     {
         updateCellShowValue(cellName, showValue);
-        this.expressionNodeMap.put(cellName, expression);
+        if (expression != null) {
+            this.expressionNodeMap.put(cellName, expression);
+        }
     }
 
     public void updateCellShowValue(String cellName, Object showValue) {

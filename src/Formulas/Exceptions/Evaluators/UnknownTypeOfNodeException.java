@@ -1,6 +1,6 @@
 package Formulas.Exceptions.Evaluators;
 
-public class UnknownTypeOfNodeException extends EvaluatorException {
+public class UnknownTypeOfNodeException extends ExpressionTreeEvaluatorException {
 
     public UnknownTypeOfNodeException() {
         super();
