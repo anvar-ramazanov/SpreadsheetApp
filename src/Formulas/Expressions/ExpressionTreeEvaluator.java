@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class ExpressionTreeEvaluator {
 
-    public Object EvaluateExpressionTree(String nodeToStart, Map<String, ExpressionNode> context) {
-        return EvaluateNode(context.get(nodeToStart), context);
+    public Object EvaluateExpressionTree(ExpressionNode node, Map<String, ExpressionNode> context) {
+        return EvaluateNode(node, context);
     }
 
     private Object EvaluateNode(ExpressionNode node, Map<String, ExpressionNode> context) {
@@ -30,7 +30,10 @@ public class ExpressionTreeEvaluator {
         } else if (node instanceof StringNode stringNode) {
             return stringNode.getValue();
         }
-        throw new UnknownTypeOfNodeException("Unknown type of node: " + node.getType());
+        if (node != null) {
+            throw new UnknownTypeOfNodeException("Unknown type of node: " + node.getType());
+        }
+        throw new UnknownTypeOfNodeException("Node is null");
     }
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionNode> context) {

@@ -1,5 +1,6 @@
 package test.Formulas.tokens;
 
+import Formulas.Exceptions.Tokenizer.UnexpectedCharacterException;
 import Formulas.Tokens.TokenType;
 import Formulas.Tokens.Tokenizer;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class TokenizerTest {
         assertEquals(num, token.value);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = UnexpectedCharacterException.class)
     public void test_unexpected_character() {
         Tokenizer tokenizer = new Tokenizer();
 
@@ -68,7 +69,7 @@ public class TokenizerTest {
         assertEquals(cellName, token.value);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = UnexpectedCharacterException.class)
     public void test_parse_variable_invalid() {
         var cellName = "6a";
 

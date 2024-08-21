@@ -101,7 +101,8 @@ public class SpreadsheetController {
                 var context = model.getExpressionNodeMap();
 
                 expressionTreeAnalyzer.AnalyzeExpressionTree(node, context);
-                newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
+
+                newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(node, context);
                 if (newShowValue instanceof Double doubleValue) {
                     DecimalFormat decimalFormat = new DecimalFormat("#.#");
                     newShowValue = decimalFormat.format(doubleValue);
@@ -120,7 +121,7 @@ public class SpreadsheetController {
                 newShowValue = "ERROR";
             }
             catch (ExpressionTreeEvaluatorException exception) {
-                System.out.println("Cell " + cellName + " has formula with error: " + exception.getMessage());
+                System.out.println("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
                 newShowValue = "ERROR";
             }
             model.setCell(cellName, node, newShowValue.toString());
@@ -177,7 +178,7 @@ public class SpreadsheetController {
 
         try {
             expressionTreeAnalyzer.AnalyzeExpressionTree(expressionNode, context);
-            var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(cellName, context);
+            var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expressionNode, context);
             if (newShowValue instanceof Double doubleValue) {
                 DecimalFormat decimalFormat = new DecimalFormat("#.#");
                 String formattedValue = decimalFormat.format(doubleValue);

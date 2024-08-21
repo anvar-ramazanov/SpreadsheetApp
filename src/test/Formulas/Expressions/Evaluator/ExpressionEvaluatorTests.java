@@ -13,12 +13,12 @@ import static org.junit.Assert.assertEquals;
 public class ExpressionEvaluatorTests {
     @Test
     public void ExpressionEvaluator_EvaluateBinaryOperation() {
-        var node = new BinaryOperationNode("+", new NumberNode(2), new NumberNode(2));
-        var nodes = Map.of("A1", (ExpressionNode)node);
+        var a1 = new BinaryOperationNode("+", new NumberNode(2), new NumberNode(2));
+        var nodes = Map.of("A1", (ExpressionNode)a1);
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
+        var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
         assertEquals(4.0, result);
     }
@@ -35,43 +35,43 @@ public class ExpressionEvaluatorTests {
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
+        var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
         assertEquals(3.0, result);
     }
 
     @Test
     public void ExpressionEvaluator_EvaluateUnaryOperation() {
-        var node = new UnaryOperationNode("-", new NumberNode(2));
-        var nodes = Map.of("A1", (ExpressionNode)node);
+        var a1 = new UnaryOperationNode("-", new NumberNode(2));
+        var nodes = Map.of("A1", (ExpressionNode)a1);
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
+        var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
         assertEquals(-2.0, result);
     }
 
     @Test
     public void ExpressionEvaluator_EvaluateFunctionOperation() {
-        var node = new FunctionNode("MIN", List.of(new NumberNode(1), new NumberNode(2)));
-        var nodes = Map.of("A1", (ExpressionNode)node);
+        var a1 = new FunctionNode("MIN", List.of(new NumberNode(1), new NumberNode(2)));
+        var nodes = Map.of("A1", (ExpressionNode)a1);
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
+        var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
         assertEquals(1.0, result);
     }
 
     @Test
     public void ExpressionEvaluator_EvaluateFunctionWithNestedUnaryOperation() {
-        var node = new FunctionNode("MIN", List.of(new UnaryOperationNode("-", new NumberNode(1)), new NumberNode(2)));
-        var nodes = Map.of("A1", (ExpressionNode)node);
+        var a1 = new FunctionNode("MIN", List.of(new UnaryOperationNode("-", new NumberNode(1)), new NumberNode(2)));
+        var nodes = Map.of("A1", (ExpressionNode)a1);
 
         var evaluator = new ExpressionTreeEvaluator();
 
-        var result =  evaluator.EvaluateExpressionTree("A1", nodes);
+        var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
         assertEquals(-1.0, result);
     }
