@@ -1,5 +1,6 @@
 package Formulas.Tokens;
 
+import Formulas.Exceptions.Tokenizer.UnexpectedCharacterException;
 import Formulas.Language.ExpressionLanguage;
 import Helpers.StringHelpers;
 
@@ -54,10 +55,10 @@ public class Tokenizer implements ITokenizer {
                 } else if (isValidCellName(value)) {
                     tokens.add(new Token(TokenType.VARIABLE, value));
                 } else {
-                    throw new IllegalArgumentException("Unexpected character: " + current); // fixme
+                    throw new UnexpectedCharacterException("Unexpected character: " + current);
                 }
             } else {
-                throw new IllegalArgumentException("Unexpected character: " + current); // fixme
+                throw new UnexpectedCharacterException("Unexpected character: " + current);
             }
         }
         return tokens;

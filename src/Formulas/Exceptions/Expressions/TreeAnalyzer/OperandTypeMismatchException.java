@@ -1,6 +1,6 @@
 package Formulas.Exceptions.Expressions.TreeAnalyzer;
 
-public class OperandTypeMismatchException extends RuntimeException {
+public class OperandTypeMismatchException extends ExpressionTreeAnalyzerException {
 
     public OperandTypeMismatchException() {
         super();

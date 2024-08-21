@@ -1,6 +1,6 @@
 package Formulas.Exceptions.Expressions.TreeAnalyzer;
 
-public class ArgumentsNumberMismatchException extends RuntimeException {
+public class ArgumentsNumberMismatchException extends ExpressionTreeAnalyzerException {
 
     public ArgumentsNumberMismatchException() {
         super();

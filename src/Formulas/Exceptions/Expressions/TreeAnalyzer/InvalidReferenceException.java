@@ -1,6 +1,6 @@
 package Formulas.Exceptions.Expressions.TreeAnalyzer;
 
-public class InvalidReferenceException extends RuntimeException {
+public class InvalidReferenceException extends ExpressionTreeAnalyzerException {
 
     public InvalidReferenceException() {
         super();

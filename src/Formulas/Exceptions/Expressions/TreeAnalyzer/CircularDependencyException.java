@@ -1,6 +1,6 @@
 package Formulas.Exceptions.Expressions.TreeAnalyzer;
 
-public class CircularDependencyException extends RuntimeException {
+public class CircularDependencyException extends ExpressionTreeAnalyzerException {
 
     public CircularDependencyException() {
         super();

@@ -1,6 +1,6 @@
 package Formulas.Exceptions.Expressions.TreeParser;
 
-public class TokenExpectedException extends RuntimeException {
+public class TokenExpectedException extends ExpressionTreeParserException {
 
     public TokenExpectedException() {
         super();
