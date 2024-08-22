@@ -14,6 +14,7 @@ public class SpreadsheetView {
     public SpreadsheetView(SpreadsheetModel model) {
 
         this.table = new JTable(model) {
+            // It would be better to have that code in controller, but I don't know how to do it
             public String getToolTipText(MouseEvent e) {
                 String tooltipText = null;
                 java.awt.Point p = e.getPoint();

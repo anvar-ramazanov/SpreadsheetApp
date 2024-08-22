@@ -98,7 +98,6 @@ public class SpreadsheetModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         var cellName = getCellName(rowIndex, columnIndex);
-        System.out.println("changing cell: " + cellName);
         if (!cells.containsKey(cellName))
         {
             var cell = new CellModel();
