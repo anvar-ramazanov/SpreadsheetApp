@@ -3,7 +3,7 @@ package test.Formulas;
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Expressions.ExpressionTreeAnalyzerImpl;
-import Formulas.Expressions.ExpressionTreeEvaluator;
+import Formulas.Expressions.ExpressionTreeEvaluatorImpl;
 import Formulas.Expressions.ExpressionTreeParserImpl;
 import Formulas.Tokens.TokenizerImpl;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class E2EFormulasTests {
         var tokenizer = new TokenizerImpl();
         var expressionTreeParser = new ExpressionTreeParserImpl();
         var expressionTreeAnalyzer = new ExpressionTreeAnalyzerImpl();
-        var expressionEvaluator = new ExpressionTreeEvaluator();
+        var expressionEvaluator = new ExpressionTreeEvaluatorImpl();
 
         var tokens = tokenizer.tokenize(expression);
 

@@ -39,7 +39,7 @@ public class SpreadsheetController {
         this.tokenizer = new TokenizerImpl();
         this.expressionTreeParser = new ExpressionTreeParserImpl();
         this.expressionTreeAnalyzer = new ExpressionTreeAnalyzerImpl();
-        this.expressionTreeEvaluator = new ExpressionTreeEvaluator();
+        this.expressionTreeEvaluator = new ExpressionTreeEvaluatorImpl();
 
         this.logger = Logger.getLogger(SpreadsheetController.class.getName());
 

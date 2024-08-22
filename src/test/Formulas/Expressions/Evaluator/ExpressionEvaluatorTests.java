@@ -2,7 +2,7 @@ package test.Formulas.Expressions.Evaluator;
 
 import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionNodes.*;
-import Formulas.Expressions.ExpressionTreeEvaluator;
+import Formulas.Expressions.ExpressionTreeEvaluatorImpl;
 import org.junit.Test;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class ExpressionEvaluatorTests {
         var a1 = new BinaryOperationNode("+", new NumberNode(2), new NumberNode(2));
         var nodes = Map.of("A1", (ExpressionNode)a1);
 
-        var evaluator = new ExpressionTreeEvaluator();
+        var evaluator = new ExpressionTreeEvaluatorImpl();
 
         var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
@@ -33,7 +33,7 @@ public class ExpressionEvaluatorTests {
             "A2", a2,
             "A3", a3);
 
-        var evaluator = new ExpressionTreeEvaluator();
+        var evaluator = new ExpressionTreeEvaluatorImpl();
 
         var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
@@ -45,7 +45,7 @@ public class ExpressionEvaluatorTests {
         var a1 = new UnaryOperationNode("-", new NumberNode(2));
         var nodes = Map.of("A1", (ExpressionNode)a1);
 
-        var evaluator = new ExpressionTreeEvaluator();
+        var evaluator = new ExpressionTreeEvaluatorImpl();
 
         var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
@@ -57,7 +57,7 @@ public class ExpressionEvaluatorTests {
         var a1 = new FunctionNode("MIN", List.of(new NumberNode(1), new NumberNode(2)));
         var nodes = Map.of("A1", (ExpressionNode)a1);
 
-        var evaluator = new ExpressionTreeEvaluator();
+        var evaluator = new ExpressionTreeEvaluatorImpl();
 
         var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
@@ -69,7 +69,7 @@ public class ExpressionEvaluatorTests {
         var a1 = new FunctionNode("MIN", List.of(new UnaryOperationNode("-", new NumberNode(1)), new NumberNode(2)));
         var nodes = Map.of("A1", (ExpressionNode)a1);
 
-        var evaluator = new ExpressionTreeEvaluator();
+        var evaluator = new ExpressionTreeEvaluatorImpl();
 
         var result =  evaluator.EvaluateExpressionTree(a1, nodes);
 
