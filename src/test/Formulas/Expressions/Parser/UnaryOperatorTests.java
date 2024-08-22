@@ -1,6 +1,6 @@
 package test.Formulas.Expressions.Parser;
 
-import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Expressions.ExpressionTreeParserImpl;
 import Formulas.Expressions.ExpressionNodes.UnaryOperationNode;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
@@ -18,7 +18,7 @@ public class UnaryOperatorTests {
         tokens.add(new Token(TokenType.OPERATOR, "-"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -42,7 +42,7 @@ public class UnaryOperatorTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -62,7 +62,7 @@ public class UnaryOperatorTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         parser.parse(tokens);
     }

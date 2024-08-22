@@ -1,6 +1,6 @@
 package test.Formulas.Expressions.Parser;
 
-import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Expressions.ExpressionTreeParserImpl;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class GetDependenciesTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -32,7 +32,7 @@ public class GetDependenciesTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.REFERENCE, "A2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -49,7 +49,7 @@ public class GetDependenciesTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.REFERENCE, "A2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 

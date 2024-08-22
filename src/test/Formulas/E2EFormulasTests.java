@@ -4,7 +4,7 @@ import Formulas.Expressions.ExpressionNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.ExpressionTreeEvaluator;
-import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Expressions.ExpressionTreeParserImpl;
 import Formulas.Tokens.TokenizerImpl;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class E2EFormulasTests {
                 "B2", b2));
 
         var tokenizer = new TokenizerImpl();
-        var expressionTreeParser = new ExpressionTreeParser();
+        var expressionTreeParser = new ExpressionTreeParserImpl();
         var expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
         var expressionEvaluator = new ExpressionTreeEvaluator();
 

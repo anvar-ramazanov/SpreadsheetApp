@@ -2,7 +2,7 @@ package test.Formulas.Expressions.Parser;
 
 import Formulas.Exceptions.Expressions.TreeParser.TokenExpectedException;
 import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
-import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Expressions.ExpressionTreeParserImpl;
 import Formulas.Expressions.ExpressionNodes.FunctionNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Tokens.Token;
@@ -24,7 +24,7 @@ public class FunctionsTests {
         tokens.add(new Token(TokenType.NUMBER, "1"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -48,7 +48,7 @@ public class FunctionsTests {
         tokens.add(new Token(TokenType.COMMA, ","));
         tokens.add(new Token(TokenType.NUMBER, "1"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         parser.parse(tokens);
     }
@@ -62,7 +62,7 @@ public class FunctionsTests {
         tokens.add(new Token(TokenType.NUMBER, "1"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         parser.parse(tokens);
     }

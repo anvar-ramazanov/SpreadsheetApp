@@ -2,7 +2,7 @@ package test.Formulas.Expressions.Parser;
 
 import Formulas.Exceptions.Expressions.TreeParser.TokenExpectedException;
 import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
-import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Expressions.ExpressionTreeParserImpl;
 import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Expressions.ExpressionNodes.UnaryOperationNode;
@@ -25,7 +25,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -41,7 +41,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -56,7 +56,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -72,7 +72,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.OPERATOR, "+"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         parser.parse(tokens);
     }
@@ -85,7 +85,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, "("));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         parser.parse(tokens);
     }
@@ -96,7 +96,7 @@ public class ParenthesisTests {
         tokens.add(new Token(TokenType.PARENTHESIS, "("));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         parser.parse(tokens);
     }

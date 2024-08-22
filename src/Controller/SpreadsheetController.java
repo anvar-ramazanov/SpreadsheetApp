@@ -4,13 +4,10 @@ import Formulas.Exceptions.Evaluators.ExpressionTreeEvaluatorException;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.ExpressionTreeAnalyzerException;
 import Formulas.Exceptions.Expressions.TreeParser.ExpressionTreeParserException;
 import Formulas.Exceptions.Tokenizer.TokenizerException;
-import Formulas.Expressions.ExpressionNode;
+import Formulas.Expressions.*;
 import Formulas.Expressions.ExpressionNodes.BooleanNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Expressions.ExpressionNodes.StringNode;
-import Formulas.Expressions.ExpressionTreeAnalyzer;
-import Formulas.Expressions.ExpressionTreeEvaluator;
-import Formulas.Expressions.ExpressionTreeParser;
 import Formulas.Tokens.Tokenizer;
 import Formulas.Tokens.TokenizerImpl;
 import Helpers.StringHelpers;
@@ -40,7 +37,7 @@ public class SpreadsheetController {
         this.view = view;
 
         this.tokenizer = new TokenizerImpl();
-        this.expressionTreeParser = new ExpressionTreeParser();
+        this.expressionTreeParser = new ExpressionTreeParserImpl();
         this.expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
         this.expressionTreeEvaluator = new ExpressionTreeEvaluator();
 

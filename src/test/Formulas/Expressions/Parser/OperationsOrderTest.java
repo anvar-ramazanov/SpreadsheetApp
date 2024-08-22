@@ -1,6 +1,6 @@
 package test.Formulas.Expressions.Parser;
 
-import Formulas.Expressions.ExpressionTreeParser;
+import Formulas.Expressions.ExpressionTreeParserImpl;
 
 import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
@@ -26,7 +26,7 @@ public class OperationsOrderTest {
         tokens.add(new Token(TokenType.NUMBER, "2"));
         tokens.add(new Token(TokenType.PARENTHESIS, ")"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -54,7 +54,7 @@ public class OperationsOrderTest {
         tokens.add(new Token(TokenType.OPERATOR, "*"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
@@ -76,7 +76,7 @@ public class OperationsOrderTest {
         tokens.add(new Token(TokenType.OPERATOR, "-"));
         tokens.add(new Token(TokenType.NUMBER, "2"));
 
-        var parser = new ExpressionTreeParser();
+        var parser = new ExpressionTreeParserImpl();
 
         var result = parser.parse(tokens);
 
