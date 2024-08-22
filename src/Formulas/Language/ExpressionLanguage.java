@@ -22,12 +22,12 @@ public class ExpressionLanguage {
     );
 
     public static final Map<String, BinaryOperatorDescription> BinaryOperations = Map.of(
-            "+", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, new BinaryPlusEvaluator()),
-            "-", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, new BinaryMinusEvaluator()),
-            "*", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, new BinaryMultiplyEvaluator()),
-            "/", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, new BinaryDivideEvaluator()),
-            ">", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.BOOLEAN, new BinaryGreatEvaluator() ),
-            "<", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.BOOLEAN, new BinaryLessEvaluator())
+            "+", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, OperatorPrecedence.Low, new BinaryPlusEvaluator()),
+            "-", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, OperatorPrecedence.Low, new BinaryMinusEvaluator()),
+            "*", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, OperatorPrecedence.High,new BinaryMultiplyEvaluator()),
+            "/", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.NUMBER, OperatorPrecedence.High, new BinaryDivideEvaluator()),
+            ">", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.BOOLEAN, OperatorPrecedence.Low, new BinaryGreatEvaluator()),
+            "<", new BinaryOperatorDescription(DataType.NUMBER, DataType.NUMBER, DataType.BOOLEAN, OperatorPrecedence.Low, new BinaryLessEvaluator())
 
     );
 

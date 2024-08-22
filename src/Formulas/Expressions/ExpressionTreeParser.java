@@ -4,7 +4,7 @@ import Formulas.Exceptions.Expressions.TreeParser.TokenExpectedException;
 import Formulas.Exceptions.Expressions.TreeParser.UnexpectedTokenException;
 import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Language.ExpressionLanguage;
-import Formulas.Language.DataType;
+import Formulas.Language.OperatorPrecedence;
 import Formulas.Tokens.Token;
 import Formulas.Tokens.TokenType;
 
@@ -15,17 +15,17 @@ import java.util.List;
 public class ExpressionTreeParser {
     private List<Token> tokens;
     private int position;
-    private HashSet<String> dependecies;
+    private HashSet<String> dependedNodes;
 
     public ExpressionNode parse(List<Token> tokens)  {
         this.tokens = tokens;
         this.position = 0;
-        this.dependecies = new HashSet<>();
+        this.dependedNodes = new HashSet<>();
         var node = parseExpression();
         if (currentToken() != null) {
             throw new UnexpectedTokenException("Unexpected token");
         }
-        node.setDependencies(dependecies);
+        node.setDependencies(dependedNodes);
         return node;
     }
 
@@ -45,7 +45,10 @@ public class ExpressionTreeParser {
     private ExpressionNode parseExpression() {
         ExpressionNode node = parseTerm();
         Token currentToken = currentToken();
-        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("+") || currentToken.value.equals("-")  || currentToken.value.equals(">") || currentToken.value.equals("<"))) { // FIXME
+        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (
+                ExpressionLanguage.BinaryOperations.containsKey(currentToken.value) &&
+                ExpressionLanguage.BinaryOperations.get(currentToken.value).precedence() == OperatorPrecedence.Low
+        )) {
             String operator = consumeToken().value;
             ExpressionNode right = parseTerm();
             node = new BinaryOperationNode(operator, node, right);
@@ -57,7 +60,9 @@ public class ExpressionTreeParser {
     private ExpressionNode parseTerm() {
         ExpressionNode node = parseFactor();
         Token currentToken = currentToken();
-        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (currentToken.value.equals("*") || currentToken.value.equals("/"))) {
+        while (currentToken != null && (currentToken.type == TokenType.OPERATOR) && (
+                ExpressionLanguage.BinaryOperations.containsKey(currentToken.value) &&
+                ExpressionLanguage.BinaryOperations.get(currentToken.value).precedence() == OperatorPrecedence.High)) {
             String operator = consumeToken().value;
             ExpressionNode right = parseFactor();
             node = new BinaryOperationNode(operator, node, right);
@@ -70,7 +75,7 @@ public class ExpressionTreeParser {
         Token token = currentToken();
 
         if (token == null) {
-            throw new TokenExpectedException();
+            throw new TokenExpectedException("Expected token, but get null");
         }
 
         if (token.type == TokenType.OPERATOR && (ExpressionLanguage.UnaryOperations.containsKey(token.value))) {
@@ -82,7 +87,7 @@ public class ExpressionTreeParser {
             return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.VARIABLE) {
             consumeToken();
-            this.dependecies.add(token.value);
+            this.dependedNodes.add(token.value);
             return new ReferencesNode(token.value);
         } else if (token.type == TokenType.PARENTHESIS && token.value.equals("(")) {
             consumeToken();
