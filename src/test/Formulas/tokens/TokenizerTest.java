@@ -3,6 +3,7 @@ package test.Formulas.tokens;
 import Formulas.Exceptions.Tokenizer.UnexpectedCharacterException;
 import Formulas.Tokens.TokenType;
 import Formulas.Tokens.Tokenizer;
+import Formulas.Tokens.TokenizerImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -12,7 +13,7 @@ public class TokenizerTest {
     public void test_parse_int_number()
     {
         var num = "6";
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
         var tokens = tokenizer.tokenize(num);
 
         assertEquals(1, tokens.size());
@@ -26,7 +27,7 @@ public class TokenizerTest {
     public void test_parse_float_number()
     {
         var num = "6.6";
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
         var tokens = tokenizer.tokenize("6.6");
 
         assertEquals(1, tokens.size());
@@ -38,7 +39,7 @@ public class TokenizerTest {
 
     @Test(expected = UnexpectedCharacterException.class)
     public void test_unexpected_character() {
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
 
         tokenizer.tokenize("5;6");
     }
@@ -46,26 +47,26 @@ public class TokenizerTest {
     @Test
     public void test_parse_variable_valid_lowercase() {
         var cellName = "a6";
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
         var tokens =  tokenizer.tokenize(cellName);
 
         assertEquals(1, tokens.size());
 
         var token = tokens.getFirst();
-        assertEquals(TokenType.VARIABLE, token.type);
+        assertEquals(TokenType.REFERENCE, token.type);
         assertEquals(cellName.toUpperCase(), token.value);
     }
 
     @Test
     public void test_parse_variable_valid_uppercase() {
         var cellName = "A6";
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
         var tokens =  tokenizer.tokenize(cellName);
 
         assertEquals(1, tokens.size());
 
         var token = tokens.getFirst();
-        assertEquals(TokenType.VARIABLE, token.type);
+        assertEquals(TokenType.REFERENCE, token.type);
         assertEquals(cellName, token.value);
     }
 
@@ -73,14 +74,14 @@ public class TokenizerTest {
     public void test_parse_variable_invalid() {
         var cellName = "6a";
 
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
 
         tokenizer.tokenize(cellName);
     }
 
     @Test
     public void test_bool_false() {
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
         var result = tokenizer.tokenize("FALSE");
         assertEquals(1, result.size());
 
@@ -91,7 +92,7 @@ public class TokenizerTest {
 
     @Test
     public void test_bool_true() {
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
         var result = tokenizer.tokenize("TRUE");
         assertEquals(1, result.size());
 
@@ -102,7 +103,7 @@ public class TokenizerTest {
 
     @Test
     public void test_function() {
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
         var result = tokenizer.tokenize("MIN(6, 5)");
         assertEquals(6, result.size());
 
@@ -113,7 +114,7 @@ public class TokenizerTest {
 
     @Test
     public void test_math_operations() {
-        Tokenizer tokenizer = new Tokenizer();
+        Tokenizer tokenizer = new TokenizerImpl();
 
         var tokens = tokenizer.tokenize("+-*/><=!");
 

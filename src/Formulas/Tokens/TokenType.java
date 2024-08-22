@@ -5,7 +5,7 @@ public enum TokenType {
     OPERATOR,
     PARENTHESIS,
     FUNCTION,
-    VARIABLE,
+    REFERENCE,
     COMMA,
     BOOL
 }

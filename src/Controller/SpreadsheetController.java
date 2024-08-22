@@ -11,8 +11,8 @@ import Formulas.Expressions.ExpressionNodes.StringNode;
 import Formulas.Expressions.ExpressionTreeAnalyzer;
 import Formulas.Expressions.ExpressionTreeEvaluator;
 import Formulas.Expressions.ExpressionTreeParser;
-import Formulas.Tokens.ITokenizer;
 import Formulas.Tokens.Tokenizer;
+import Formulas.Tokens.TokenizerImpl;
 import Helpers.StringHelpers;
 import Models.SpreadsheetModel;
 import Views.SpreadsheetView;
@@ -28,7 +28,7 @@ public class SpreadsheetController {
     private final SpreadsheetModel model;
     private final SpreadsheetView view;
 
-    private final ITokenizer tokenizer;
+    private final Tokenizer tokenizer;
     private final ExpressionTreeParser expressionTreeParser;
     private final ExpressionTreeAnalyzer expressionTreeAnalyzer;
     private final ExpressionTreeEvaluator expressionTreeEvaluator;
@@ -39,7 +39,7 @@ public class SpreadsheetController {
         this.model = model;
         this.view = view;
 
-        this.tokenizer = new Tokenizer();
+        this.tokenizer = new TokenizerImpl();
         this.expressionTreeParser = new ExpressionTreeParser();
         this.expressionTreeAnalyzer = new ExpressionTreeAnalyzer();
         this.expressionTreeEvaluator = new ExpressionTreeEvaluator();

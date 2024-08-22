@@ -28,9 +28,9 @@ public class GetDependenciesTests {
     @Test
     public void ExpressionParser_GetDependencies_HasTwoDependencies() {
         var tokens = new ArrayList<Token>();
-        tokens.add(new Token(TokenType.VARIABLE, "A1"));
+        tokens.add(new Token(TokenType.REFERENCE, "A1"));
         tokens.add(new Token(TokenType.OPERATOR, "+"));
-        tokens.add(new Token(TokenType.VARIABLE, "A2"));
+        tokens.add(new Token(TokenType.REFERENCE, "A2"));
 
         var parser = new ExpressionTreeParser();
 
@@ -45,9 +45,9 @@ public class GetDependenciesTests {
     @Test
     public void ExpressionParser_GetDependencies_HasOneDependency() {
         var tokens = new ArrayList<Token>();
-        tokens.add(new Token(TokenType.VARIABLE, "A2"));
+        tokens.add(new Token(TokenType.REFERENCE, "A2"));
         tokens.add(new Token(TokenType.OPERATOR, "+"));
-        tokens.add(new Token(TokenType.VARIABLE, "A2"));
+        tokens.add(new Token(TokenType.REFERENCE, "A2"));
 
         var parser = new ExpressionTreeParser();
 
