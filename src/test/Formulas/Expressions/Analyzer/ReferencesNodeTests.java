@@ -3,7 +3,7 @@ package test.Formulas.Expressions.Analyzer;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.CircularDependencyException;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.InvalidReferenceException;
 import Formulas.Expressions.ExpressionNode;
-import Formulas.Expressions.ExpressionTreeAnalyzer;
+import Formulas.Expressions.ExpressionTreeAnalyzerImpl;
 import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Language.DataType;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class ReferencesNodeTests {
                 "A2", a2
         );
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
 
@@ -42,7 +42,7 @@ public class ReferencesNodeTests {
                 "B3", b3
         );
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
 
@@ -58,7 +58,7 @@ public class ReferencesNodeTests {
                 "A2", a2
         );
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
 
@@ -73,7 +73,7 @@ public class ReferencesNodeTests {
                 "A1", (ExpressionNode)a1
         );
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
@@ -89,7 +89,7 @@ public class ReferencesNodeTests {
                 "A3", a3
         );
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
@@ -112,7 +112,7 @@ public class ReferencesNodeTests {
                 "G1", g1
         );
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(b1,"B1", nodes);
     }
@@ -128,7 +128,7 @@ public class ReferencesNodeTests {
                 "A3", a3
         );
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
     }
@@ -137,7 +137,7 @@ public class ReferencesNodeTests {
     public void ExpressionAnalyzer_AnalyzeExpressionTree_Refs_SelfLink() {
         var a1 = new ReferencesNode("A1");
 
-        var analyzer = new ExpressionTreeAnalyzer();
+        var analyzer = new ExpressionTreeAnalyzerImpl();
 
         analyzer.AnalyzeExpressionTree(a1,"A1", new HashMap<>());
     }
