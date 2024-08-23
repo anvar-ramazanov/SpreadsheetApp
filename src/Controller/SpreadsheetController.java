@@ -196,6 +196,13 @@ public class SpreadsheetController {
             } else {
                 model.updateCellShowValue(cellName, newShowValue.toString());
             }
+
+            var childNodes = model.getChildNodes(cellName);
+            if (childNodes != null) {
+                for (var childNode:childNodes) {
+                    recalculateCell(childNode);
+                }
+            }
         }
         catch (ExpressionTreeAnalyzerException exception) {
             var errorText = "Problem with formula: " + exception.getMessage();
@@ -208,13 +215,6 @@ public class SpreadsheetController {
             model.setErrorTextTo(cellName, errorText);
             model.updateCellShowValue(cellName, "REF!");
             logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
-        }
-
-        var childNodes = model.getChildNodes(cellName);
-        if (childNodes != null) {
-            for (var childNode:childNodes) {
-                recalculateCell(childNode);
-            }
         }
     }
 }
