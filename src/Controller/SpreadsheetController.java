@@ -121,7 +121,7 @@ public class SpreadsheetController {
     }
 
     private void updateCellWithFormula(String cellName, CellModel cell, String newExpressionText) {
-        HashSet<String> oldChildCells = cell.getExpression().getDependencies();
+        HashSet<String> oldChildCells = cell.getExpression().getParentCells();
 
         ExpressionNode expression = null;
 
@@ -145,12 +145,12 @@ public class SpreadsheetController {
 
             if (oldChildCells != null) {
                 for (var oldChildCell : oldChildCells) {
-                    if (!expression.getDependencies().contains(oldChildCell)) {
+                    if (!expression.getParentCells().contains(oldChildCell)) {
                         model.getCell(oldChildCell).removeChildCell(cellName);
                     }
                 }
             }
-            var newDependencies = expression.getDependencies();
+            var newDependencies = expression.getParentCells();
             for (var dependedNode : newDependencies) {
                 if (model.getCell(dependedNode) != null) {
                     model.getCell(dependedNode).setChildCell(cellName);
@@ -209,8 +209,8 @@ public class SpreadsheetController {
 
             var childCells = cell.getChildCells();
             if (childCells != null) {
-                for (var childNode:childCells) {
-                    recalculateCell(childNode);
+                for (var childCell : childCells) {
+                    recalculateCell(childCell);
                 }
             }
         }

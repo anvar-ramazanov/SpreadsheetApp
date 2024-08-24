@@ -9,7 +9,7 @@ public class CellModel implements ExpressionCell {
     public String showValue;
     public String errorText;
 
-    public HashSet<String> dependedCells;
+    public HashSet<String> childCells;
 
     private ExpressionNode expression;
 
@@ -22,17 +22,17 @@ public class CellModel implements ExpressionCell {
     }
 
     public void setChildCell(String childeCell) {
-        if (this.dependedCells == null) {
-            this.dependedCells = new HashSet<>();
+        if (this.childCells == null) {
+            this.childCells = new HashSet<>();
         }
-        this.dependedCells.add(childeCell);
+        this.childCells.add(childeCell);
     }
 
     public HashSet<String> getChildCells() {
-        return dependedCells;
+        return childCells;
     }
 
     public void removeChildCell(String childCell) {
-        this.dependedCells.remove(childCell);
+        this.childCells.remove(childCell);
     }
 }

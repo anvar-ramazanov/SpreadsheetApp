@@ -13,12 +13,12 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
 
     public void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context) {
         var visitedNodes = new HashSet<String>();
-        visitedNodes.add(nodeName);
         AnalyzeNode(expressionNode, nodeName, context, visitedNodes);
     }
 
     private DataType AnalyzeNode(ExpressionNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
         DataType nodeType = null;
+        visitedNodes.add(nodeName);
         if (node instanceof UnaryOperationNode unaryOperationNode) {
             nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, nodeName, context, visitedNodes);
         } else if (node instanceof BinaryOperationNode binaryOperationNode) {
@@ -103,8 +103,6 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
             throw new InvalidReferenceException("Cell " + nextNodeName + " doesn't exist");
         }
         var nextNode = context.get(nextNodeName).getExpression();
-
-        visitedNodes.add(nextNodeName);
 
         var nextNodeType = AnalyzeNode(nextNode, nextNodeName, context, visitedNodes);
 

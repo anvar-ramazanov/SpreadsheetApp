@@ -22,7 +22,7 @@ public class GetDependenciesTests {
         var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
-        assertEquals(0, result.getDependencies().size());
+        assertEquals(0, result.getParentCells().size());
     }
 
     @Test
@@ -37,9 +37,9 @@ public class GetDependenciesTests {
         var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
-        assertEquals(2, result.getDependencies().size());
-        assertTrue( result.getDependencies().contains("A1"));
-        assertTrue( result.getDependencies().contains("A2"));
+        assertEquals(2, result.getParentCells().size());
+        assertTrue( result.getParentCells().contains("A1"));
+        assertTrue( result.getParentCells().contains("A2"));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class GetDependenciesTests {
         var result = parser.parse(tokens);
 
         assertNotEquals(null, result);
-        assertEquals(1, result.getDependencies().size());
-        assertTrue( result.getDependencies().contains("A2"));
+        assertEquals(1, result.getParentCells().size());
+        assertTrue( result.getParentCells().contains("A2"));
     }
 }

@@ -15,17 +15,17 @@ import java.util.List;
 public class ExpressionTreeParserImpl implements ExpressionTreeParser {
     private List<Token> tokens;
     private int position;
-    private HashSet<String> dependedNodes;
+    private HashSet<String> parentCells;
 
     public ExpressionNode parse(List<Token> tokens) {
         this.tokens = tokens;
         this.position = 0;
-        this.dependedNodes = new HashSet<>();
+        this.parentCells = new HashSet<>();
         var node = parseExpression();
         if (currentToken() != null) {
             throw new UnexpectedTokenException("Unexpected token");
         }
-        node.setDependencies(dependedNodes);
+        node.setParentCells(parentCells);
         return node;
     }
 
@@ -87,7 +87,7 @@ public class ExpressionTreeParserImpl implements ExpressionTreeParser {
             return new NumberNode(Double.parseDouble(token.value));
         } else if (token.type == TokenType.REFERENCE) {
             consumeToken();
-            this.dependedNodes.add(token.value);
+            this.parentCells.add(token.value);
             return new ReferencesNode(token.value);
         } else if (token.type == TokenType.PARENTHESIS && token.value.equals("(")) {
             consumeToken();
