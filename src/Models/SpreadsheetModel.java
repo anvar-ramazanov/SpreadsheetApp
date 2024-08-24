@@ -1,6 +1,8 @@
 package Models;
 
 import Formulas.Expressions.ExpressionNode;
+import Models.Cell.CellModel;
+import Models.Cell.ExpressionCell;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.HashMap;
@@ -12,14 +14,12 @@ public class SpreadsheetModel extends AbstractTableModel {
     private final int columnCount;
 
     private final Map<String, CellModel> cells;
-    private final Map<String, ExpressionNode> expressionNodeMap;
     private final Map<String, HashSet<String>> nodeRelations;
 
     public SpreadsheetModel(int rowCount, int columnCount) {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
         this.cells = new HashMap<>();
-        this.expressionNodeMap = new HashMap<>();
         this.nodeRelations = new HashMap<>();
     }
 
@@ -33,12 +33,19 @@ public class SpreadsheetModel extends AbstractTableModel {
         return columnCount;
     }
 
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return true;
+    }
+
+    // todo: move to helper
     public String getCellName(int rowIndex, int columnIndex) {
         return String.format("%s%d", (char)('A' + columnIndex), rowIndex + 1);
     }
 
-    public Map<String, ExpressionNode> getExpressionNodeMap() {
-        return this.expressionNodeMap;
+    @SuppressWarnings("unchecked")
+    public Map<String, ExpressionCell> getExpressionCells() {
+        return (Map<String, ExpressionCell>)(Map<?, ?>)cells;
     }
 
     public void setChildNode(String parentNode, String childNode) {
@@ -117,7 +124,8 @@ public class SpreadsheetModel extends AbstractTableModel {
     {
         updateCellShowValue(cellName, showValue);
         if (expression != null) {
-            this.expressionNodeMap.put(cellName, expression);
+            var cell = cells.get(cellName); // todo add check
+            cell.setExpression(expression);
         }
     }
 
@@ -131,12 +139,5 @@ public class SpreadsheetModel extends AbstractTableModel {
             var cell = cells.get(cellName);
             cell.ShowValue = showValue.toString();
         }
-    }
-
-
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
     }
 }

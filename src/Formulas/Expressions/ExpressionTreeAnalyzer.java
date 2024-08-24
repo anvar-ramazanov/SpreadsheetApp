@@ -1,5 +1,7 @@
 package Formulas.Expressions;
 
+import Models.Cell.ExpressionCell;
+
 import java.util.Map;
 
 public interface ExpressionTreeAnalyzer {
@@ -11,5 +13,5 @@ public interface ExpressionTreeAnalyzer {
      * @param nodeName name of root node
      * @param context map of others expression trees on the list
      */
-    void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionNode> context);
+    void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context);
 }

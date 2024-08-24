@@ -4,19 +4,20 @@ import Formulas.Exceptions.Expressions.TreeAnalyzer.*;
 import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Language.ExpressionLanguage;
 import Formulas.Language.DataType;
+import Models.Cell.ExpressionCell;
 
 import java.util.HashSet;
 import java.util.Map;
 
 public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
 
-    public void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionNode> context) {
-        var visitedNodes = new HashSet<ExpressionNode>();
-        visitedNodes.add(expressionNode);
+    public void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context) {
+        var visitedNodes = new HashSet<String>();
+        visitedNodes.add(nodeName);
         AnalyzeNode(expressionNode, nodeName, context, visitedNodes);
     }
 
-    private DataType AnalyzeNode(ExpressionNode node, String nodeName, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeNode(ExpressionNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
         DataType nodeType = null;
         if (node instanceof UnaryOperationNode unaryOperationNode) {
             nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, nodeName, context, visitedNodes);
@@ -36,7 +37,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return nodeType;
     }
 
-    private DataType AnalyzeUnaryOperationNode(UnaryOperationNode node, String nodeName, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeUnaryOperationNode(UnaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
         var operator = node.getOperator();
         var operand = node.getOperand();
 
@@ -49,7 +50,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.UnaryOperations.get(node.getOperator()).resultType();
     }
 
-    private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, String nodeName, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
         var operator = node.getOperator();
         var leftOperand = node.getLeftOperand();
         var rightOperand = node.getRightOperand();
@@ -68,7 +69,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.BinaryOperations.get(operator).resultType();
     }
 
-    private DataType AnalyzeFunctionNode(FunctionNode node, String nodeName, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeFunctionNode(FunctionNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
         var functionName = node.getFunctionName();
         var arguments = node.getArguments();
         var description = ExpressionLanguage.FunctionsDescription.get(functionName);
@@ -90,18 +91,19 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.FunctionsDescription.get(functionName).resultType();
     }
 
-    private DataType AnalyzeRefNode(ReferencesNode node, String nodeName, Map<String, ExpressionNode> context, HashSet<ExpressionNode> visitedNodes) {
+    private DataType AnalyzeRefNode(ReferencesNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
         var nextNodeName = node.getReferences();
         if (nextNodeName.equals(nodeName)) {
+            throw new CircularDependencyException("Cell contains circular dependency");
+        }
+        if (visitedNodes.contains(nextNodeName)) {
             throw new CircularDependencyException("Cell contains circular dependency");
         }
         if (!context.containsKey(nextNodeName)) {
             throw new InvalidReferenceException("Cell " + nextNodeName + " doesn't exist");
         }
-        var nextNode = context.get(nextNodeName);
-        if (visitedNodes.contains(nextNode)) {
-            throw new CircularDependencyException("Cell contains circular dependency");
-        }
+        var nextNode = context.get(nextNodeName).getExpression();
+
 
         var nextNodeType = AnalyzeNode(nextNode, nextNodeName, context, visitedNodes);
 

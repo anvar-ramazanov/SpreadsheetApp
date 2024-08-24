@@ -89,10 +89,13 @@ public class SpreadsheetController {
 
         if (!newValueStr.isEmpty() &&  newValueStr.charAt(0) == '=') {
 
+            var context = model.getExpressionCells();
+
             HashSet<String> oldDependencies = null;
-            if (model.getExpressionNodeMap().containsKey(cellName)){
-                oldDependencies = model.getExpressionNodeMap().get(cellName).getDependencies();
-            }
+// FIXME
+//            if (model.getCells().containsKey(cellName)){
+//                oldDependencies = model.getCells().get(cellName).getDependencies();
+//            }
 
             newValueStr = newValueStr.substring(1);
             Object newShowValue;
@@ -101,8 +104,6 @@ public class SpreadsheetController {
             try {
                 var tokens = this.tokenizer.tokenize(newValueStr);
                 node = this.expressionTreeParser.parse(tokens);
-
-                var context = model.getExpressionNodeMap();
 
                 expressionTreeAnalyzer.AnalyzeExpressionTree(node, cellName, context);
 
@@ -185,12 +186,12 @@ public class SpreadsheetController {
 
         logger.info("Recalculating cell " + cellName);
 
-        var expressionNode  = model.getExpressionNodeMap().get(cellName);
-        var context = model.getExpressionNodeMap();
+        var context = model.getExpressionCells();
+        var expression = context.get(cellName).getExpression();
 
         try {
-            expressionTreeAnalyzer.AnalyzeExpressionTree(expressionNode, cellName, context);
-            var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expressionNode, context);
+            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
+            var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
             if (newShowValue instanceof Double doubleValue) {
                 DecimalFormat decimalFormat = new DecimalFormat("#.#");
                 String formattedValue = decimalFormat.format(doubleValue);

@@ -6,6 +6,7 @@ import Formulas.Expressions.ExpressionTreeAnalyzerImpl;
 import Formulas.Expressions.ExpressionNodes.BinaryOperationNode;
 import Formulas.Expressions.ExpressionNodes.BooleanNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
+import Models.Cell.ExpressionCell;
 import org.junit.Test;
 
 import java.util.Map;
@@ -14,31 +15,31 @@ public class BinaryOperationNodeTests {
 
     @Test
     public void ExpressionAnalyzer_AnalyzeExpressionTree_BinaryOperation_ValidOperator() {
-        var a1 = new BinaryOperationNode("+", new NumberNode(2), new NumberNode(2));
-        var nodes = Map.of("A1", (ExpressionNode)a1);
+        var expression = new BinaryOperationNode("+", new NumberNode(2), new NumberNode(2));
+        Map<String, ExpressionCell> context = Map.of();
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(a1, "A1", nodes);
+        analyzer.AnalyzeExpressionTree(expression, "A1", context);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
     public void ExpressionAnalyzer_AnalyzeExpressionTree_BinaryOperation_InvalidLeftOperandType() {
-        var a1 = new BinaryOperationNode("+", new BooleanNode(false), new NumberNode(2));
-        var nodes = Map.of("A1", (ExpressionNode)a1);
+        var expression = new BinaryOperationNode("+", new BooleanNode(false), new NumberNode(2));
+        Map<String, ExpressionCell> context = Map.of();
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
     public void ExpressionAnalyzer_AnalyzeExpressionTree_BinaryOperation_InvalidRightOperandType() {
-        var a1 = new BinaryOperationNode( "+", new NumberNode(2), new BooleanNode(false));
-        var nodes = Map.of("A1", (ExpressionNode)a1);
+        var expression = new BinaryOperationNode( "+", new NumberNode(2), new BooleanNode(false));
+        Map<String, ExpressionCell> context = Map.of();
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(a1,"A1", nodes);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context);
     }
 }
