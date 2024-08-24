@@ -10,6 +10,7 @@ import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Expressions.ExpressionNodes.StringNode;
 import Formulas.Tokens.Tokenizer;
 import Formulas.Tokens.TokenizerImpl;
+import Helpers.CellHelpers;
 import Helpers.StringHelpers;
 import Models.SpreadsheetModel;
 import Views.SpreadsheetView;
@@ -83,7 +84,7 @@ public class SpreadsheetController {
         }
         var newValueStr = newValue.toString();
 
-        var cellName = model.getCellName(row, column);
+        var cellName = CellHelpers.getCellName(row, column);
         var cell = model.getCell(cellName);
 
         logger.info("Updating cell " + cellName + " to have value: " + newValueStr);
@@ -171,10 +172,10 @@ public class SpreadsheetController {
             model.setCell(cellName, stringNode, newValueStr);
         }
 
-        var childNodes = cell.getChildCells();
-        if (childNodes != null) {
-            for (var childNode:childNodes) {
-                recalculateCell(childNode);
+        var childCells = cell.getChildCells();
+        if (childCells != null) {
+            for (var childCell : childCells) {
+                recalculateCell(childCell);
             }
         }
         model.fireTableDataChanged();
@@ -200,9 +201,9 @@ public class SpreadsheetController {
                 model.updateCellShowValue(cellName, newShowValue.toString());
             }
 
-            var childNodes = cell.getChildCells();
-            if (childNodes != null) {
-                for (var childNode:childNodes) {
+            var childCells = cell.getChildCells();
+            if (childCells != null) {
+                for (var childNode:childCells) {
                     recalculateCell(childNode);
                 }
             }

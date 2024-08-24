@@ -1,6 +1,7 @@
 package Models;
 
 import Formulas.Expressions.ExpressionNode;
+import Helpers.CellHelpers;
 import Models.Cell.CellModel;
 import Models.Cell.ExpressionCell;
 
@@ -35,11 +36,6 @@ public class SpreadsheetModel extends AbstractTableModel {
         return true;
     }
 
-    // todo: move to helper
-    public String getCellName(int rowIndex, int columnIndex) {
-        return String.format("%s%d", (char)('A' + columnIndex), rowIndex + 1);
-    }
-
     @SuppressWarnings("unchecked")
     public Map<String, ExpressionCell> getExpressionCells() {
         return (Map<String, ExpressionCell>)(Map<?, ?>)cells;
@@ -47,32 +43,34 @@ public class SpreadsheetModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        var cellName = getCellName(rowIndex, columnIndex);
-        if (!cells.containsKey(cellName))  {
+        var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
+        if (!cells.containsKey(cellName)) {
             return null;
         }
-        return cells.get(cellName).ShowValue;
+        return cells.get(cellName).showValue;
     }
 
     public CellModel getCell(String cellName) {
-        // todo perhaps better to check for null
+        if (!cells.containsKey(cellName)) {
+            return null;
+        }
         return cells.get(cellName);
     }
 
     public String getRealValueAt(int rowIndex, int columnIndex) {
-        var cellName = getCellName(rowIndex, columnIndex);
+        var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
         if (!cells.containsKey(cellName))  {
             return null;
         }
-        return cells.get(cellName).Value.toString();
+        return cells.get(cellName).value.toString();
     }
 
     public String getErrorAt(int rowIndex, int columnIndex) {
-        var cellName = getCellName(rowIndex, columnIndex);
+        var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
         if (!cells.containsKey(cellName))  {
             return null;
         }
-        return cells.get(cellName).ErrorText;
+        return cells.get(cellName).errorText;
     }
 
     public void setErrorTextTo(String cellName, String errorText) {
@@ -80,22 +78,22 @@ public class SpreadsheetModel extends AbstractTableModel {
             return;
         }
         var cell = cells.get(cellName);
-        cell.ErrorText = errorText;
+        cell.errorText = errorText;
     }
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        var cellName = getCellName(rowIndex, columnIndex);
+        var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
         if (!cells.containsKey(cellName))
         {
             var cell = new CellModel();
-            cell.Value = value;
-            cell.ShowValue = (String)value;
+            cell.value = value;
+            cell.showValue = (String)value;
             cells.put(cellName, cell);
         } else {
             var cell = cells.get(cellName);
-            cell.Value = value;
-            cell.ShowValue = value.toString();
+            cell.value = value;
+            cell.showValue = value.toString();
         }
 
         fireTableCellUpdated(rowIndex, columnIndex);
@@ -105,8 +103,10 @@ public class SpreadsheetModel extends AbstractTableModel {
     {
         updateCellShowValue(cellName, showValue);
         if (expression != null) {
-            var cell = cells.get(cellName); // todo add check
-            cell.setExpression(expression);
+            if (cells.containsKey(cellName)) {
+                var cell = cells.get(cellName);
+                cell.setExpression(expression);
+            }
         }
     }
 
@@ -114,11 +114,11 @@ public class SpreadsheetModel extends AbstractTableModel {
         if (!cells.containsKey(cellName))
         {
             var cell = new CellModel();
-            cell.ShowValue = (String)showValue;
+            cell.showValue = (String)showValue;
             cells.put(cellName, cell);
         } else {
             var cell = cells.get(cellName);
-            cell.ShowValue = showValue.toString();
+            cell.showValue = showValue.toString();
         }
     }
 }

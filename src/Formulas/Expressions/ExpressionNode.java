@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 public abstract class ExpressionNode {
     public abstract DataType getType();
+
     protected HashSet<String> dependencies;
 
     public HashSet<String> getDependencies() {

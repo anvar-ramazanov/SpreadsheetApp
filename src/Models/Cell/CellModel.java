@@ -5,9 +5,10 @@ import Formulas.Expressions.ExpressionNode;
 import java.util.HashSet;
 
 public class CellModel implements ExpressionCell {
-    public Object Value;
-    public String ShowValue;
-    public String ErrorText;
+    public Object value;
+    public String showValue;
+    public String errorText;
+
     public HashSet<String> dependedCells;
 
     private ExpressionNode expression;
