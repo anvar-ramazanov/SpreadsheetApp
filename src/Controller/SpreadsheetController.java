@@ -84,6 +84,7 @@ public class SpreadsheetController {
         var newValueStr = newValue.toString();
 
         var cellName = model.getCellName(row, column);
+        var cell = model.getCell(cellName);
 
         logger.info("Updating cell " + cellName + " to have value: " + newValueStr);
 
@@ -91,11 +92,7 @@ public class SpreadsheetController {
 
             var context = model.getExpressionCells();
 
-            HashSet<String> oldDependencies = null;
-// FIXME
-//            if (model.getCells().containsKey(cellName)){
-//                oldDependencies = model.getCells().get(cellName).getDependencies();
-//            }
+            HashSet<String> oldChildCells = cell.getChildCells();
 
             newValueStr = newValueStr.substring(1);
             Object newShowValue;
@@ -140,17 +137,18 @@ public class SpreadsheetController {
             model.setCell(cellName, node, newShowValue.toString());
 
             if (node != null) {
-                if (oldDependencies != null) {
-                    for (var oldDependency : oldDependencies) {
-                        if (!node.getDependencies().contains(oldDependency)) {
-                            model.removeChildNode(oldDependency, cellName);
+                if (oldChildCells != null) {
+                    for (var oldChildCell : oldChildCells) {
+                        if (!node.getDependencies().contains(oldChildCell)) {
+                            cell.removeChildCell(oldChildCell);
                         }
                     }
                 }
                 var newDependencies = node.getDependencies();
                 for (var dependedNode : newDependencies) {
-                    if (!dependedNode.equals(cellName)) {
-                        model.setChildNode(dependedNode, cellName);
+                    if (model.getCell(dependedNode) != null) {
+                        // reversing logic
+                        model.getCell(dependedNode).setChildCell(cellName);
                     }
                 }
             }
@@ -173,7 +171,7 @@ public class SpreadsheetController {
             model.setCell(cellName, stringNode, newValueStr);
         }
 
-        var childNodes = model.getChildNodes(cellName);
+        var childNodes = cell.getChildCells();
         if (childNodes != null) {
             for (var childNode:childNodes) {
                 recalculateCell(childNode);
@@ -185,6 +183,8 @@ public class SpreadsheetController {
     private void recalculateCell(String cellName) {
 
         logger.info("Recalculating cell " + cellName);
+
+        var cell = model.getCell(cellName);
 
         var context = model.getExpressionCells();
         var expression = context.get(cellName).getExpression();
@@ -200,7 +200,7 @@ public class SpreadsheetController {
                 model.updateCellShowValue(cellName, newShowValue.toString());
             }
 
-            var childNodes = model.getChildNodes(cellName);
+            var childNodes = cell.getChildCells();
             if (childNodes != null) {
                 for (var childNode:childNodes) {
                     recalculateCell(childNode);
