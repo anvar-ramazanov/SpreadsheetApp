@@ -97,13 +97,14 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
             throw new CircularDependencyException("Cell contains circular dependency");
         }
         if (visitedNodes.contains(nextNodeName)) {
-            throw new CircularDependencyException("Cell contains circular dependency");
+            throw new CircularDependencyException("Cell contains circular dependency", visitedNodes);
         }
         if (!context.containsKey(nextNodeName)) {
             throw new InvalidReferenceException("Cell " + nextNodeName + " doesn't exist");
         }
         var nextNode = context.get(nextNodeName).getExpression();
 
+        visitedNodes.add(nextNodeName);
 
         var nextNodeType = AnalyzeNode(nextNode, nextNodeName, context, visitedNodes);
 

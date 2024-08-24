@@ -1,6 +1,7 @@
 package Controller;
 
 import Formulas.Exceptions.Evaluators.ExpressionTreeEvaluatorException;
+import Formulas.Exceptions.Expressions.TreeAnalyzer.CircularDependencyException;
 import Formulas.Exceptions.Expressions.TreeAnalyzer.ExpressionTreeAnalyzerException;
 import Formulas.Exceptions.Expressions.TreeParser.ExpressionTreeParserException;
 import Formulas.Exceptions.Tokenizer.TokenizerException;
@@ -120,7 +121,7 @@ public class SpreadsheetController {
     }
 
     private void updateCellWithFormula(String cellName, CellModel cell, String newExpressionText) {
-        HashSet<String> oldChildCells = cell.getChildCells();
+        HashSet<String> oldChildCells = cell.getExpression().getDependencies();
 
         ExpressionNode expression = null;
 
@@ -141,6 +142,20 @@ public class SpreadsheetController {
             } else {
                 cell.showValue = newShowValue.toString();
             }
+
+            if (oldChildCells != null) {
+                for (var oldChildCell : oldChildCells) {
+                    if (!expression.getDependencies().contains(oldChildCell)) {
+                        model.getCell(oldChildCell).removeChildCell(cellName);
+                    }
+                }
+            }
+            var newDependencies = expression.getDependencies();
+            for (var dependedNode : newDependencies) {
+                if (model.getCell(dependedNode) != null) {
+                    model.getCell(dependedNode).setChildCell(cellName);
+                }
+            }
         }
         catch (TokenizerException exception) {
             logger.severe("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
@@ -156,30 +171,21 @@ public class SpreadsheetController {
             logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
             cell.showValue = ErrorFormulaText;
             cell.errorText = "Problem with formula: " + exception.getMessage();
+            if (exception instanceof CircularDependencyException circularDependencyException) {
+                var visitedCells = circularDependencyException.getVisitedCells();
+                if (visitedCells != null) {
+                    for (var visitedCell : visitedCells) {
+                        var c = model.getCell(visitedCell); // fixme naming!
+                        c.showValue = ErrorFormulaText;
+                        c.errorText = "Problem with formula: " + exception.getMessage();
+                    }
+                }
+            }
         }
         catch (ExpressionTreeEvaluatorException exception) {
             logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
             cell.showValue = ErrorFormulaText;
             cell.errorText = "Problem with formula: " + exception.getMessage();
-        }
-
-        if (expression != null) {
-            if (oldChildCells != null) {
-                for (var oldChildCell : oldChildCells) {
-                    if (!expression.getDependencies().contains(oldChildCell)) {
-                        cell.removeChildCell(oldChildCell);
-                    }
-                }
-            }
-            var newDependencies = expression.getDependencies();
-            for (var dependedNode : newDependencies) {
-                if (model.getCell(dependedNode) != null) {
-                    // reversing logic
-                    model.getCell(dependedNode).setChildCell(cellName);
-                } else {
-                    // todo: create cell
-                }
-            }
         }
     }
 
@@ -212,6 +218,16 @@ public class SpreadsheetController {
             cell.errorText = "Problem with formula: " + exception.getMessage();
             cell.showValue = ErrorFormulaText;
             logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
+            if (exception instanceof CircularDependencyException circularDependencyException) {
+                var visitedCells = circularDependencyException.getVisitedCells();
+                if (visitedCells != null) {
+                    for (var visitedCell : visitedCells) {
+                        var c = model.getCell(visitedCell); // fixme naming!
+                        c.showValue = ErrorFormulaText;
+                        c.errorText = "Problem with formula: " + exception.getMessage();
+                    }
+                }
+            }
         }
         catch (ExpressionTreeEvaluatorException exception) {
             cell.errorText = "Problem with formula: " + exception.getMessage();

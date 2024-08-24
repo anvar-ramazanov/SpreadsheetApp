@@ -22,8 +22,8 @@ public class CellModel implements ExpressionCell {
     }
 
     public void setChildCell(String childeCell) {
-        if (dependedCells == null) {
-            dependedCells = new HashSet<>();
+        if (this.dependedCells == null) {
+            this.dependedCells = new HashSet<>();
         }
         this.dependedCells.add(childeCell);
     }
