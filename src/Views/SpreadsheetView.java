@@ -39,7 +39,6 @@ public class SpreadsheetView {
             var column = table.getColumnModel().getColumn(i);
             column.setPreferredWidth(50);
             column.setMinWidth(50);
-            column.setMaxWidth(50);
             column.setResizable(true);
         }
 
