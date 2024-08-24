@@ -1,5 +1,6 @@
 package Models;
 
+import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Helpers.CellHelpers;
 import Models.Cell.CellModel;
 import Models.Cell.ExpressionCell;
@@ -18,6 +19,16 @@ public class SpreadsheetModel extends AbstractTableModel {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
         this.cells = new HashMap<>();
+
+        for (int col = 0; col <= columnCount; ++ col) {
+            for (int row = 0; row <= rowCount; ++row) {
+                var cell = new CellModel();
+                cell.showValue = "";
+                cell.value = 0;
+                cell.setExpression(new NumberNode(0));
+                this.cells.put(CellHelpers.getCellName(row, col), cell);
+            }
+        }
     }
 
     @Override
