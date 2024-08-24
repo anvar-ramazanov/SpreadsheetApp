@@ -32,6 +32,9 @@ public class SpreadsheetController {
 
     private final Logger logger;
 
+    private final static String ErrorFormulaParsingText = "ERROR";
+    private final static String ErrorFormulaText = "REF!";
+
     public SpreadsheetController(SpreadsheetModel model, SpreadsheetView view) {
         this.model = model;
         this.view = view;
@@ -62,7 +65,6 @@ public class SpreadsheetController {
                 }
             }
         }
-
     }
 
     public void onTableChanged(TableModelEvent tableModelEvent) {
@@ -114,25 +116,25 @@ public class SpreadsheetController {
                 logger.severe("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
                 var errorText = "Error during parsing formula: " + exception.getMessage(); // even if it tokenizer to customer we will say it was parsing
                 model.setErrorTextTo(cellName, errorText);
-                newShowValue = "ERROR";
+                newShowValue = ErrorFormulaParsingText;
             }
             catch (ExpressionTreeParserException exception){
                 var errorText = "Error during parsing formula: " + exception.getMessage();
                 logger.severe("Cell " + cellName + " has error during parsing: " + exception.getMessage());
                 model.setErrorTextTo(cellName, errorText);
-                newShowValue = "ERROR";
+                newShowValue = ErrorFormulaParsingText;
             }
             catch (ExpressionTreeAnalyzerException exception) {
                 var errorText = "Problem with formula: " + exception.getMessage();
                 model.setErrorTextTo(cellName, errorText);
                 logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
-                newShowValue = "REF!";
+                newShowValue = ErrorFormulaText;
             }
             catch (ExpressionTreeEvaluatorException exception) {
                 var errorText = "Problem with formula: " + exception.getMessage();
                 model.setErrorTextTo(cellName, errorText);
                 logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
-                newShowValue = "REF!";
+                newShowValue = ErrorFormulaText;
             }
             model.setCell(cellName, node, newShowValue.toString());
 
@@ -207,13 +209,13 @@ public class SpreadsheetController {
         catch (ExpressionTreeAnalyzerException exception) {
             var errorText = "Problem with formula: " + exception.getMessage();
             model.setErrorTextTo(cellName, errorText);
-            model.updateCellShowValue(cellName, "REF!");
+            model.updateCellShowValue(cellName, ErrorFormulaText);
             logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
         }
         catch (ExpressionTreeEvaluatorException exception) {
             var errorText = "Problem with formula: " + exception.getMessage();
             model.setErrorTextTo(cellName, errorText);
-            model.updateCellShowValue(cellName, "REF!");
+            model.updateCellShowValue(cellName, ErrorFormulaText);
             logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
         }
     }
