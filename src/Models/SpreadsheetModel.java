@@ -1,6 +1,5 @@
 package Models;
 
-import Formulas.Expressions.ExpressionNode;
 import Helpers.CellHelpers;
 import Models.Cell.CellModel;
 import Models.Cell.ExpressionCell;
@@ -41,15 +40,6 @@ public class SpreadsheetModel extends AbstractTableModel {
         return (Map<String, ExpressionCell>)(Map<?, ?>)cells;
     }
 
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
-        if (!cells.containsKey(cellName)) {
-            return null;
-        }
-        return cells.get(cellName).showValue;
-    }
-
     public CellModel getCell(String cellName) {
         if (!cells.containsKey(cellName)) {
             return null;
@@ -57,28 +47,13 @@ public class SpreadsheetModel extends AbstractTableModel {
         return cells.get(cellName);
     }
 
-    public String getRealValueAt(int rowIndex, int columnIndex) {
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
         var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
-        if (!cells.containsKey(cellName))  {
+        if (!cells.containsKey(cellName)) {
             return null;
         }
-        return cells.get(cellName).value.toString();
-    }
-
-    public String getErrorAt(int rowIndex, int columnIndex) {
-        var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
-        if (!cells.containsKey(cellName))  {
-            return null;
-        }
-        return cells.get(cellName).errorText;
-    }
-
-    public void setErrorTextTo(String cellName, String errorText) {
-        if (!cells.containsKey(cellName))  {
-            return;
-        }
-        var cell = cells.get(cellName);
-        cell.errorText = errorText;
+        return cells.get(cellName).showValue;
     }
 
     @Override
@@ -99,26 +74,11 @@ public class SpreadsheetModel extends AbstractTableModel {
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
-    public void setCell(String cellName, ExpressionNode expression, Object showValue)
-    {
-        updateCellShowValue(cellName, showValue);
-        if (expression != null) {
-            if (cells.containsKey(cellName)) {
-                var cell = cells.get(cellName);
-                cell.setExpression(expression);
-            }
+    public String getErrorAt(int rowIndex, int columnIndex) {
+        var cellName = CellHelpers.getCellName(rowIndex, columnIndex);
+        if (!cells.containsKey(cellName))  {
+            return null;
         }
-    }
-
-    public void updateCellShowValue(String cellName, Object showValue) {
-        if (!cells.containsKey(cellName))
-        {
-            var cell = new CellModel();
-            cell.showValue = (String)showValue;
-            cells.put(cellName, cell);
-        } else {
-            var cell = cells.get(cellName);
-            cell.showValue = showValue.toString();
-        }
+        return cells.get(cellName).errorText;
     }
 }

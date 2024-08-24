@@ -12,6 +12,7 @@ import Formulas.Tokens.Tokenizer;
 import Formulas.Tokens.TokenizerImpl;
 import Helpers.CellHelpers;
 import Helpers.StringHelpers;
+import Models.Cell.CellModel;
 import Models.SpreadsheetModel;
 import Views.SpreadsheetView;
 
@@ -36,6 +37,8 @@ public class SpreadsheetController {
     private final static String ErrorFormulaParsingText = "ERROR";
     private final static String ErrorFormulaText = "REF!";
 
+    private final DecimalFormat decimalFormat;
+
     public SpreadsheetController(SpreadsheetModel model, SpreadsheetView view) {
         this.model = model;
         this.view = view;
@@ -47,6 +50,8 @@ public class SpreadsheetController {
 
         this.logger = Logger.getLogger(SpreadsheetController.class.getName());
 
+        this.decimalFormat = new DecimalFormat("#.#");
+
         var table = view.getTable();
         table.getModel().addTableModelListener(this::onTableChanged);
         table.addPropertyChangeListener("tableCellEditor", this::onShowTableCellEditor);
@@ -57,8 +62,9 @@ public class SpreadsheetController {
         if (table.isEditing()) {
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
-            var realValue = this.model.getRealValueAt(row, column);
-            if (realValue != null && !realValue.isEmpty()){
+            var cellName = CellHelpers.getCellName(row, column);
+            var cell = this.model.getCell(cellName);
+            if (cell != null && cell.value instanceof String realValue) {
                 if (realValue.charAt(0) == '=') {
                     var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
                     var component = (JTextField)source.getComponent();
@@ -74,102 +80,33 @@ public class SpreadsheetController {
         var tableModelEventType = tableModelEvent.getType();
         if (tableModelEventType == TableModelEvent.UPDATE) {
             Object newValue = this.model.getValueAt(row, column);
-            onUpdateCell(row, column, newValue);
+            if (newValue == null) {
+                return;
+            }
+            fullUpdateCell(row, column, newValue.toString());
         }
     }
 
-    private void onUpdateCell(int row, int column, Object newValue) {
-        if (newValue == null) {
-            return;
-        }
-        var newValueStr = newValue.toString();
-
+    private void fullUpdateCell(int row, int column, String newValue) {
         var cellName = CellHelpers.getCellName(row, column);
         var cell = model.getCell(cellName);
 
-        logger.info("Updating cell " + cellName + " to have value: " + newValueStr);
+        logger.info("Updating cell " + cellName + " to have value: " + newValue);
 
-        if (!newValueStr.isEmpty() &&  newValueStr.charAt(0) == '=') {
-
-            var context = model.getExpressionCells();
-
-            HashSet<String> oldChildCells = cell.getChildCells();
-
-            newValueStr = newValueStr.substring(1);
-            Object newShowValue;
-            ExpressionNode node = null;
-
-            try {
-                var tokens = this.tokenizer.tokenize(newValueStr);
-                node = this.expressionTreeParser.parse(tokens);
-
-                expressionTreeAnalyzer.AnalyzeExpressionTree(node, cellName, context);
-
-                newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(node, context);
-                if (newShowValue instanceof Double doubleValue) {
-                    DecimalFormat decimalFormat = new DecimalFormat("#.#");
-                    newShowValue = decimalFormat.format(doubleValue);
-                }
-            }
-            catch (TokenizerException exception) {
-                logger.severe("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
-                var errorText = "Error during parsing formula: " + exception.getMessage(); // even if it tokenizer to customer we will say it was parsing
-                model.setErrorTextTo(cellName, errorText);
-                newShowValue = ErrorFormulaParsingText;
-            }
-            catch (ExpressionTreeParserException exception){
-                var errorText = "Error during parsing formula: " + exception.getMessage();
-                logger.severe("Cell " + cellName + " has error during parsing: " + exception.getMessage());
-                model.setErrorTextTo(cellName, errorText);
-                newShowValue = ErrorFormulaParsingText;
-            }
-            catch (ExpressionTreeAnalyzerException exception) {
-                var errorText = "Problem with formula: " + exception.getMessage();
-                model.setErrorTextTo(cellName, errorText);
-                logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
-                newShowValue = ErrorFormulaText;
-            }
-            catch (ExpressionTreeEvaluatorException exception) {
-                var errorText = "Problem with formula: " + exception.getMessage();
-                model.setErrorTextTo(cellName, errorText);
-                logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
-                newShowValue = ErrorFormulaText;
-            }
-            model.setCell(cellName, node, newShowValue.toString());
-
-            if (node != null) {
-                if (oldChildCells != null) {
-                    for (var oldChildCell : oldChildCells) {
-                        if (!node.getDependencies().contains(oldChildCell)) {
-                            cell.removeChildCell(oldChildCell);
-                        }
-                    }
-                }
-                var newDependencies = node.getDependencies();
-                for (var dependedNode : newDependencies) {
-                    if (model.getCell(dependedNode) != null) {
-                        // reversing logic
-                        model.getCell(dependedNode).setChildCell(cellName);
-                    }
-                }
-            }
-
-        } else if (StringHelpers.isNumeric(newValueStr)) {
-            var doubleValue = Double.parseDouble(newValueStr);
-            var numericNode = new NumberNode(doubleValue);
-
+        if (!newValue.isEmpty() && newValue.charAt(0) == '=') {
+            updateCellWithFormula(cellName, cell, newValue.substring(1));
+        } else if (StringHelpers.isNumeric(newValue)) {
             DecimalFormat decimalFormat = new DecimalFormat("#.#");
-            String formattedValue = decimalFormat.format(doubleValue);
-            model.setCell(cellName, numericNode, formattedValue);
-
-        } else if(StringHelpers.isBoolean(newValueStr)) {
-            var booleanValue = Boolean.parseBoolean(newValueStr);
-            var booleanNode = new BooleanNode(booleanValue);
-            model.setCell(cellName, booleanNode, booleanValue);
-
+            var doubleValue = Double.parseDouble(newValue);
+            cell.setExpression(new NumberNode(doubleValue));
+            cell.showValue = decimalFormat.format(doubleValue);
+        } else if(StringHelpers.isBoolean(newValue)) {
+            cell.showValue = newValue;
+            var booleanValue = Boolean.parseBoolean(newValue);
+            cell.setExpression(new BooleanNode(booleanValue));
         } else {
-            var stringNode = new StringNode(newValueStr);
-            model.setCell(cellName, stringNode, newValueStr);
+            cell.showValue = newValue;
+            cell.setExpression(new StringNode(newValue));
         }
 
         var childCells = cell.getChildCells();
@@ -178,7 +115,72 @@ public class SpreadsheetController {
                 recalculateCell(childCell);
             }
         }
+
         model.fireTableDataChanged();
+    }
+
+    private void updateCellWithFormula(String cellName, CellModel cell, String newExpressionText) {
+        HashSet<String> oldChildCells = cell.getChildCells();
+
+        ExpressionNode expression = null;
+
+        try {
+            var tokens = this.tokenizer.tokenize(newExpressionText);
+
+            expression = this.expressionTreeParser.parse(tokens);
+
+            var context = model.getExpressionCells();
+
+            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
+
+            cell.setExpression(expression);
+
+            var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
+            if (newShowValue instanceof Double doubleValue) {
+                cell.showValue = this.decimalFormat.format(doubleValue);
+            } else {
+                cell.showValue = newShowValue.toString();
+            }
+        }
+        catch (TokenizerException exception) {
+            logger.severe("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
+            cell.showValue  = ErrorFormulaParsingText;
+            cell.errorText = "Error during parsing formula: " + exception.getMessage(); // even if it tokenizer to customer we will say it was parsing
+        }
+        catch (ExpressionTreeParserException exception){
+            logger.severe("Cell " + cellName + " has error during parsing: " + exception.getMessage());
+            cell.showValue = ErrorFormulaParsingText;
+            cell.errorText = "Error during parsing formula: " + exception.getMessage();
+        }
+        catch (ExpressionTreeAnalyzerException exception) {
+            logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
+            cell.showValue = ErrorFormulaText;
+            cell.errorText = "Problem with formula: " + exception.getMessage();
+        }
+        catch (ExpressionTreeEvaluatorException exception) {
+            logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
+            cell.showValue = ErrorFormulaText;
+            cell.errorText = "Problem with formula: " + exception.getMessage();
+        }
+
+        if (expression != null) {
+            if (oldChildCells != null) {
+                for (var oldChildCell : oldChildCells) {
+                    if (!expression.getDependencies().contains(oldChildCell)) {
+                        cell.removeChildCell(oldChildCell);
+                    }
+                }
+            }
+            var newDependencies = expression.getDependencies();
+            for (var dependedNode : newDependencies) {
+                if (model.getCell(dependedNode) != null) {
+                    // reversing logic
+                    model.getCell(dependedNode).setChildCell(cellName);
+                } else {
+                    // todo: create cell
+                }
+            }
+        }
     }
 
     private void recalculateCell(String cellName) {
@@ -194,11 +196,9 @@ public class SpreadsheetController {
             expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
             if (newShowValue instanceof Double doubleValue) {
-                DecimalFormat decimalFormat = new DecimalFormat("#.#");
-                String formattedValue = decimalFormat.format(doubleValue);
-                model.updateCellShowValue(cellName, formattedValue);
+                cell.showValue = this.decimalFormat.format(doubleValue);
             } else {
-                model.updateCellShowValue(cellName, newShowValue.toString());
+                cell.showValue = newShowValue.toString();
             }
 
             var childCells = cell.getChildCells();
@@ -209,15 +209,13 @@ public class SpreadsheetController {
             }
         }
         catch (ExpressionTreeAnalyzerException exception) {
-            var errorText = "Problem with formula: " + exception.getMessage();
-            model.setErrorTextTo(cellName, errorText);
-            model.updateCellShowValue(cellName, ErrorFormulaText);
+            cell.errorText = "Problem with formula: " + exception.getMessage();
+            cell.showValue = ErrorFormulaText;
             logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
         }
         catch (ExpressionTreeEvaluatorException exception) {
-            var errorText = "Problem with formula: " + exception.getMessage();
-            model.setErrorTextTo(cellName, errorText);
-            model.updateCellShowValue(cellName, ErrorFormulaText);
+            cell.errorText = "Problem with formula: " + exception.getMessage();
+            cell.showValue = ErrorFormulaText;
             logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
         }
     }
