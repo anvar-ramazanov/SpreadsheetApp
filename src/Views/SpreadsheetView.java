@@ -34,7 +34,6 @@ public class SpreadsheetView {
         table.setDefaultRenderer(Object.class, new CustomCellRenderer());
         table.getTableHeader().setReorderingAllowed(false);
 
-
         for (int i = 0; i < table.getColumnCount(); i++) {
             var column = table.getColumnModel().getColumn(i);
             column.setPreferredWidth(50);
@@ -56,10 +55,6 @@ public class SpreadsheetView {
         rowHeaderTableCellRenderer.setBorder(border);
         rowHeaderTable.setDefaultRenderer(Object.class, rowHeaderTableCellRenderer);
         rowHeaderTable.getColumnModel().getColumn(0).setHeaderValue("");
-
-        // Ensure row selection is synchronized
-        ListSelectionModel selectionModel = table.getSelectionModel();
-        rowHeaderTable.setSelectionModel(selectionModel);
 
         // Add both tables to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);

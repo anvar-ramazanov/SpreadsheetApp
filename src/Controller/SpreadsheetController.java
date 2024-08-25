@@ -19,6 +19,7 @@ import Views.SpreadsheetView;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.text.DecimalFormat;
 import java.util.HashSet;
@@ -65,10 +66,11 @@ public class SpreadsheetController {
             int column = table.getSelectedColumn();
             var cellName = CellHelpers.getCellName(row, column);
             var cell = this.model.getCell(cellName);
+            var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
+            var component = (JTextField) source.getComponent();
+            component.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
             if (cell != null && cell.value instanceof String realValue) {
                 if (!realValue.isEmpty() && realValue.charAt(0) == '=') {
-                    var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
-                    var component = (JTextField) source.getComponent();
                     component.setText(realValue);
                 }
             }
