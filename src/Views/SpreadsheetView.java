@@ -11,9 +11,29 @@ public class SpreadsheetView {
     private final JFrame frame;
     private final JTable table;
 
-    public SpreadsheetView(SpreadsheetModel model) {
+    private final SpreadsheetModel model;
 
-        this.table = new JTable(model) {
+    public SpreadsheetView(SpreadsheetModel model) {
+        this.model = model;
+
+        this.table = initMainTable();
+        var rowHeaderTable = initRowHeaderTable();
+
+        // Add both tables to a scroll pane
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setRowHeaderView(rowHeaderTable);
+        scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, rowHeaderTable.getTableHeader());
+
+        // Create and set up the window
+        frame = new JFrame("TableApp");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+    }
+
+    private JTable initMainTable() {
+        var table = new JTable(model) {
             // It would be better to have that code in controller, but I don't know how to do it
             public String getToolTipText(MouseEvent e) {
                 String tooltipText = null;
@@ -41,7 +61,11 @@ public class SpreadsheetView {
             column.setResizable(true);
         }
 
-        RowHeaderModel rowHeaderModel = new RowHeaderModel(model.getRowCount());
+        return table;
+    }
+
+    private JTable initRowHeaderTable() {
+        RowHeaderModel rowHeaderModel = new RowHeaderModel(this.model.getRowCount());
         JTable rowHeaderTable = new JTable(rowHeaderModel);
 
         // Customize row header table
@@ -54,17 +78,7 @@ public class SpreadsheetView {
         rowHeaderTable.setDefaultRenderer(Object.class, rowHeaderTableCellRenderer);
         rowHeaderTable.getColumnModel().getColumn(0).setHeaderValue("");
 
-        // Add both tables to a scroll pane
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setRowHeaderView(rowHeaderTable);
-        scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, rowHeaderTable.getTableHeader());
-
-        // Create and set up the window
-        frame = new JFrame("TableApp");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(scrollPane, BorderLayout.CENTER);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
+        return rowHeaderTable;
     }
 
     public void show() {
