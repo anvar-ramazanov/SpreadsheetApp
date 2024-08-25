@@ -66,7 +66,7 @@ public class SpreadsheetController {
             var cellName = CellHelpers.getCellName(row, column);
             var cell = this.model.getCell(cellName);
             if (cell != null && cell.value instanceof String realValue) {
-                if (realValue.charAt(0) == '=') {
+                if (!realValue.isEmpty() && realValue.charAt(0) == '=') {
                     var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
                     var component = (JTextField)source.getComponent();
                     component.setText(realValue);
