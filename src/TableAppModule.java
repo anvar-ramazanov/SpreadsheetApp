@@ -24,7 +24,7 @@ public class TableAppModule {
         // app
         pico.addComponent(SpreadsheetController.class);
         pico.addComponent(SpreadsheetView.class);
-        pico.addComponent(new SpreadsheetModelFabric(50, 26));
+        pico.addComponent(new SpreadsheetModelFabric(50, 50));
 
         return pico;
     }

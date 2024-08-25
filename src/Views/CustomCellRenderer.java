@@ -9,7 +9,6 @@ public class CustomCellRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
         if (isSelected) {
             c.setBackground(table.getBackground());
             c.setForeground(table.getForeground());
@@ -22,6 +21,8 @@ public class CustomCellRenderer extends DefaultTableCellRenderer {
         } else {
             setBorder(CellBorders.getDefaultBorder());
         }
+
+        setHorizontalAlignment(SwingConstants.CENTER);
 
         return c;
     }
