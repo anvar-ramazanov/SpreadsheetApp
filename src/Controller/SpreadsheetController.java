@@ -110,10 +110,10 @@ public class SpreadsheetController {
             cell.setExpression(new StringNode(newValue));
         }
 
-        var childCells = cell.getChildCells();
-        if (childCells != null) {
-            for (var childCell : childCells) {
-                recalculateCell(childCell);
+        var childCellNames = cell.getChildCells();
+        if (childCellNames != null) {
+            for (var childCellName : childCellNames) {
+                recalculateCell(childCellName);
             }
         }
 
@@ -121,7 +121,7 @@ public class SpreadsheetController {
     }
 
     private void updateCellWithFormula(String cellName, CellModel cell, String newExpressionText) {
-        HashSet<String> oldChildCells = cell.getExpression().getParentCells();
+        HashSet<String> oldParentCells = cell.getExpression().getParentCells();
 
         ExpressionNode expression = null;
 
@@ -143,17 +143,17 @@ public class SpreadsheetController {
                 cell.showValue = newShowValue.toString();
             }
 
-            if (oldChildCells != null) {
-                for (var oldChildCell : oldChildCells) {
-                    if (!expression.getParentCells().contains(oldChildCell)) {
-                        model.getCell(oldChildCell).removeChildCell(cellName);
+            if (oldParentCells != null) {
+                for (var oldParentCell : oldParentCells) {
+                    if (!expression.getParentCells().contains(oldParentCell)) {
+                        model.getCell(oldParentCell).removeChildCell(cellName);
                     }
                 }
             }
-            var newDependencies = expression.getParentCells();
-            for (var dependedNode : newDependencies) {
-                if (model.getCell(dependedNode) != null) {
-                    model.getCell(dependedNode).setChildCell(cellName);
+            var parentCells = expression.getParentCells();
+            for (var parentCell : parentCells) {
+                if (model.getCell(parentCell) != null) {
+                    model.getCell(parentCell).setChildCell(cellName);
                 }
             }
         }
@@ -172,12 +172,12 @@ public class SpreadsheetController {
             cell.showValue = ErrorFormulaText;
             cell.errorText = "Problem with formula: " + exception.getMessage();
             if (exception instanceof CircularDependencyException circularDependencyException) {
-                var visitedCells = circularDependencyException.getVisitedCells();
-                if (visitedCells != null) {
-                    for (var visitedCell : visitedCells) {
-                        var c = model.getCell(visitedCell); // fixme naming!
-                        c.showValue = ErrorFormulaText;
-                        c.errorText = "Problem with formula: " + exception.getMessage();
+                var visitedCellsNames = circularDependencyException.getVisitedCells();
+                if (visitedCellsNames != null) {
+                    for (var visitedCellName : visitedCellsNames) {
+                        var visitedCell = model.getCell(visitedCellName);
+                        visitedCell.showValue = ErrorFormulaText;
+                        visitedCell.errorText = "Problem with formula: " + exception.getMessage();
                     }
                 }
             }
@@ -200,6 +200,7 @@ public class SpreadsheetController {
 
         try {
             expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
+
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
             if (newShowValue instanceof Double doubleValue) {
                 cell.showValue = this.decimalFormat.format(doubleValue);
