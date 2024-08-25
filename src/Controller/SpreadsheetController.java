@@ -15,6 +15,7 @@ import Helpers.CellHelpers;
 import Helpers.StringHelpers;
 import Models.Cell.CellModel;
 import Models.SpreadsheetModel;
+import Models.SpreadsheetModelFabric;
 import Views.CellBorders;
 import Views.SpreadsheetView;
 
@@ -41,20 +42,31 @@ public class SpreadsheetController {
 
     private final DecimalFormat decimalFormat;
 
-    public SpreadsheetController(SpreadsheetModel model, SpreadsheetView view) {
-        this.model = model;
+    public SpreadsheetController(
+            SpreadsheetView view,
+            SpreadsheetModelFabric spreadsheetModelFabric,
+            Tokenizer tokenizer,
+            ExpressionTreeParser expressionTreeParser,
+            ExpressionTreeAnalyzer expressionTreeAnalyzer,
+            ExpressionTreeEvaluator expressionTreeEvaluator) {
+
+        this.model = spreadsheetModelFabric.getSpreadsheetModel();
         this.view = view;
 
-        this.tokenizer = new TokenizerImpl();
-        this.expressionTreeParser = new ExpressionTreeParserImpl();
-        this.expressionTreeAnalyzer = new ExpressionTreeAnalyzerImpl();
-        this.expressionTreeEvaluator = new ExpressionTreeEvaluatorImpl();
+        this.tokenizer = tokenizer;
+        this.expressionTreeParser = expressionTreeParser;
+        this.expressionTreeAnalyzer = expressionTreeAnalyzer;
+        this.expressionTreeEvaluator = expressionTreeEvaluator;
 
         this.logger = Logger.getLogger(SpreadsheetController.class.getName());
 
         this.decimalFormat = new DecimalFormat("#.#");
 
         bindEvents();
+    }
+
+    public SpreadsheetView getView() {
+        return this.view;
     }
 
     private void bindEvents() {

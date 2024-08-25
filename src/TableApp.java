@@ -1,15 +1,17 @@
 import Controller.SpreadsheetController;
-import Models.SpreadsheetModel;
 import Views.SpreadsheetView;
+import org.picocontainer.PicoContainer;
 
 import javax.swing.*;
 
 public class TableApp {
+
     public static void main(String[] args) {
+        final PicoContainer pico = TableAppModule.newContainer();
+
         SwingUtilities.invokeLater(() -> {
-            SpreadsheetModel model = new SpreadsheetModel(50, 26);
-            SpreadsheetView view = new SpreadsheetView(model);
-            new SpreadsheetController(model, view);
+            SpreadsheetController controller = pico.getComponent(SpreadsheetController.class);
+            SpreadsheetView view = controller.getView();
             view.show();
         });
     }

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="picocontainer" type="repository">
+    <properties maven-id="org.picocontainer:picocontainer:2.15" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/picocontainer/picocontainer/2.15/picocontainer-2.15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

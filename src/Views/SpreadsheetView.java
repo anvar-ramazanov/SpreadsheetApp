@@ -2,6 +2,7 @@ package Views;
 
 import Models.RowHeaderModel;
 import Models.SpreadsheetModel;
+import Models.SpreadsheetModelFabric;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,23 +14,25 @@ public class SpreadsheetView {
 
     private final SpreadsheetModel model;
 
-    public SpreadsheetView(SpreadsheetModel model) {
-        this.model = model;
+    public SpreadsheetView(SpreadsheetModelFabric spreadsheetModelFabric) {
+        this.model = spreadsheetModelFabric.getSpreadsheetModel();
 
         this.table = initMainTable();
         var rowHeaderTable = initRowHeaderTable();
 
         // Add both tables to a scroll pane
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(this.table);
         scrollPane.setRowHeaderView(rowHeaderTable);
         scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, rowHeaderTable.getTableHeader());
 
         // Create and set up the window
-        frame = new JFrame("TableApp");
+        var frame = new JFrame("TableApp");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
+
+        this.frame = frame;
     }
 
     private JTable initMainTable() {
@@ -82,11 +85,11 @@ public class SpreadsheetView {
     }
 
     public void show() {
-        frame.setVisible(true);
+        this.frame.setVisible(true);
     }
 
     public JTable getTable() {
-        return table;
+        return this.table;
     }
 }
 
