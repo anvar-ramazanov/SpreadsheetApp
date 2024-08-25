@@ -20,7 +20,6 @@ import Views.SpreadsheetView;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.text.DecimalFormat;
 import java.util.HashSet;
@@ -55,7 +54,11 @@ public class SpreadsheetController {
 
         this.decimalFormat = new DecimalFormat("#.#");
 
-        var table = view.getTable();
+        bindEvents();
+    }
+
+    private void bindEvents() {
+        var table = this.view.getTable();
         table.getModel().addTableModelListener(this::onTableChanged);
         table.addPropertyChangeListener("tableCellEditor", this::onShowTableCellEditor);
     }
@@ -258,6 +261,4 @@ public class SpreadsheetController {
         cell.showValue = ErrorFormulaText;
         cell.errorText = "Unknown problem with cell";
     }
-
-
 }
