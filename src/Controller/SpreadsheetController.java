@@ -15,6 +15,7 @@ import Helpers.CellHelpers;
 import Helpers.StringHelpers;
 import Models.Cell.CellModel;
 import Models.SpreadsheetModel;
+import Views.CellBorders;
 import Views.SpreadsheetView;
 
 import javax.swing.*;
@@ -68,7 +69,7 @@ public class SpreadsheetController {
             var cell = this.model.getCell(cellName);
             var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
             var component = (JTextField) source.getComponent();
-            component.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+            component.setBorder(CellBorders.getEditorBorder());
             if (cell != null && cell.value instanceof String realValue) {
                 if (!realValue.isEmpty() && realValue.charAt(0) == '=') {
                     component.setText(realValue);

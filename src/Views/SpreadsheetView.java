@@ -45,14 +45,12 @@ public class SpreadsheetView {
         JTable rowHeaderTable = new JTable(rowHeaderModel);
 
         // Customize row header table
-        var border = BorderFactory.createMatteBorder(0, 0, 1, 1,  Color.LIGHT_GRAY);
-
         rowHeaderTable.setPreferredScrollableViewportSize(new Dimension(40, 0));
         rowHeaderTable.setRowHeight(table.getRowHeight());
         rowHeaderTable.setEnabled(false);
         var rowHeaderTableCellRenderer = new CustomCellRenderer();
         rowHeaderTableCellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        rowHeaderTableCellRenderer.setBorder(border);
+        rowHeaderTableCellRenderer.setBorder(CellBorders.getDefaultBorder());
         rowHeaderTable.setDefaultRenderer(Object.class, rowHeaderTableCellRenderer);
         rowHeaderTable.getColumnModel().getColumn(0).setHeaderValue("");
 
