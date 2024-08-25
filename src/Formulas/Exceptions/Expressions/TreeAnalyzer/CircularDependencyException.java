@@ -1,10 +1,10 @@
 package Formulas.Exceptions.Expressions.TreeAnalyzer;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class CircularDependencyException extends ExpressionTreeAnalyzerException {
 
-    private final HashSet<String> visitedCells;
+    private final LinkedHashSet<String> visitedCells;
 
     public CircularDependencyException() {
         super();
@@ -16,7 +16,7 @@ public class CircularDependencyException extends ExpressionTreeAnalyzerException
         visitedCells = null;
     }
 
-    public CircularDependencyException(String message, HashSet<String> visitedCells) {
+    public CircularDependencyException(String message, LinkedHashSet<String> visitedCells) {
         super(message);
         this.visitedCells = visitedCells;
     }
@@ -31,7 +31,7 @@ public class CircularDependencyException extends ExpressionTreeAnalyzerException
         visitedCells = null;
     }
 
-    public HashSet<String> getVisitedCells() {
+    public LinkedHashSet<String> getVisitedCells() {
         return visitedCells;
     }
 }

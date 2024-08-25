@@ -68,7 +68,7 @@ public class SpreadsheetController {
             if (cell != null && cell.value instanceof String realValue) {
                 if (!realValue.isEmpty() && realValue.charAt(0) == '=') {
                     var source = (DefaultCellEditor) propertyChangeEvent.getNewValue();
-                    var component = (JTextField)source.getComponent();
+                    var component = (JTextField) source.getComponent();
                     component.setText(realValue);
                 }
             }
@@ -91,17 +91,20 @@ public class SpreadsheetController {
     private void fullUpdateCell(int row, int column, String newValue) {
         var cellName = CellHelpers.getCellName(row, column);
         var cell = model.getCell(cellName);
+        if (cell == null) {
+            logger.severe("Cell " + cellName + " is null");
+            return;
+        }
 
         logger.info("Updating cell " + cellName + " to have value: " + newValue);
 
         if (!newValue.isEmpty() && newValue.charAt(0) == '=') {
             updateCellWithFormula(cellName, cell, newValue.substring(1));
         } else if (StringHelpers.isNumeric(newValue)) {
-            DecimalFormat decimalFormat = new DecimalFormat("#.#");
             var doubleValue = Double.parseDouble(newValue);
             cell.setExpression(new NumberNode(doubleValue));
             cell.showValue = decimalFormat.format(doubleValue);
-        } else if(StringHelpers.isBoolean(newValue)) {
+        } else if (StringHelpers.isBoolean(newValue)) {
             cell.showValue = newValue;
             var booleanValue = Boolean.parseBoolean(newValue);
             cell.setExpression(new BooleanNode(booleanValue));
@@ -121,16 +124,14 @@ public class SpreadsheetController {
     }
 
     private void updateCellWithFormula(String cellName, CellModel cell, String newExpressionText) {
-        HashSet<String> oldParentCells = cell.getExpression().getParentCells();
-
-        ExpressionNode expression = null;
-
         try {
+            HashSet<String> oldParentCells = cell.getExpression().getParentCells();
+
             var tokens = this.tokenizer.tokenize(newExpressionText);
 
-            expression = this.expressionTreeParser.parse(tokens);
+            var expression = this.expressionTreeParser.parse(tokens);
 
-            var context = model.getExpressionCells();
+            var context = this.model.getExpressionCells();
 
             expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
 
@@ -146,59 +147,45 @@ public class SpreadsheetController {
             if (oldParentCells != null) {
                 for (var oldParentCell : oldParentCells) {
                     if (!expression.getParentCells().contains(oldParentCell)) {
-                        model.getCell(oldParentCell).removeChildCell(cellName);
+                        if (this.model.getCell(oldParentCell) != null) {
+                            this.model.getCell(oldParentCell).removeChildCell(cellName);
+                        }
                     }
                 }
             }
             var parentCells = expression.getParentCells();
             for (var parentCell : parentCells) {
-                if (model.getCell(parentCell) != null) {
-                    model.getCell(parentCell).setChildCell(cellName);
+                if (this.model.getCell(parentCell) != null) {
+                    this.model.getCell(parentCell).setChildCell(cellName);
                 }
             }
-        }
-        catch (TokenizerException exception) {
-            logger.severe("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
-            cell.showValue  = ErrorFormulaParsingText;
-            cell.errorText = "Error during parsing formula: " + exception.getMessage(); // even if it tokenizer to customer we will say it was parsing
-        }
-        catch (ExpressionTreeParserException exception){
-            logger.severe("Cell " + cellName + " has error during parsing: " + exception.getMessage());
-            cell.showValue = ErrorFormulaParsingText;
-            cell.errorText = "Error during parsing formula: " + exception.getMessage();
-        }
-        catch (ExpressionTreeAnalyzerException exception) {
-            logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
-            cell.showValue = ErrorFormulaText;
-            cell.errorText = "Problem with formula: " + exception.getMessage();
-            if (exception instanceof CircularDependencyException circularDependencyException) {
-                var visitedCellsNames = circularDependencyException.getVisitedCells();
-                if (visitedCellsNames != null) {
-                    for (var visitedCellName : visitedCellsNames) {
-                        var visitedCell = model.getCell(visitedCellName);
-                        visitedCell.showValue = ErrorFormulaText;
-                        visitedCell.errorText = "Problem with formula: " + exception.getMessage();
-                    }
-                }
-            }
-        }
-        catch (ExpressionTreeEvaluatorException exception) {
-            logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
-            cell.showValue = ErrorFormulaText;
-            cell.errorText = "Problem with formula: " + exception.getMessage();
+        } catch (TokenizerException exception) {
+            handleTokenizerException(cellName, cell, exception);
+        } catch (ExpressionTreeParserException exception) {
+            handleExpressionTreeParserException(cellName, cell, exception);
+        } catch (CircularDependencyException exception) {
+            handleCircularDependencyException(cellName, cell, exception);
+        } catch (ExpressionTreeAnalyzerException exception) {
+            handleExpressionTreeAnalyzerException(cellName, cell, exception);
+        } catch (ExpressionTreeEvaluatorException exception) {
+            handleExpressionTreeEvaluatorException(cellName, cell, exception);
+        } catch (Exception exception) {
+            handleGeneralException(cellName, cell, exception);
         }
     }
 
     private void recalculateCell(String cellName) {
-
-        logger.info("Recalculating cell " + cellName);
-
-        var cell = model.getCell(cellName);
-
-        var context = model.getExpressionCells();
-        var expression = context.get(cellName).getExpression();
-
+        var cell = this.model.getCell(cellName);
+        if (cell == null) {
+            logger.severe("Cell " + cellName + " is null");
+            return;
+        }
         try {
+            logger.info("Recalculating cell " + cellName);
+
+            var context = this.model.getExpressionCells();
+            var expression = context.get(cellName).getExpression();
+
             expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
 
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
@@ -214,26 +201,60 @@ public class SpreadsheetController {
                     recalculateCell(childCell);
                 }
             }
-        }
-        catch (ExpressionTreeAnalyzerException exception) {
-            cell.errorText = "Problem with formula: " + exception.getMessage();
-            cell.showValue = ErrorFormulaText;
-            logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
-            if (exception instanceof CircularDependencyException circularDependencyException) {
-                var visitedCells = circularDependencyException.getVisitedCells();
-                if (visitedCells != null) {
-                    for (var visitedCell : visitedCells) {
-                        var c = model.getCell(visitedCell); // fixme naming!
-                        c.showValue = ErrorFormulaText;
-                        c.errorText = "Problem with formula: " + exception.getMessage();
-                    }
-                }
-            }
-        }
-        catch (ExpressionTreeEvaluatorException exception) {
-            cell.errorText = "Problem with formula: " + exception.getMessage();
-            cell.showValue = ErrorFormulaText;
-            logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
+        } catch (CircularDependencyException exception) {
+            handleCircularDependencyException(cellName, cell, exception);
+        } catch (ExpressionTreeAnalyzerException exception) {
+            handleExpressionTreeAnalyzerException(cellName, cell, exception);
+        } catch (ExpressionTreeEvaluatorException exception) {
+            handleExpressionTreeEvaluatorException(cellName, cell, exception);
+        } catch (Exception exception) {
+            handleGeneralException(cellName, cell, exception);
         }
     }
+
+    private void handleTokenizerException(String cellName, CellModel cell, TokenizerException exception) {
+        logger.severe("Cell " + cellName + " has error during tokenizing: " + exception.getMessage());
+        cell.showValue = ErrorFormulaParsingText;
+        cell.errorText = "Error during parsing formula: " + exception.getMessage(); // even if it tokenizer to customer we will say it was parsing
+    }
+
+    private void handleExpressionTreeParserException(String cellName, CellModel cell, ExpressionTreeParserException exception) {
+        logger.severe("Cell " + cellName + " has error during parsing: " + exception.getMessage());
+        cell.showValue = ErrorFormulaParsingText;
+        cell.errorText = "Error during parsing formula: " + exception.getMessage();
+    }
+
+    private void handleCircularDependencyException(String cellName, CellModel cell, CircularDependencyException exception) {
+        logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
+        cell.showValue = ErrorFormulaText;
+
+        var visitedCellsNames = exception.getVisitedCells();
+        var circularPath = String.join("->", visitedCellsNames);
+        circularPath = circularPath + "->" + cellName;
+        for (var visitedCellName : visitedCellsNames) {
+            var visitedCell = model.getCell(visitedCellName);
+            visitedCell.showValue = ErrorFormulaText;
+            visitedCell.errorText = "Problem with formula: " + exception.getMessage() + " Path: " + circularPath;
+        }
+    }
+
+    private void handleExpressionTreeAnalyzerException(String cellName, CellModel cell, ExpressionTreeAnalyzerException exception) {
+        logger.severe("Cell " + cellName + " has error during analyzing: " + exception.getMessage());
+        cell.showValue = ErrorFormulaText;
+        cell.errorText = "Problem with formula: " + exception.getMessage();
+    }
+
+    private void handleExpressionTreeEvaluatorException(String cellName, CellModel cell, ExpressionTreeEvaluatorException exception) {
+        logger.severe("Cell " + cellName + " has error during evaluation: " + exception.getMessage());
+        cell.showValue = ErrorFormulaText;
+        cell.errorText = "Problem with formula: " + exception.getMessage();
+    }
+
+    private void handleGeneralException(String cellName, CellModel cell, Exception exception) {
+        logger.severe("Cell " + cellName + " has error: " + exception.getMessage());
+        cell.showValue = ErrorFormulaText;
+        cell.errorText = "Unknown problem with cell";
+    }
+
+
 }

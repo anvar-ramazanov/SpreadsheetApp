@@ -6,17 +6,17 @@ import Formulas.Language.ExpressionLanguage;
 import Formulas.Language.DataType;
 import Models.Cell.ExpressionCell;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
 public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
 
     public void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context) {
-        var visitedNodes = new HashSet<String>();
+        var visitedNodes = new LinkedHashSet<String>();
         AnalyzeNode(expressionNode, nodeName, context, visitedNodes);
     }
 
-    private DataType AnalyzeNode(ExpressionNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
+    private DataType AnalyzeNode(ExpressionNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
         DataType nodeType = null;
         visitedNodes.add(nodeName);
         if (node instanceof UnaryOperationNode unaryOperationNode) {
@@ -37,7 +37,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return nodeType;
     }
 
-    private DataType AnalyzeUnaryOperationNode(UnaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
+    private DataType AnalyzeUnaryOperationNode(UnaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
         var operator = node.getOperator();
         var operand = node.getOperand();
 
@@ -50,7 +50,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.UnaryOperations.get(node.getOperator()).resultType();
     }
 
-    private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
+    private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
         var operator = node.getOperator();
         var leftOperand = node.getLeftOperand();
         var rightOperand = node.getRightOperand();
@@ -69,7 +69,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.BinaryOperations.get(operator).resultType();
     }
 
-    private DataType AnalyzeFunctionNode(FunctionNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
+    private DataType AnalyzeFunctionNode(FunctionNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
         var functionName = node.getFunctionName();
         var arguments = node.getArguments();
         var description = ExpressionLanguage.FunctionsDescription.get(functionName);
@@ -91,10 +91,10 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.FunctionsDescription.get(functionName).resultType();
     }
 
-    private DataType AnalyzeRefNode(ReferencesNode node, String nodeName, Map<String, ExpressionCell> context, HashSet<String> visitedNodes) {
+    private DataType AnalyzeRefNode(ReferencesNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
         var nextNodeName = node.getReferences();
         if (nextNodeName.equals(nodeName)) {
-            throw new CircularDependencyException("Cell contains circular dependency");
+            throw new CircularDependencyException("Cell contains circular dependency", visitedNodes);
         }
         if (visitedNodes.contains(nextNodeName)) {
             throw new CircularDependencyException("Cell contains circular dependency", visitedNodes);
