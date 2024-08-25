@@ -106,6 +106,9 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
 
         var nextNodeType = AnalyzeNode(nextNode, nextNodeName, context, visitedNodes);
 
+        // After the recursive call, remove the node from visited set so it doesn't falsely trigger circular dependencies in parallel branches.
+        visitedNodes.remove(nextNodeName);
+
         node.setReferenceType(nextNodeType);
 
         return nextNodeType;
