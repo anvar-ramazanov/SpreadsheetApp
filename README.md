@@ -36,6 +36,8 @@
 * Absolute references (e.g., `$A$10`)
 * Mixed references (e.g., `$A10`, `A$10`)
 * Save/Load functionality
+* Look and feel
+* Undo operation
 * Multiple spreadsheets
 * Support for styles (font, content alignment, background)
 * Merging cells (horizontal/vertical)
