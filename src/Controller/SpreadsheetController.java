@@ -144,17 +144,17 @@ public class SpreadsheetController {
                 cell.showValue = newShowValue.toString();
             }
 
+            var newParentCells = expression.getParentCells();
             if (oldParentCells != null) {
                 for (var oldParentCell : oldParentCells) {
-                    if (!expression.getParentCells().contains(oldParentCell)) {
+                    if (!newParentCells.contains(oldParentCell)) {
                         if (this.model.getCell(oldParentCell) != null) {
                             this.model.getCell(oldParentCell).removeChildCell(cellName);
                         }
                     }
                 }
             }
-            var parentCells = expression.getParentCells();
-            for (var parentCell : parentCells) {
+            for (var parentCell : newParentCells) {
                 if (this.model.getCell(parentCell) != null) {
                     this.model.getCell(parentCell).setChildCell(cellName);
                 }

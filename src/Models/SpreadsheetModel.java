@@ -20,6 +20,10 @@ public class SpreadsheetModel extends AbstractTableModel {
         this.columnCount = columnCount;
         this.cells = new HashMap<>();
 
+        initCells(rowCount, columnCount);
+    }
+
+    private void initCells(int rowCount, int columnCount) {
         for (int col = 0; col <= columnCount; ++ col) {
             for (int row = 0; row <= rowCount; ++row) {
                 var cell = new CellModel();

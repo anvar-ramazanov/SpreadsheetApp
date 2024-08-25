@@ -21,11 +21,11 @@ public class CellModel implements ExpressionCell {
         this.expression = expression;
     }
 
-    public void setChildCell(String childeCell) {
+    public void setChildCell(String childCell) {
         if (this.childCells == null) {
             this.childCells = new HashSet<>();
         }
-        this.childCells.add(childeCell);
+        this.childCells.add(childCell);
     }
 
     public HashSet<String> getChildCells() {
