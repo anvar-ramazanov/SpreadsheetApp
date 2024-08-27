@@ -6,36 +6,53 @@ import Formulas.Expressions.ExpressionNodes.*;
 import Formulas.Language.ExpressionLanguage;
 import Models.Cell.ExpressionCell;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExpressionTreeEvaluatorImpl implements ExpressionTreeEvaluator {
 
+    private final Map<ExpressionNode, Object> cache = new HashMap<>();;
+
     public Object EvaluateExpressionTree(ExpressionNode node, Map<String, ExpressionCell> context) {
+        cache.clear();
         return EvaluateNode(node, context);
     }
 
     private Object EvaluateNode(ExpressionNode node, Map<String, ExpressionCell> context) {
+        // Check if the node is already evaluated and cached
+        if (cache.containsKey(node)) {
+            return cache.get(node);
+        }
+
+        Object result;
+
         if (node instanceof UnaryOperationNode unaryOperationNode) {
-            return EvaluateUnaryOperation(unaryOperationNode, context);
+            result = EvaluateUnaryOperation(unaryOperationNode, context);
         } else if (node instanceof BinaryOperationNode binaryOperationNode) {
-            return EvaluateBinaryOperation(binaryOperationNode, context);
+            result = EvaluateBinaryOperation(binaryOperationNode, context);
         } else if (node instanceof FunctionNode functionNode) {
-            return EvaluateFunction(functionNode, context);
+            result = EvaluateFunction(functionNode, context);
         } else if (node instanceof ReferencesNode refNode) {
-            return EvaluateReferences(refNode, context);
+            result = EvaluateReferences(refNode, context);
         } else if (node instanceof NumberNode numberNode)  {
-            return numberNode.getValue();
+            result = numberNode.getValue();
         } else if (node instanceof BooleanNode booleanNode) {
-            return booleanNode.getValue();
+            result = booleanNode.getValue();
         } else if (node instanceof StringNode stringNode) {
-            return stringNode.getValue();
+            result = stringNode.getValue();
+        } else {
+            if (node != null) {
+                throw new UnknownTypeOfNodeException("Unknown type of node: " + node.getType());
+            }
+            throw new UnknownTypeOfNodeException("Node is null");
         }
-        if (node != null) {
-            throw new UnknownTypeOfNodeException("Unknown type of node: " + node.getType());
-        }
-        throw new UnknownTypeOfNodeException("Node is null");
+
+        // Store the result in the cache
+        cache.put(node, result);
+        return result;
     }
+
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionCell> context) {
         var nextNodeName = refNode.getReferences();
