@@ -10,7 +10,6 @@ import Formulas.Expressions.ExpressionNodes.BooleanNode;
 import Formulas.Expressions.ExpressionNodes.NumberNode;
 import Formulas.Expressions.ExpressionNodes.StringNode;
 import Formulas.Tokens.Tokenizer;
-import Formulas.Tokens.TokenizerImpl;
 import Helpers.CellHelpers;
 import Helpers.StringHelpers;
 import Models.Cell.CellModel;
@@ -116,8 +115,9 @@ public class SpreadsheetController {
 
         logger.info("Updating cell " + cellName + " to have value: " + newValue);
 
+        boolean needToRecalcChilds = true;
         if (!newValue.isEmpty() && newValue.charAt(0) == '=') {
-            updateCellWithFormula(cellName, cell, newValue.substring(1));
+            needToRecalcChilds = updateCellWithFormula(cellName, cell, newValue.substring(1));
         } else if (StringHelpers.isNumeric(newValue)) {
             var doubleValue = Double.parseDouble(newValue);
             cell.setExpression(new NumberNode(doubleValue));
@@ -131,17 +131,19 @@ public class SpreadsheetController {
             cell.setExpression(new StringNode(newValue));
         }
 
-        var childCellNames = cell.getChildCells();
-        if (childCellNames != null) {
-            for (var childCellName : childCellNames) {
-                recalculateCell(childCellName);
+        if ( needToRecalcChilds) {
+            var childCellNames = cell.getChildCells();
+            if (childCellNames != null) {
+                for (var childCellName : childCellNames) {
+                    recalculateCell(childCellName);
+                }
             }
         }
 
         model.fireTableDataChanged();
     }
 
-    private void updateCellWithFormula(String cellName, CellModel cell, String newExpressionText) {
+    private boolean updateCellWithFormula(String cellName, CellModel cell, String newExpressionText) {
         try {
             HashSet<String> oldParentCells = cell.getExpression().getParentCells();
 
@@ -177,18 +179,25 @@ public class SpreadsheetController {
                     this.model.getCell(parentCell).setChildCell(cellName);
                 }
             }
+            return true;
         } catch (TokenizerException exception) {
             handleTokenizerException(cellName, cell, exception);
+            return false;
         } catch (ExpressionTreeParserException exception) {
             handleExpressionTreeParserException(cellName, cell, exception);
+            return false;
         } catch (CircularDependencyException exception) {
             handleCircularDependencyException(cellName, cell, exception);
+            return false;
         } catch (ExpressionTreeAnalyzerException exception) {
             handleExpressionTreeAnalyzerException(cellName, cell, exception);
+            return false;
         } catch (ExpressionTreeEvaluatorException exception) {
             handleExpressionTreeEvaluatorException(cellName, cell, exception);
+            return false;
         } catch (Exception exception) {
             handleGeneralException(cellName, cell, exception);
+            return false;
         }
     }
 
