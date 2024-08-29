@@ -17,6 +17,10 @@ public class CellModel implements ExpressionCell {
         return this.expression;
     }
 
+    public String getShowValue() {
+        return showValue;
+    }
+
     public void setExpression(ExpressionNode expression) {
         this.expression = expression;
     }

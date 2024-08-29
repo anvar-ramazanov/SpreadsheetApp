@@ -213,7 +213,8 @@ public class SpreadsheetController {
             var context = this.model.getExpressionCells();
             var expression = context.get(cellName).getExpression();
 
-            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
+            // also slow, have to optimize it
+            // expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
 
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
             if (newShowValue instanceof Double doubleValue) {
