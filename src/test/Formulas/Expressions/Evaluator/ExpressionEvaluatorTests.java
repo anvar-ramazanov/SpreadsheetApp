@@ -82,4 +82,21 @@ public class ExpressionEvaluatorTests {
 
         assertEquals(-1.0, result);
     }
+
+    @Test
+    public void ExpressionEvaluator_EvaluateWithCachedValue() {
+        var expression = new BinaryOperationNode("+", new ReferencesNode("A2"), new ReferencesNode("A2"));
+        var a1 = new TestExpressionCell(expression);
+        var a2 = new TestExpressionCell(new NumberNode(3), "5");
+        Map<String, ExpressionCell> nodes = Map.of(
+                "A1", a1,
+                "A2", a2
+        );
+
+        var evaluator = new ExpressionTreeEvaluatorImpl();
+
+        var result =  evaluator.EvaluateExpressionTree(expression, nodes);
+
+        assertEquals(10.0, result);
+    }
 }
