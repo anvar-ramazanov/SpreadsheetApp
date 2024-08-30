@@ -121,14 +121,17 @@ public class SpreadsheetController {
         if (!newValue.isEmpty() && newValue.charAt(0) == '=') {
             needToRecalcChilds = updateCellWithFormula(cellName, cell, newValue.substring(1));
         } else if (StringHelpers.isNumeric(newValue)) {
+            clearCellReferences(cell, cellName);
             var doubleValue = Double.parseDouble(newValue);
             cell.setExpression(new NumberNode(doubleValue));
             cell.showValue = decimalFormat.format(doubleValue);
         } else if (StringHelpers.isBoolean(newValue)) {
+            clearCellReferences(cell, cellName);
             cell.showValue = newValue;
             var booleanValue = Boolean.parseBoolean(newValue);
             cell.setExpression(new BooleanNode(booleanValue));
         } else {
+            clearCellReferences(cell, cellName);
             cell.showValue = newValue;
             cell.setExpression(new StringNode(newValue));
         }
@@ -235,6 +238,17 @@ public class SpreadsheetController {
         if (childCells != null) {
             for (var childCell : childCells) {
                 recalculateCell(childCell);
+            }
+        }
+    }
+
+    private void clearCellReferences(CellModel cell, String cellName) {
+        HashSet<String> oldParentCells = cell.getExpression().getParentCells();
+        if (oldParentCells != null) {
+            for (var oldParentCell : oldParentCells) {
+                if (this.model.getCell(oldParentCell) != null) {
+                    this.model.getCell(oldParentCell).removeChildCell(cellName);
+                }
             }
         }
     }
