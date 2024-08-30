@@ -115,6 +115,8 @@ public class SpreadsheetController {
 
         logger.info("Updating cell " + cellName + " to have value: " + newValue);
 
+        cell.errorText = null;
+
         boolean needToRecalcChilds = true;
         if (!newValue.isEmpty() && newValue.charAt(0) == '=') {
             needToRecalcChilds = updateCellWithFormula(cellName, cell, newValue.substring(1));
@@ -210,11 +212,12 @@ public class SpreadsheetController {
         try {
             logger.info("Recalculating cell " + cellName);
 
+            cell.errorText = null;
+
             var context = this.model.getExpressionCells();
             var expression = context.get(cellName).getExpression();
 
-            // also slow, have to optimize it
-            // expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
+            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
 
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
             if (newShowValue instanceof Double doubleValue) {
