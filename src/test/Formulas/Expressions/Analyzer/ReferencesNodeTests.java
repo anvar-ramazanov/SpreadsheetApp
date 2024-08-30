@@ -148,4 +148,21 @@ public class ReferencesNodeTests {
 
         analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
+
+    @Test(expected = InvalidReferenceException.class)
+    public void ExpressionAnalyzer_AnalyzeExpressionTree_ReuseDataType_EmptyExpressionType() {
+        var expression = new ReferencesNode("A2");
+
+        var a2 = new TestExpressionCell(new ReferencesNode("A3"));
+        var a3 = new TestExpressionCell(new NumberNode(3));
+
+        Map<String, ExpressionCell> context = Map.of(
+                "A2", a2,
+                "A3", a3
+        );
+
+        var analyzer = new ExpressionTreeAnalyzerImpl();
+
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, true);
+    }
 }

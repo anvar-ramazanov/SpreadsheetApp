@@ -104,13 +104,17 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer {
         }
         var nextNode = context.get(nextNodeName);
 
+        var nextNodeType = reuseComputedTypes
+                ? nextNode.getExpression().getType()
+                : AnalyzeNode(nextNode.getExpression(), nextNodeName, context, visitedNodes, reuseComputedTypes);
+
         if (nextNode.hasError()) {
             throw new InvalidReferenceException("Cell " + nextNodeName + " has error");
         }
 
-        var nextNodeType = reuseComputedTypes
-                ? nextNode.getExpression().getType()
-                : AnalyzeNode(nextNode.getExpression(), nextNodeName, context, visitedNodes, reuseComputedTypes);
+        if (nextNodeType == null) {
+            throw new InvalidReferenceException("Cell " + nextNodeName + "has unknown type of cell");
+        }
 
         // After the recursive call, remove the node from visited set so it doesn't falsely trigger circular dependencies in parallel branches.
         visitedNodes.remove(nextNodeName);
