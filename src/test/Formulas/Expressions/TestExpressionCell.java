@@ -22,7 +22,14 @@ public class TestExpressionCell implements ExpressionCell {
         return expression;
     }
 
+    @Override
     public String getShowValue() {
         return showValue;
     }
+
+    @Override
+    public boolean hasError() {
+        return false;
+    }
+
 }

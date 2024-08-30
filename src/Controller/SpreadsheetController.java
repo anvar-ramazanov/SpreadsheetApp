@@ -181,26 +181,21 @@ public class SpreadsheetController {
                     this.model.getCell(parentCell).setChildCell(cellName);
                 }
             }
-            return true;
         } catch (TokenizerException exception) {
             handleTokenizerException(cellName, cell, exception);
-            return false;
         } catch (ExpressionTreeParserException exception) {
             handleExpressionTreeParserException(cellName, cell, exception);
-            return false;
         } catch (CircularDependencyException exception) {
             handleCircularDependencyException(cellName, cell, exception);
             return false;
         } catch (ExpressionTreeAnalyzerException exception) {
             handleExpressionTreeAnalyzerException(cellName, cell, exception);
-            return false;
         } catch (ExpressionTreeEvaluatorException exception) {
             handleExpressionTreeEvaluatorException(cellName, cell, exception);
-            return false;
         } catch (Exception exception) {
             handleGeneralException(cellName, cell, exception);
-            return false;
         }
+        return true;
     }
 
     private void recalculateCell(String cellName) {
@@ -225,21 +220,22 @@ public class SpreadsheetController {
             } else {
                 cell.showValue = newShowValue.toString();
             }
-
-            var childCells = cell.getChildCells();
-            if (childCells != null) {
-                for (var childCell : childCells) {
-                    recalculateCell(childCell);
-                }
-            }
         } catch (CircularDependencyException exception) {
             handleCircularDependencyException(cellName, cell, exception);
+            return;
         } catch (ExpressionTreeAnalyzerException exception) {
             handleExpressionTreeAnalyzerException(cellName, cell, exception);
         } catch (ExpressionTreeEvaluatorException exception) {
             handleExpressionTreeEvaluatorException(cellName, cell, exception);
         } catch (Exception exception) {
             handleGeneralException(cellName, cell, exception);
+        }
+
+        var childCells = cell.getChildCells();
+        if (childCells != null) {
+            for (var childCell : childCells) {
+                recalculateCell(childCell);
+            }
         }
     }
 

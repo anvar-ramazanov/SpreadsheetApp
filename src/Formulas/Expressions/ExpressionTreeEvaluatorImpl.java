@@ -39,15 +39,17 @@ public class ExpressionTreeEvaluatorImpl implements ExpressionTreeEvaluator {
 
     private Object EvaluateReferences(ReferencesNode refNode, Map<String, ExpressionCell> context) {
         var nextNodeName = refNode.getReferences();
-        var showValue = context.get(nextNodeName).getShowValue();
+        var nextNode = context.get(nextNodeName);
+
+        var showValue = nextNode.getShowValue();
         if (showValue != null) {
             if (showValue.isEmpty()) {
                 return 0;
             }
             return showValue;
         }
-        var nextNode = context.get(nextNodeName).getExpression();
-        return EvaluateNode(nextNode, context);
+
+        return EvaluateNode(nextNode.getExpression(), context);
     }
 
     private Object EvaluateFunction(FunctionNode functionNode, Map<String, ExpressionCell> context) {

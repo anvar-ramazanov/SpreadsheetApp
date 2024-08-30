@@ -21,6 +21,10 @@ public class CellModel implements ExpressionCell {
         return showValue;
     }
 
+    public boolean hasError() {
+        return errorText != null && !errorText.isEmpty();
+    }
+
     public void setExpression(ExpressionNode expression) {
         this.expression = expression;
     }

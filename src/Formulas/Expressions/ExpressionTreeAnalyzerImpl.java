@@ -102,9 +102,13 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         if (!context.containsKey(nextNodeName)) {
             throw new InvalidReferenceException("Cell " + nextNodeName + " doesn't exist");
         }
-        var nextNode = context.get(nextNodeName).getExpression();
+        var nextNode = context.get(nextNodeName);
 
-        var nextNodeType = AnalyzeNode(nextNode, nextNodeName, context, visitedNodes);
+        if (nextNode.hasError()) {
+            throw new InvalidReferenceException("Cell " + nextNodeName + " has error");
+        }
+        //var nextNodeType = nextNode.getType(); // TODO in that case circular dependencies is not working
+        var nextNodeType = AnalyzeNode(nextNode.getExpression(), nextNodeName, context, visitedNodes);
 
         // After the recursive call, remove the node from visited set so it doesn't falsely trigger circular dependencies in parallel branches.
         visitedNodes.remove(nextNodeName);
