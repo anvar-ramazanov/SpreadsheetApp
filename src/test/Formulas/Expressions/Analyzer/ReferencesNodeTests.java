@@ -135,4 +135,17 @@ public class ReferencesNodeTests {
 
         analyzer.AnalyzeExpressionTree(a1,"A1", new HashMap<>());
     }
+
+    @Test(expected = InvalidReferenceException.class)
+    public void ExpressionAnalyzer_AnalyzeExpressionTree_RefToCellWithError() {
+        var expression = new ReferencesNode("A2");
+        var a2 = new TestExpressionCell(new StringNode("hello"), true);
+        Map<String, ExpressionCell> context = Map.of(
+                "A2", a2
+        );
+
+        var analyzer = new ExpressionTreeAnalyzerImpl();
+
+        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+    }
 }
