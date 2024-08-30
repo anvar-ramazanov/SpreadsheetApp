@@ -20,7 +20,7 @@ public class BinaryOperationNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression, "A1", context);
+        analyzer.AnalyzeExpressionTree(expression, "A1", context, false);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
@@ -30,7 +30,7 @@ public class BinaryOperationNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
@@ -40,6 +40,6 @@ public class BinaryOperationNodeTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 }

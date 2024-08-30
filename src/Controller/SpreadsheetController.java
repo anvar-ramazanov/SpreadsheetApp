@@ -155,7 +155,7 @@ public class SpreadsheetController {
 
             var context = this.model.getExpressionCells();
 
-            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
+            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context, false);
 
             cell.setExpression(expression);
 
@@ -212,7 +212,7 @@ public class SpreadsheetController {
             var context = this.model.getExpressionCells();
             var expression = context.get(cellName).getExpression();
 
-            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context);
+            expressionTreeAnalyzer.AnalyzeExpressionTree(expression, cellName, context, true);
 
             var newShowValue = this.expressionTreeEvaluator.EvaluateExpressionTree(expression, context);
             if (newShowValue instanceof Double doubleValue) {

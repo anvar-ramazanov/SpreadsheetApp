@@ -9,24 +9,24 @@ import Models.Cell.ExpressionCell;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
-public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
+public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer {
 
-    public void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context) {
+    public void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context, boolean reuseComputedTypes) {
         var visitedNodes = new LinkedHashSet<String>();
-        AnalyzeNode(expressionNode, nodeName, context, visitedNodes);
+        AnalyzeNode(expressionNode, nodeName, context, visitedNodes, reuseComputedTypes);
     }
 
-    private DataType AnalyzeNode(ExpressionNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
+    private DataType AnalyzeNode(ExpressionNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes, boolean reuseComputedTypes) {
         DataType nodeType = null;
         visitedNodes.add(nodeName);
         if (node instanceof UnaryOperationNode unaryOperationNode) {
-            nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, nodeName, context, visitedNodes);
+            nodeType = AnalyzeUnaryOperationNode(unaryOperationNode, nodeName, context, visitedNodes, reuseComputedTypes);
         } else if (node instanceof BinaryOperationNode binaryOperationNode) {
-            nodeType = AnalyzeBinaryOperationNode(binaryOperationNode, nodeName, context, visitedNodes);
+            nodeType = AnalyzeBinaryOperationNode(binaryOperationNode, nodeName, context, visitedNodes, reuseComputedTypes);
         } else if (node instanceof FunctionNode functionNode) {
-            nodeType = AnalyzeFunctionNode(functionNode, nodeName, context, visitedNodes);
+            nodeType = AnalyzeFunctionNode(functionNode, nodeName, context, visitedNodes, reuseComputedTypes);
         } else if (node instanceof ReferencesNode refNode) {
-            nodeType = AnalyzeRefNode(refNode, nodeName, context, visitedNodes);
+            nodeType = AnalyzeRefNode(refNode, nodeName, context, visitedNodes, reuseComputedTypes);
         } else if (node instanceof NumberNode) {
             nodeType = DataType.NUMBER;
         } else if (node instanceof BooleanNode) {
@@ -37,11 +37,11 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return nodeType;
     }
 
-    private DataType AnalyzeUnaryOperationNode(UnaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
+    private DataType AnalyzeUnaryOperationNode(UnaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes, boolean reuseComputedTypes) {
         var operator = node.getOperator();
         var operand = node.getOperand();
 
-        AnalyzeNode(operand, nodeName, context, visitedNodes);
+        AnalyzeNode(operand, nodeName, context, visitedNodes, reuseComputedTypes);
 
         if (ExpressionLanguage.UnaryOperations.get(node.getOperator()).operandType() != node.getOperand().getType()) {
             throw new OperandTypeMismatchException("Operator = " + operator + " operand type " + node.getOperand().getType());
@@ -50,13 +50,13 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.UnaryOperations.get(node.getOperator()).resultType();
     }
 
-    private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
+    private DataType AnalyzeBinaryOperationNode(BinaryOperationNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes, boolean reuseComputedTypes) {
         var operator = node.getOperator();
         var leftOperand = node.getLeftOperand();
         var rightOperand = node.getRightOperand();
 
-        AnalyzeNode(leftOperand, nodeName, context, visitedNodes);
-        AnalyzeNode(rightOperand, nodeName, context, visitedNodes);
+        AnalyzeNode(leftOperand, nodeName, context, visitedNodes, reuseComputedTypes);
+        AnalyzeNode(rightOperand, nodeName, context, visitedNodes, reuseComputedTypes);
 
         if (ExpressionLanguage.BinaryOperations.get(operator).leftOperandType() != leftOperand.getType()) {
             throw new OperandTypeMismatchException("Operator = " + operator + " left operand type " + node.getLeftOperand().getType());
@@ -69,7 +69,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.BinaryOperations.get(operator).resultType();
     }
 
-    private DataType AnalyzeFunctionNode(FunctionNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
+    private DataType AnalyzeFunctionNode(FunctionNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes, boolean reuseComputedTypes) {
         var functionName = node.getFunctionName();
         var arguments = node.getArguments();
         var description = ExpressionLanguage.FunctionsDescription.get(functionName);
@@ -80,7 +80,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
             var allowedType = description.arguments().get(i);
             var argument = arguments.get(i);
 
-            AnalyzeNode(argument, nodeName, context, visitedNodes);
+            AnalyzeNode(argument, nodeName, context, visitedNodes, reuseComputedTypes);
 
             var currentType = arguments.get(i).getType();
 
@@ -91,7 +91,7 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         return ExpressionLanguage.FunctionsDescription.get(functionName).resultType();
     }
 
-    private DataType AnalyzeRefNode(ReferencesNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes) {
+    private DataType AnalyzeRefNode(ReferencesNode node, String nodeName, Map<String, ExpressionCell> context, LinkedHashSet<String> visitedNodes, boolean reuseComputedTypes) {
         var nextNodeName = node.getReferences();
         if (nextNodeName.equals(nodeName)) {
             throw new CircularDependencyException("Cell contains circular dependency", visitedNodes);
@@ -107,8 +107,10 @@ public class ExpressionTreeAnalyzerImpl implements ExpressionTreeAnalyzer{
         if (nextNode.hasError()) {
             throw new InvalidReferenceException("Cell " + nextNodeName + " has error");
         }
-        //var nextNodeType = nextNode.getType(); // TODO in that case circular dependencies is not working
-        var nextNodeType = AnalyzeNode(nextNode.getExpression(), nextNodeName, context, visitedNodes);
+
+        var nextNodeType = reuseComputedTypes
+                ? nextNode.getExpression().getType()
+                : AnalyzeNode(nextNode.getExpression(), nextNodeName, context, visitedNodes, reuseComputedTypes);
 
         // After the recursive call, remove the node from visited set so it doesn't falsely trigger circular dependencies in parallel branches.
         visitedNodes.remove(nextNodeName);

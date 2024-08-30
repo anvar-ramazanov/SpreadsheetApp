@@ -12,6 +12,7 @@ public interface ExpressionTreeAnalyzer {
      * @param expressionNode root node of expression tree
      * @param nodeName name of root node
      * @param context map of others expression trees on the list
+     * @param reuseComputedTypes reuse already calculated types
      */
-    void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context);
+    void AnalyzeExpressionTree(ExpressionNode expressionNode, String nodeName, Map<String, ExpressionCell> context, boolean reuseComputedTypes);
 }

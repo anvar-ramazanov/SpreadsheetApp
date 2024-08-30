@@ -19,7 +19,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 
 
@@ -30,7 +30,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
@@ -50,7 +50,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 
     @Test(expected = OperandTypeMismatchException.class)
@@ -60,7 +60,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 
 
@@ -85,6 +85,6 @@ public class UnaryOperationTests {
 
         var analyzer = new ExpressionTreeAnalyzerImpl();
 
-        analyzer.AnalyzeExpressionTree(expression,"A1", context);
+        analyzer.AnalyzeExpressionTree(expression,"A1", context, false);
     }
 }
